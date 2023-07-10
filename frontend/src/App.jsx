@@ -34,7 +34,10 @@ const App = () => {
           <ul>
             {recipes.hits.map((recipe) => (
               // console.log(recipe.recipe.label)
-              <li key={recipe.recipe.label}>{recipe.recipe.label}</li>
+              <>
+              <li key={recipe.recipe.label}>{recipe.recipe.label} {}</li>
+              <li><img src={recipe.recipe.image} alt="img" /> </li> 
+              </>
             ))}
           </ul>
         )}
