@@ -28,7 +28,7 @@ const App = () => {
     <>
       <h1>Welcome to Meal App</h1>
 
-      <UserLogin />
+      {/* <UserLogin /> */}
       <div>
         {recipes?.hits?.length > 0 && (
           <ul>

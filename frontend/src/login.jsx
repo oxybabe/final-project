@@ -44,7 +44,7 @@ export default function UserLogin() {
     }
     const data = await response.json();
     Cookies.set("Authorization", `Token ${data.key}`);
-    navigate("/home");
+    navigate("/");
     console.log(data);
   };
   return (
