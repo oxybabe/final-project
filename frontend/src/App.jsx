@@ -1,22 +1,46 @@
-import { useState } from "react";
+import { useEffect, useState, process } from "react";
 import UserLogin from "./login";
 
 import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0);
+const App = () => {
+  const [recipes, setRecipes] = useState([]);
+  const fetchRecipeData = () => {
+    fetch(
+      `https://api.edamam.com/api/recipes/v2?type=public&app_id=5eee6e55&app_key=${
+        import.meta.env.VITE_RECIPE_PUBLIC_KEY
+      }&mealType=Breakfast&mealType=Dinner&mealType=Lunch&mealType=Snack&random=false`
+    )
+      .then((response) => {
+        console.log(response);
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setRecipes(data);
+      });
+  };
+  useEffect(() => {
+    fetchRecipeData();
+  }, []);
 
   return (
     <>
       <h1>Welcome to Meal App</h1>
 
-      {/* <BrowserRouter /> */}
-      {/* <Route path="/home"></Route> */}
-
       <UserLogin />
-      <div></div>
+      <div>
+        {recipes?.hits?.length > 0 && (
+          <ul>
+            {recipes.hits.map((recipe) => (
+              // console.log(recipe.recipe.label)
+              <li key={recipe.recipe.label}>{recipe.recipe.label}</li>
+            ))}
+          </ul>
+        )}
+      </div>
     </>
   );
-}
+};
 
 export default App;
