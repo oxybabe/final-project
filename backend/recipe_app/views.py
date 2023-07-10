@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -12,6 +12,8 @@ class HomeView(APIView):
     def get(self, request):
         content = {'message': 'Welcome to the Aunthentication page!'}
         return Response(content)
+
+  
    
 class LoginView(APIView):
     def post(self, request):
