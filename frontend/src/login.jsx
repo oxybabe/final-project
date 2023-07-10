@@ -3,8 +3,10 @@ import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export default function UserLogin() {
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -27,22 +29,23 @@ export default function UserLogin() {
       headers: {
         "Content-Type": "application/json",
         "X-CSRFToken": Cookies.get("csrftoken"),
-        // Authorization: `Bearer <8b1582d5456b3392915bd1088765f417cb2d1e26>`,
       },
       body: JSON.stringify({
         username: user.username,
         password: user.password,
       }),
     };
-    const response = await fetch("/dj-rest-auth/login/", options).catch(
-      handleError
-    );
+    const response = await fetch(
+      "http://localhost:8000/dj-rest-auth/login/",
+      options
+    ).catch(handleError);
     if (!response.ok) {
       console.log("login not successful");
     }
     const data = await response.json();
     Cookies.set("Authorization", `Token ${data.key}`);
-    // navigate("/main");
+    navigate("/home");
+    console.log(data);
   };
   return (
     <>

@@ -17,10 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework_simplejwt import views as jwt_views
+
 # from recipe_app.views import LoginView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("api_v1/", include("api.urls")),
     path("api-auth/", include("rest_framework.urls")),
     path("dj-rest-auth/", include("dj_rest_auth.urls")),
     # path("dj-rest-auth/login/", LoginView.as_view(), name="login"),
