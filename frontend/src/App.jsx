@@ -1,6 +1,5 @@
 import { useState } from "react";
 import UserLogin from "./login";
-import { BrowserRouter, Route } from "react-router-dom";
 
 import "./App.css";
 
