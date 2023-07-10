@@ -1,3 +1,4 @@
 *finalenv
 .DS_Store
 .env*
+/.vscode
