@@ -8,29 +8,45 @@ from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.decorators import api_view
 from .models import Recipe
-from .serializer import RecipeSerializer
+from .serializer import RecipeSerializer, UserSerializer
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-
+from django.contrib.auth.models import User
 
 # Create your views here.
-class HomeView(APIView):
-    permission_classes = (IsAuthenticated,)
-
-    def get(self, request):
-        content = {"message": "Welcome to the Aunthentication page!"}
-        return Response(content)
 
 
 class RecipeListAPIView(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
     serializer_class = RecipeSerializer
     queryset = Recipe.objects.all()
-    
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
 class RecipeDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
     serializer_class = RecipeSerializer
     queryset = Recipe.objects.all()
+
+
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class UserDetail(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+# class HomeView(APIView):
+#     permission_classes = (IsAuthenticated,)
+
+#     def get(self, request):
+#         content = {"message": "Welcome to the Aunthentication page!"}
+#         return Response(content)
 
 
 # @api_view(['GET'])
