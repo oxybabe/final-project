@@ -54,7 +54,7 @@ class UserList(generics.ListAPIView):
 class UserDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
+# https://www.django-rest-framework.org/api-guide/generic-views/
 
 # class HomeView(APIView):
 #     permission_classes = (IsAuthenticated,)
