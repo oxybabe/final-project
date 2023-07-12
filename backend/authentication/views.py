@@ -1,6 +1,11 @@
 from django.shortcuts import render
 
+
 # Create your views here.
+
+
+
+
 # class LoginView(APIView):
 #     def post(self, request):
 #         username = request.data.get('username')
@@ -17,7 +22,7 @@ from django.shortcuts import render
 #             }, status=status.HTTP_200_OK)
 #         else:
 #             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
-   
+
 # class LoginView(APIView):
 #     def post(self, request):
 #         # Retrieve the username and password from the request body
@@ -27,11 +32,11 @@ from django.shortcuts import render
 
 #     def http_method_not_allowed(self, request):
 #         return JsonResponse({'error': 'Method not allowed'}, status=405)
-    
+
 # class LogoutView(APIView):
 #      permission_classes = (IsAuthenticated,)
 #      def post(self, request):
-          
+
 #           try:
 #                refresh_token = request.data["refresh_token"]
 #                token = RefreshToken(refresh_token)

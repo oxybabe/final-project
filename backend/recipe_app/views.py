@@ -2,7 +2,6 @@ from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import authenticate, login
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -10,10 +9,26 @@ from rest_framework.decorators import api_view
 from .models import Recipe
 from .serializer import RecipeSerializer, UserSerializer
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import (
+    IsAuthenticatedOrReadOnly,
+    IsAuthenticated,
+    IsAdminUser,
+)
 from django.contrib.auth.models import User
+from rest_framework import permissions
+
 
 # Create your views here.
+
+
+class IsOwnerOrReadOnly(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return obj.user == request.user or request.user.is_superuser
+
+
+permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
 class RecipeListAPIView(generics.ListCreateAPIView):
@@ -26,7 +41,7 @@ class RecipeListAPIView(generics.ListCreateAPIView):
 
 
 class RecipeDetailView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (IsOwnerOrReadOnly,)
     serializer_class = RecipeSerializer
     queryset = Recipe.objects.all()
 
