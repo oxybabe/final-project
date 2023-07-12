@@ -7,9 +7,9 @@ const App = () => {
   const [recipes, setRecipes] = useState([]);
   const fetchRecipeData = () => {
     fetch(
-      `https://api.edamam.com/api/recipes/v2?type=public&app_id=5eee6e55&app_key=${
-        import.meta.env.VITE_RECIPE_PUBLIC_KEY
-      }&mealType=Breakfast&mealType=Dinner&mealType=Lunch&mealType=Snack&random=false`
+      // `https://api.edamam.com/api/recipes/v2?type=public&app_id=5eee6e55&app_key=${
+      //   import.meta.env.VITE_RECIPE_PUBLIC_KEY
+      // }&mealType=Breakfast&mealType=Dinner&mealType=Lunch&mealType=Snack&random=false`
     )
       .then((response) => {
         console.log(response);

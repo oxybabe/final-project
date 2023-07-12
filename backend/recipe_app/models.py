@@ -22,3 +22,8 @@ class Recipe(models.Model):
 
     def img_preview(self): #new
         return mark_safe(f'<img src = "{self.image.url}" width = "300"/>')
+#https://codinggear.blog/how-to-upload-images-in-django/
+#https://codinggear.blog/how-to-show-image-in-django-admin/
+
+
+    
