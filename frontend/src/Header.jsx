@@ -1,19 +1,24 @@
-import React from "react";
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">WebSiteName</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li><a href="/login">Login</a></li>
-      <li><a href="#">Page 2</a></li>
-    </ul>
-    <form class="navbar-form navbar-left" action="/action_page.php">
-      <div class="form-group">
-        <input type="text" class="form-control" placeholder="Search"/>
-      </div>
-      <button type="submit" class="btn btn-default">Submit</button>
-    </form>
-  </div>
-</nav>
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+
+function Header() {
+  return (
+    <>
+      <Navbar class="d-flex p-2" fixed="top" bg="dark" data-bs-theme="dark">
+        <Container>
+          <Navbar.Brand href="#home">Recipe App</Navbar.Brand>
+          <Nav className="me-auto">
+            <Nav.Link href="/home">Home</Nav.Link>
+            <Nav.Link href="/">Recipes</Nav.Link>
+            <Nav.Link href="/login">Login</Nav.Link>
+            <Nav.Link href="/login">Calendar</Nav.Link>
+          </Nav>
+        </Container>
+      </Navbar>
+      <br />
+    </>
+  );
+}
+
+export default Header;

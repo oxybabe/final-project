@@ -6,8 +6,13 @@ from django.contrib.auth import authenticate, login
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.decorators import api_view
-from .models import Recipe
-from .serializer import RecipeSerializer, UserSerializer
+from .models import Recipe, MealPlan, CalendarEvent
+from .serializer import (
+    RecipeSerializer,
+    UserSerializer,
+    MealPlanSerializer,
+    CalendarEventSerializer,
+)
 from rest_framework import generics
 from rest_framework.permissions import (
     IsAuthenticatedOrReadOnly,
@@ -46,6 +51,30 @@ class RecipeDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Recipe.objects.all()
 
 
+class MealPlanListAPIView(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    serializer_class = MealPlanSerializer
+    queryset = MealPlan.objects.all()
+
+
+class MealPlanDetailView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsOwnerOrReadOnly,)
+    serializer_class = MealPlanSerializer
+    queryset = MealPlan.objects.all()
+
+
+class CalendarEventListAPIView(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    serializer_class = CalendarEventSerializer
+    queryset = CalendarEvent.objects.all()
+
+
+class CalendarEventDetailView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsOwnerOrReadOnly,)
+    serializer_class = CalendarEventSerializer
+    queryset = CalendarEvent.objects.all()
+
+
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -54,6 +83,8 @@ class UserList(generics.ListAPIView):
 class UserDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+
 # https://www.django-rest-framework.org/api-guide/generic-views/
 
 # class HomeView(APIView):

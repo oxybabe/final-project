@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 from django.conf import settings
 from django.utils.html import mark_safe
@@ -20,10 +21,26 @@ class Recipe(models.Model):
     directions = models.CharField(max_length=5000, null=True)
     nutrition = models.CharField(max_length=5000, null=True)
 
-    def img_preview(self): #new
+    def img_preview(self):  # new
         return mark_safe(f'<img src = "{self.image.url}" width = "300"/>')
-#https://codinggear.blog/how-to-upload-images-in-django/
-#https://codinggear.blog/how-to-show-image-in-django-admin/
 
 
-    
+# https://codinggear.blog/how-to-upload-images-in-django/
+# https://codinggear.blog/how-to-show-image-in-django-admin/
+
+
+class MealPlan(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100, default=1)
+    recipes = models.ManyToManyField(Recipe)
+
+
+class CalendarEvent(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    meal_plan = models.ForeignKey(MealPlan, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
+
+
+# https://www.sankalpjonna.com/learn-django/the-right-way-to-use-a-manytomanyfield-in-django

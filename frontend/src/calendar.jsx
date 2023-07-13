@@ -1,0 +1,37 @@
+import React, { useEffect, useState } from "react";
+import { Calendar, momentLocalizer } from "react-big-calendar";
+import moment from "moment";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+
+const MyCalendar = () => {
+  const localizer = momentLocalizer(moment);
+
+  const [events, setEvents] = useState([]);
+  useEffect(() => {
+    const fetchEvents = [];
+
+    // async () => {
+    //   try {
+    //     const response = await fetch("http://127.0.0.1:8000/calendarevents/");
+    //     const data = await response.json();
+    //     setEvents(data);
+    //   } catch (error) {
+    //     console.error("error fetching events");
+    //   }
+    // };
+    setEvents(fetchEvents);
+  }, []);
+  return (
+    <div style={{ height: "500px" }}>
+      <h1 style={{ color: "white" }}>Calendar</h1>
+      <Calendar
+        localizer={localizer}
+        events={events}
+        startAccessor="start_date"
+        endAccessor="end_date"
+      />
+    </div>
+  );
+};
+// https://www.npmjs.com/package/react-big-calendar
+export default MyCalendar;

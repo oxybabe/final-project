@@ -12,6 +12,7 @@ import {
 } from "react-router-dom";
 import "./index.css";
 import UserLogin from "./login.jsx";
+import MyCalendar from "./calendar.jsx";
 
 // const router = createBrowserRouter([
 //   {
@@ -31,6 +32,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/" element={<App />} />
       <Route path="/home" element={<Home/>}/>
       <Route path="/Login" element={<UserLogin />} />
+      <Route path="/calendar" element={<MyCalendar />} />
+
       
     </Routes>
     </BrowserRouter>
