@@ -1,5 +1,7 @@
 import { useEffect, useState, process } from "react";
 import UserLogin from "./login";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./App.css";
 
@@ -26,6 +28,8 @@ const App = () => {
 
   return (
     <>
+      <Header />
+
       <h1>Welcome to Meal App</h1>
 
       {/* <UserLogin /> */}
@@ -35,8 +39,12 @@ const App = () => {
             {recipes.hits.map((recipe) => (
               // console.log(recipe.recipe.label)
               <>
-              <li key={recipe.recipe.label}>{recipe.recipe.label} {}</li>
-              <li><img src={recipe.recipe.image} alt="img" /> </li> 
+                <li key={recipe.recipe.label}>
+                  {recipe.recipe.label} {}
+                </li>
+                <li>
+                  <img src={recipe.recipe.image} alt="img" />{" "}
+                </li>
               </>
             ))}
           </ul>

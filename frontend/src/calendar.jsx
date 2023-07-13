@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import Header from "./Header";
 
 const MyCalendar = () => {
   const localizer = momentLocalizer(moment);
@@ -22,7 +23,10 @@ const MyCalendar = () => {
     setEvents(fetchEvents);
   }, []);
   return (
+    <>
+    <Header/>
     <div style={{ height: "500px" }}>
+
       <h1 style={{ color: "white" }}>Calendar</h1>
       <Calendar
         localizer={localizer}
@@ -31,6 +35,7 @@ const MyCalendar = () => {
         endAccessor="end_date"
       />
     </div>
+    </>
   );
 };
 // https://www.npmjs.com/package/react-big-calendar

@@ -12,7 +12,7 @@ function Header() {
             <Nav.Link href="/home">Home</Nav.Link>
             <Nav.Link href="/">Recipes</Nav.Link>
             <Nav.Link href="/login">Login</Nav.Link>
-            <Nav.Link href="/login">Calendar</Nav.Link>
+            <Nav.Link href="/calendar">Calendar</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
