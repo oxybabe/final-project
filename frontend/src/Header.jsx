@@ -10,7 +10,7 @@ function Header() {
           <Navbar.Brand href="#home">Recipe App</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/home">Home</Nav.Link>
-            <Nav.Link href="/">Recipes</Nav.Link>
+            <Nav.Link href="/recipes">Recipes</Nav.Link>
             <Nav.Link href="/login">Login</Nav.Link>
             <Nav.Link href="/calendar">Calendar</Nav.Link>
           </Nav>

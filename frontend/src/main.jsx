@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import Home from "./Home.jsx";
 import App from "./App.jsx";
+import Recipe from "./recipes.jsx";
 import "./index.css";
 import {
   BrowserRouter,
@@ -33,6 +34,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/home" element={<Home/>}/>
       <Route path="/Login" element={<UserLogin />} />
       <Route path="/calendar" element={<MyCalendar />} />
+      <Route path="/recipes" element={<Recipe />} />
+
 
       
     </Routes>
