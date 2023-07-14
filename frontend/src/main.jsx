@@ -28,17 +28,14 @@ import MyCalendar from "./calendar.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter basename="/">
-    <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="/home" element={<Home/>}/>
-      <Route path="/Login" element={<UserLogin />} />
-      <Route path="/calendar" element={<MyCalendar />} />
-      <Route path="/recipes" element={<Recipe />} />
-
-
-      
-    </Routes>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/home" element={<Home />} />
+        <Route path="/app" element={<App />} />
+        <Route path="/Login" element={<UserLogin />} />
+        <Route path="/calendar" element={<MyCalendar />} />
+        <Route path="/recipes" element={<Recipe />} />
+      </Routes>
     </BrowserRouter>
   </React.StrictMode>
 );

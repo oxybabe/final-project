@@ -12,6 +12,7 @@ export default function UserLogin() {
     username: "",
     password: "",
   });
+
   const handleInput = (e) => {
     const { name, value } = e.target;
     setUser((prevState) => ({
@@ -45,7 +46,7 @@ export default function UserLogin() {
     }
     const data = await response.json();
     Cookies.set("Authorization", `Token ${data.key}`);
-    navigate("/");
+    navigate("/recipes");
     console.log(data);
   };
   return (

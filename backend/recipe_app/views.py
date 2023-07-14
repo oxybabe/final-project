@@ -18,6 +18,7 @@ from rest_framework.permissions import (
     IsAuthenticatedOrReadOnly,
     IsAuthenticated,
     IsAdminUser,
+    AllowAny,
 )
 from django.contrib.auth.models import User
 from rest_framework import permissions
@@ -37,7 +38,7 @@ permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
 class RecipeListAPIView(generics.ListCreateAPIView):
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (AllowAny,)
     serializer_class = RecipeSerializer
     # queryset = Recipe.objects.all()
 
@@ -47,7 +48,10 @@ class RecipeListAPIView(generics.ListCreateAPIView):
     # filters so only the user sees their list of recipes
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        if self.request.user.is_authenticated:
+            serializer.save(user=self.request.user)
+        else:
+            serializer.save()
 
 
 class RecipeDetailView(generics.RetrieveUpdateDestroyAPIView):

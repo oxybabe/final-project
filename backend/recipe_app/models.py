@@ -19,7 +19,6 @@ class Recipe(models.Model):
     servings = models.IntegerField(null=True, blank=True)
     ingredients = models.CharField(max_length=5000, null=True)
     directions = models.CharField(max_length=5000, null=True)
-    nutrition = models.CharField(max_length=5000, null=True)
 
     def img_preview(self):  # new
         return mark_safe(f'<img src = "{self.image.url}" width = "300"/>')
