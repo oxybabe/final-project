@@ -20,17 +20,12 @@ from rest_framework_simplejwt import views as jwt_views
 from django.conf import settings
 from django.conf.urls.static import static
 
-# from recipe_app.views import LoginView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api_v1/", include("api.urls")),
     path("api-auth/", include("rest_framework.urls")),
     path("dj-rest-auth/", include("dj_rest_auth.urls")),
-    # path("dj-rest-auth/login/", LoginView.as_view(), name="login"),
-    # path("dj-rest-auth/registration/", include("dj_rest_auth.registration.urls")),
-    # path("api/auth/", include("authentication.urls")),
-    # path("token/", jwt_views.TokenObtainPairView.as_view(), name="token_obtain_pair"),
-    # path("token/refresh/", jwt_views.TokenRefreshView.as_view(), name="token_refresh"),
+    path("dj-rest-auth/registration/", include("dj_rest_auth.registration.urls")),
     path("", include("recipe_app.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
