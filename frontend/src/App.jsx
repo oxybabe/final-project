@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
-import UserLogin from "./login";
+import UserLogin from "./components/login";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Header from "./Header";
+import Header from "./components/Header";
 
 import "./App.css";
 
 const App = () => {
-  let [newRecipes, setNewRecipes] = useState({
- 
-  });
+  let [newRecipes, setNewRecipes] = useState({});
 
   async function addRecipe(recipeData) {
     const response = await fetch("http://127.0.0.1:8000/recipes/", {
@@ -26,9 +24,7 @@ const App = () => {
         directions: "",
       }),
     });
-    setNewRecipes({
-     
-    });
+    setNewRecipes({});
 
     return (
       <>

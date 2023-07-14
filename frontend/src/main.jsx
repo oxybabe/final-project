@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Home from "./Home.jsx";
+import Home from "./components/Home.jsx";
 import App from "./App.jsx";
-import Recipe from "./recipes.jsx";
+import Recipe from "./components/recipes.jsx";
 import "./index.css";
 import {
   BrowserRouter,
@@ -12,19 +12,10 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import "./index.css";
-import UserLogin from "./login.jsx";
-import MyCalendar from "./calendar.jsx";
+import UserLogin from "./components/login.jsx";
+import MyCalendar from "./components/calendar.jsx";
 
-// const router = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <div>Hello!</div>,
-//   },
-//   {
-//     path: "/login",
-//     element: <UserLogin />,
-//   },
-// ]);
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
