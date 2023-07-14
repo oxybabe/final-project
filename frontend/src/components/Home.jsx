@@ -15,7 +15,7 @@ const Home = () => {
       <Header />
       <h1 style={{ color: "black" }}>Welcome to Recipe App</h1>
       <button onClick={handleLoginClick}>Click to login</button>
-      <UserRegistration />
+      {/* <UserRegistration /> */}
 
     </>
   );

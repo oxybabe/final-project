@@ -1,17 +1,22 @@
 from django.shortcuts import redirect, render
-from requests import Response
+
+# from requests import Response
 from rest_framework.views import APIView
 from django.contrib.auth import authenticate, login
 from rest_framework.decorators import api_view
 from .models import Recipe, MealPlan, CalendarEvent
 from dj_rest_auth.registration.views import RegisterView
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 from .serializer import (
     RecipeSerializer,
     UserSerializer,
     MealPlanSerializer,
-    CalendarEventSerializer, UserRegisterSerializer
+    CalendarEventSerializer,
+    UserRegisterSerializer,
 )
 from rest_framework import generics
 from rest_framework.permissions import (
@@ -20,7 +25,6 @@ from rest_framework.permissions import (
     IsAdminUser,
     AllowAny,
 )
-from django.contrib.auth.models import User
 from rest_framework import permissions
 from rest_framework import status
 
@@ -33,15 +37,16 @@ from rest_framework import status
 #     serializer_class = UserSerializer
 #     permission_classes = [AllowAny]
 
-class UserRegisterView(RegisterView):
-    serializer_class = UserRegisterSerializer
+# class UserRegisterView(RegisterView):
+#     serializer_class = UserRegisterSerializer
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data, context={'request': request})
-        serializer.is_valid(raise_exception=True)
-        # user = serializer.save(request=self.request)
-        self.perform_create(serializer)
-        return Response(serializer.data)
+#     def create(self, request, *args, **kwargs):
+#         serializer = self.get_serializer(data=request.data, context={'request': request})
+#         serializer.is_valid(raise_exception=True)
+#         # user = serializer.save(request=self.request)
+#         self.perform_create(serializer)
+#         return Response(serializer.data)
+
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
@@ -59,13 +64,13 @@ class RecipeListAPIView(generics.ListCreateAPIView):
     # queryset = Recipe.objects.all()
 
     def get_queryset(self):
-        return Recipe.objects.filter(user=self.request.user)
+        return Recipe.objects.filter(user=self.request.user.id)
 
     # filters so only the user sees their list of recipes
 
     def perform_create(self, serializer):
         if self.request.user.is_authenticated:
-            serializer.save(user=self.request.user)
+            serializer.save(user=self.request.user.id)
         else:
             serializer.save()
 
@@ -108,7 +113,8 @@ class UserList(generics.ListAPIView):
 class UserDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    
+
+
 class UserRegistrationView(RegisterView):
     def perform_create(self, serializer):
         user = serializer.save()

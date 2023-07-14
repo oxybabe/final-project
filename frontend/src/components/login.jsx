@@ -45,7 +45,9 @@ export default function UserLogin() {
       console.log("login not successful");
     }
     const data = await response.json();
+    console.log({ data });
     Cookies.set("Authorization", `Token ${data.key}`);
+
     navigate("/recipes");
     console.log(data);
   };
@@ -79,7 +81,7 @@ export default function UserLogin() {
           ></input>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Remember me" />
+          {/* <Form.Check type="checkbox" label="Remember me" /> */}
         </Form.Group>
         <Button variant="primary" type="submit">
           Submit

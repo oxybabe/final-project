@@ -1,12 +1,12 @@
 from django.db import models
-from django.contrib.auth.models import User
+
+# from django.contrib.auth.models import User
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django import apps
 
 
 # Create your models here.
-
 
 
 def create_group_and_permissions():

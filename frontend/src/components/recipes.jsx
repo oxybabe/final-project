@@ -27,12 +27,13 @@ const Recipe = () => {
     const checkAuth = async () => {
       const response = await fetch("http://localhost:8000/dj-rest-auth/user/");
       if (!response.ok) {
-        console.log("this", response.ok);
+        console.log("this", response);
       } else {
         console.log(response);
       }
     };
     checkAuth();
+    console.log("auth cookie", Cookies.get("Authorization"));
   }, []);
 
   const sendRecipeData = (recipe) => {
@@ -41,6 +42,7 @@ const Recipe = () => {
       headers: {
         "Content-Type": "application/json",
         "X-CSRFToken": Cookies.get("csrftoken"),
+        Authorization: Cookies.get("Authorization"),
       },
       body: JSON.stringify(recipe),
     })
@@ -62,7 +64,7 @@ const Recipe = () => {
     fetchRecipeData();
   }, []);
 
-  const handleRecipeClick = (recipe) => {
+  const handleRecipeClick = (recipe, user) => {
     if (Cookies.get("Authorization")) {
       const selectedRecipe = {
         title: recipe.label,
@@ -72,6 +74,7 @@ const Recipe = () => {
         directions: recipe.shareAs,
         servings: recipe.yield,
         ingredients: JSON.stringify(recipe.ingredientLines),
+        user: user,
       };
       console.log(selectedRecipe);
       sendRecipeData(selectedRecipe);

@@ -14,8 +14,8 @@ import {
 import "./index.css";
 import UserLogin from "./components/login.jsx";
 import MyCalendar from "./components/calendar.jsx";
-
-
+import UserRecipes from "./components/myrecipes.jsx";
+import UserRegistration from "./components/register.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -26,6 +26,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/Login" element={<UserLogin />} />
         <Route path="/calendar" element={<MyCalendar />} />
         <Route path="/recipes" element={<Recipe />} />
+        <Route path="/myrecipes" element={<UserRecipes />} />
+        <Route path="/register" element={<UserRegistration />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

@@ -64,6 +64,7 @@ MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
 ]
 CORS_ALLOW_ALL_ORIGINS = True
+
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
@@ -80,8 +81,12 @@ REST_FRAMEWORK = {
 #     "ROTATE_REFRESH_TOKENS": True,
 #     "BLACKLIST_AFTER_ROTATION": True,
 # }
-
+# REST_AUTH_REGISTER_SERIALIZERS = {
+#     "REGISTER_SERIALIZER": "backend.recipe_app.serializers.CustomRegisterSerializer"
+# }
 ROOT_URLCONF = "backend.urls"
+
+AUTH_USER_MODEL = "recipe_app.User"
 
 TEMPLATES = [
     {

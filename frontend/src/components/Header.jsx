@@ -20,6 +20,10 @@ function Header() {
           <Nav className="me-auto">
             <Nav.Link href="/home">Home</Nav.Link>
             <Nav.Link href="/recipes">Recipes</Nav.Link>
+            <Nav.Link href="/myrecipes">My Recipes</Nav.Link>
+            <Nav.Link href="/register">Register</Nav.Link>
+
+
             {Cookies.get("Authorization") ? (
               <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
             ) : (

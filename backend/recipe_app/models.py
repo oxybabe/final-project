@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
 from django.conf import settings
 from django.utils.html import mark_safe
@@ -8,10 +8,12 @@ from django.utils.html import mark_safe
 # Create your models here.
 
 
+class User(AbstractUser):
+    is_chef = models.BooleanField(default=False)
+
+
 class Recipe(models.Model):
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=1
-    )
+    user = models.ManyToManyField(settings.AUTH_USER_MODEL)
     title = models.CharField(max_length=100, null=False)
     image = models.ImageField(upload_to="images/", null=True, blank=True)
     description = models.CharField(max_length=500, null=True)
