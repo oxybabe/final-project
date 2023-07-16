@@ -31,21 +31,77 @@ const UserRegistration = () => {
       },
       body: JSON.stringify(user),
     };
+    //TODO response is empty here
     const response = await fetch(
       "http://localhost:8000/dj-rest-auth/registration/",
       options
     ).catch(console.log("did not work"));
-    const data = await response.json();
-    if (!response.ok) {
+    if (response) {
+      const data = await response.json();
+
       setError(data);
+      alert("Response:", response);
+
       throw new Error("Network response was not OK");
     } else {
       Cookies.set("Authorization", `Token ${data.key}`);
       navigate("/recipes");
     }
+
+    // const response = await fetch(
+    //   `http://localhost:8000/dj-rest-auth/registration/`,
+    //   options
+    // ).catch((error) => {
+    //   console.log("Error occurred while making the request:", error);
+    //   return { status: 500, text: "Request failed" };
+    // });
+    // alert("Response:", response);
+    //Afer response is filled you should be able to get the data needed
+
+    // Check the status of the response
+
+    // Read the response body as text
+    // const responseBody = await response.text();
+    // console.log("Response body:", responseBody);
+
+    // Attempt to parse the response body as JSON
+    // let data;
+    // try {
+    //   data = JSON.parse(responseBody);
+    // } catch (error) {
+    //   console.log("Error occurred while parsing JSON:", error);
+    // }
+    // console.log("Data:", data);
+
+    // if (data) {
+    //   const data = await response.json();
+    //   debugger;
+    //   Cookies.set("Authorization", `Token ${data.key}`);
+    //   navigate("/login")
   };
-  //   const handleRegisterButtonClick = () => {
-  //     navigate("/register");  };
+
+  //   if (!response.ok) {
+  //     setError(responseBody);
+
+  //     setError(data);
+  //     throw new Error("Network response was not OK");
+  //   } else {
+  //     Cookies.set("Authorization", `Token ${data.key}`);
+  //     console.log("Data:", data);
+
+  //     navigate("/login");
+  //   }
+  // };
+  // if (response) {
+  //   const data = await response.json();
+
+  // if (!response.ok) {
+  //   setError(data);
+  //   throw new Error("Network response was not OK");
+  // } else {
+  //   Cookies.set("Authorization", `Token ${data.key}`);
+  //   navigate("/recipes");
+  // }
 
   return (
     <>

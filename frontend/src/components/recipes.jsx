@@ -89,27 +89,26 @@ const Recipe = () => {
 
       <h1>Welcome to Meal App</h1>
 
-      {/* <UserLogin /> */}
-      <div>
-        {recipes?.length > 0 && (
-          <ul>
-            {recipes.map((recipe) => (
-              // console.log(recipe.recipe.label)
-              <>
-                <li key={recipe.recipe.label}>
-                  {recipe.recipe.label} {}
-                </li>
-                =
-                <li>
-                  <img src={recipe.recipe.image} alt="img" />{" "}
-                  <button onClick={() => handleRecipeClick(recipe.recipe)}>
+      <div className="row row-cols-1 row-cols-md-2 g-4">
+        {recipes?.length > 0 &&
+          recipes.map((recipe) => (
+            <div className="col" key={recipe.recipe.label}>
+              <div className="card">
+                <img src={recipe.recipe.image} className="card-img-top" alt="..." />
+                <div className="card-body">
+                  <h5 className="card-title">{recipe.recipe.label}</h5>
+                  <p className="card-text">
+                  </p>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => handleRecipeClick(recipe.recipe)}
+                  >
                     Add to my recipes
                   </button>
-                </li>
-              </>
-            ))}
-          </ul>
-        )}
+                </div>
+              </div>
+            </div>
+          ))}
       </div>
     </>
   );

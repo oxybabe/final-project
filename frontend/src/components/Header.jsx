@@ -23,7 +23,6 @@ function Header() {
             <Nav.Link href="/myrecipes">My Recipes</Nav.Link>
             <Nav.Link href="/register">Register</Nav.Link>
 
-
             {Cookies.get("Authorization") ? (
               <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
             ) : (

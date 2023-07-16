@@ -28,8 +28,8 @@ const UserRecipes = () => {
       <Header />
       <h1 style={{ color: "black" }}>My Recipes</h1>
       {userRecipes &&
-        userRecipes.map((recipe) => (
-          <div key={recipe.id}>
+        userRecipes.map((recipe, user) => (
+          <div key={recipe.id.user}>
             <h2>{recipe.title}</h2>
             <p>{recipe.description}</p>
           </div>
