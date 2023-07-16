@@ -56,7 +56,7 @@ const Home = () => {
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
-      <button onClick={handleLoginClick}>Click to login</button>
+      <button style={{ backgroundColor: "#20695e" }}onClick={handleLoginClick}>Click to login</button>
 
       {/* <UserRegistration /> */}
       </div>

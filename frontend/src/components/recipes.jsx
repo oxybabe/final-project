@@ -64,7 +64,25 @@ const Recipe = () => {
     fetchRecipeData();
   }, []);
 
-  const handleRecipeClick = (recipe, user) => {
+  const handleRecipeClick = (recipe) => {
+    // const selectedRecipe = {
+    window.location.href = recipe.shareAs;
+    // title: recipe.label,
+    // description: JSON.stringify(recipe.cuisineType),
+    // image: data.image,
+    // cooking_time: recipe.totalTime,
+    // directions: recipe.shareAs,
+    // servings: recipe.yield,
+    // ingredients: JSON.stringify(recipe.ingredientLines),
+    // user: null,
+    // };
+
+    console.log(selectedRecipe);
+  };
+
+ 
+
+  const handleAddRecipeClick = (recipe, user) => {
     if (Cookies.get("Authorization")) {
       const selectedRecipe = {
         title: recipe.label,
@@ -89,19 +107,31 @@ const Recipe = () => {
 
       <h1>Welcome to Meal App</h1>
 
-      <div className="row row-cols-1 row-cols-md-2 g-4">
+      <div className="row row-cols-1 row-cols-md-2 g-4" >
         {recipes?.length > 0 &&
           recipes.map((recipe) => (
-            <div className="col" key={recipe.recipe.label}>
-              <div className="card">
-                <img src={recipe.recipe.image} className="card-img-top" alt="..." />
+            <div className="col" key={recipe.recipe.label} >
+              <div className="card" style={{ backgroundColor: "#9dbebb" }}>
+                <img
+                  src={recipe.recipe.image}
+                  className="card-img-top"
+                  alt="..."
+                />
                 <div className="card-body">
                   <h5 className="card-title">{recipe.recipe.label}</h5>
-                  <p className="card-text">
-                  </p>
+                  <p className="card-text"></p>
+                  <button 
+                    className="btn btn-primary"
+                    style={{ backgroundColor: "#20695e" }}
+                    onClick={() => handleRecipeClick(recipe.recipe)}
+                  >
+                    View Recipe
+                  </button>
+                  <br />
                   <button
                     className="btn btn-primary"
-                    onClick={() => handleRecipeClick(recipe.recipe)}
+                    style={{ backgroundColor: "#20695e" }}
+                    onClick={() => handleAddRecipeClick(recipe.recipe)}
                   >
                     Add to my recipes
                   </button>

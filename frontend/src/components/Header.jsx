@@ -14,8 +14,14 @@ function Header() {
 
   return (
     <>
-      <Navbar className="d-flex p-2" fixed="top" bg="dark" data-bs-theme="dark">
-        <Container>
+      <Navbar
+        className="d-flex p-2"
+        fixed="top"
+        // bg="dark"
+        // data-bs-theme="dark"
+        style={{ backgroundColor: "#20695e" }}
+      >
+        <Container >
           <Navbar.Brand href="#home">Recipe App</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/home">Home</Nav.Link>
