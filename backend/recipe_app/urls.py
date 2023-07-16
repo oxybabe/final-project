@@ -24,12 +24,7 @@ urlpatterns = [
         views.CalendarEventDetailView.as_view(),
         name="calendar_event_detail",
     ),
-    path("users/", views.UserList.as_view()),
-    path("users/<int:pk>", views.UserDetail.as_view()),
-    # path(
-    #     "dj-rest-auth/registration/",
-    #     views.UserRegisterView.as_view(),
-    #     name="user_register",
+   
     # ),
     # path("update/", views.updateRecipe),
     # path("delete/", views.deleteRecipe),

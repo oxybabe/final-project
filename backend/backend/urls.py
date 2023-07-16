@@ -27,5 +27,7 @@ urlpatterns = [
     path("api-auth/", include("rest_framework.urls")),
     path("dj-rest-auth/", include("dj_rest_auth.urls")),
     path("dj-rest-auth/registration/", include("dj_rest_auth.registration.urls")),
-    path("", include("recipe_app.urls")),
+    path("recipe/", include("recipe_app.urls")), # on frontend, to hit any URLS in your 'recipe_app', you will need '/recipe/...'. For example: localhost:8000/recipe/mealplan
+    path("auth/", include("authentication.urls")),
+    path("api/", include("api.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

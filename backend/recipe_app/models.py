@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+# from django.contrib.auth.models import AbstractUser
 
 from django.conf import settings
 from django.utils.html import mark_safe
@@ -8,8 +8,7 @@ from django.utils.html import mark_safe
 # Create your models here.
 
 
-class User(AbstractUser):
-    is_chef = models.BooleanField(default=False)
+
 
 
 class Recipe(models.Model):
@@ -31,13 +30,13 @@ class Recipe(models.Model):
 
 
 class MealPlan(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100, default=1)
     recipes = models.ManyToManyField(Recipe)
 
 
 class CalendarEvent(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
     meal_plan = models.ForeignKey(MealPlan, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     start_date = models.DateTimeField()

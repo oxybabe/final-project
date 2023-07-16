@@ -49,9 +49,12 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "dj_rest_auth.registration",
-    "authentication.apps.AuthenticationConfig",
-    "recipe_app.apps.RecipeAppConfig",
-    "api.apps.ApiConfig",
+    # "authentication.apps.AuthenticationConfig",
+    # "recipe_app.apps.RecipeAppConfig",
+    # "api.apps.ApiConfig",
+    "authentication",
+    "recipe_app",
+    "api",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -86,7 +89,7 @@ REST_FRAMEWORK = {
 # }
 ROOT_URLCONF = "backend.urls"
 
-AUTH_USER_MODEL = "recipe_app.User"
+AUTH_USER_MODEL = "authentication.AppUser"
 
 TEMPLATES = [
     {
