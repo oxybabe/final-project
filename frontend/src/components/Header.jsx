@@ -19,22 +19,36 @@ function Header() {
         fixed="top"
         // bg="dark"
         // data-bs-theme="dark"
-        style={{ backgroundColor: "#20695e" }}
+        style={{ backgroundColor: "#20695e", color: "#f4e9cd" }}
       >
-        <Container >
-          <Navbar.Brand href="#home">Recipe App</Navbar.Brand>
+        <Container>
+          <Navbar.Brand style={{ color: "#f4e9cd" }} href="#home">
+            Recipe App
+          </Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="/home">Home</Nav.Link>
-            <Nav.Link href="/recipes">Recipes</Nav.Link>
-            <Nav.Link href="/myrecipes">My Recipes</Nav.Link>
-            <Nav.Link href="/register">Register</Nav.Link>
+            <Nav.Link href="/home" style={{ color: "#f4e9cd" }}>
+              Home
+            </Nav.Link>
+            <Nav.Link href="/recipes" style={{ color: "#f4e9cd" }}>
+              Recipes
+            </Nav.Link>
+            <Nav.Link href="/myrecipes" style={{ color: "#f4e9cd" }}>
+              My Recipes
+            </Nav.Link>
+            <Nav.Link href="/register" style={{ color: "#f4e9cd" }}>
+              Register
+            </Nav.Link>
 
             {Cookies.get("Authorization") ? (
               <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
             ) : (
-              <Nav.Link href="/login">Login</Nav.Link>
+              <Nav.Link href="/login" style={{ color: "#f4e9cd" }}>
+                Login
+              </Nav.Link>
             )}
-            <Nav.Link href="/calendar">Calendar</Nav.Link>
+            <Nav.Link href="/calendar" style={{ color: "#f4e9cd" }}>
+              Calendar
+            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>

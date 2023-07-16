@@ -8,6 +8,7 @@ import Header from "./Header";
 const Recipe = () => {
   const navigate = useNavigate();
   const [recipes, setRecipes] = useState([]);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState("false");
   const fetchRecipeData = () => {
     fetch(
       `https://api.edamam.com/api/recipes/v2?type=public&app_id=5eee6e55&app_key=${
@@ -24,16 +25,14 @@ const Recipe = () => {
       });
   };
   useEffect(() => {
-    const checkAuth = async () => {
-      const response = await fetch("http://localhost:8000/dj-rest-auth/user/");
-      if (!response.ok) {
-        console.log("this", response);
-      } else {
-        console.log(response);
+    const checkAuth = () => {
+      const token = Cookies.get("Authorization");
+      console.log("auth cookie", Cookies.get("Authorization"));
+      if (token) {
+        setIsUserLoggedIn(true);
       }
     };
     checkAuth();
-    console.log("auth cookie", Cookies.get("Authorization"));
   }, []);
 
   const sendRecipeData = (recipe) => {
@@ -80,8 +79,6 @@ const Recipe = () => {
     console.log(selectedRecipe);
   };
 
- 
-
   const handleAddRecipeClick = (recipe, user) => {
     if (Cookies.get("Authorization")) {
       const selectedRecipe = {
@@ -107,10 +104,10 @@ const Recipe = () => {
 
       <h1>Welcome to Meal App</h1>
 
-      <div className="row row-cols-1 row-cols-md-2 g-4" >
+      <div className="row row-cols-1 row-cols-md-2 g-4">
         {recipes?.length > 0 &&
           recipes.map((recipe) => (
-            <div className="col" key={recipe.recipe.label} >
+            <div className="col" key={recipe.recipe.label}>
               <div className="card" style={{ backgroundColor: "#9dbebb" }}>
                 <img
                   src={recipe.recipe.image}
@@ -120,7 +117,7 @@ const Recipe = () => {
                 <div className="card-body">
                   <h5 className="card-title">{recipe.recipe.label}</h5>
                   <p className="card-text"></p>
-                  <button 
+                  <button
                     className="btn btn-primary"
                     style={{ backgroundColor: "#20695e" }}
                     onClick={() => handleRecipeClick(recipe.recipe)}

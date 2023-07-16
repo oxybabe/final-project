@@ -9,7 +9,7 @@ import Header from "./Header";
 export default function UserLogin() {
   const navigate = useNavigate();
   const [user, setUser] = useState({
-    username: "",
+    email: "",
     password: "",
   });
 
@@ -33,12 +33,12 @@ export default function UserLogin() {
         "X-CSRFToken": Cookies.get("csrftoken"),
       },
       body: JSON.stringify({
-        username: user.username,
+        email: user.email,
         password: user.password,
       }),
     };
     const response = await fetch(
-      "http://localhost:8000/dj-rest-auth/login/",
+      "http://localhost:8000/auth/login/",
       options
     ).catch(handleError);
     if (!response.ok) {
@@ -60,9 +60,9 @@ export default function UserLogin() {
           <input
             className="form-control"
             type="text"
-            name="username"
-            placeholder="Enter username"
-            value={user.username}
+            name="email"
+            placeholder="Enter email"
+            value={user.email}
             onChange={handleInput}
           ></input>
 
@@ -83,7 +83,11 @@ export default function UserLogin() {
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
           {/* <Form.Check type="checkbox" label="Remember me" /> */}
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button
+          variant="primary"
+          type="submit"
+          style={{ backgroundColor: "#20695e" }}
+        >
           Submit
         </Button>
       </Form>

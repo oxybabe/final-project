@@ -41,6 +41,8 @@ class UserLogin(APIView):
     permission_classes = (permissions.AllowAny,)
     authentication_classes = (SessionAuthentication,)
 
+    # somewhere in either here or UserLoginSerializer, add in JWT token so it shows up in response
+
     ##
     def post(self, request):
         data = request.data

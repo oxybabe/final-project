@@ -8,8 +8,9 @@ import Header from "./Header";
 const UserRegistration = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState({
+    email: "",
     username: "",
-    password1: "",
+    password: "",
     password2: "",
   });
 
@@ -31,15 +32,16 @@ const UserRegistration = () => {
       body: JSON.stringify(user),
     };
     const response = await fetch(
-      "http://localhost:8000/dj-rest-auth/registration/",
+      "http://127.0.0.1:8000/auth/register/",
       options
-    ).catch(console.log("did not work"));
+    )
 
     if (!response.ok) {
       setError(data);
       throw new Error("Network response was not OK");
     } else {
       const data = await response.json();
+      console.log({ data });
       Cookies.set("Authorization", `Token ${data.key}`);
       navigate("/recipes");
     }
@@ -131,6 +133,19 @@ const UserRegistration = () => {
       <Header />
       <Form onSubmit={handleRegistrationSubmit}>
         <Form.Group className="mb-3" controlId="formUsername">
+          <Form.Label>Email</Form.Label>
+          <input
+            className="form-control"
+            type="text"
+            name="email"
+            placeholder="Enter email"
+            value={user.email}
+            onChange={handleInput}
+          ></input>
+
+          <Form.Text className="text-muted"></Form.Text>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formUsername">
           <Form.Label>Username</Form.Label>
           <input
             className="form-control"
@@ -148,10 +163,10 @@ const UserRegistration = () => {
           <Form.Label>Password</Form.Label>
           <input
             className="form-control"
-            type="password1"
-            name="password1"
+            type="password"
+            name="password"
             placeholder="Password"
-            value={user.password1}
+            value={user.password}
             onChange={handleInput}
           ></input>
         </Form.Group>
@@ -159,7 +174,7 @@ const UserRegistration = () => {
           <Form.Label>Confirm Password</Form.Label>
           <input
             className="form-control"
-            type="password2"
+            type="password"
             name="password2"
             placeholder="Confirm Password"
             value={user.password2}
@@ -167,7 +182,11 @@ const UserRegistration = () => {
           ></input>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCheckbox"></Form.Group>
-        <Button variant="primary" type="submit">
+        <Button
+          variant="primary"
+          type="submit"
+          style={{ backgroundColor: "#20695e" }}
+        >
           Submit
         </Button>
       </Form>
