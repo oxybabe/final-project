@@ -26,12 +26,13 @@ const MyCalendar = () => {
     <>
       <Header />
       <div style={{ height: "500px" }}>
-        <h1 style={{ color: "white" }}>Calendar</h1>
+        <h1 style={{ color: "#123c69" }}>Calendar</h1>
         <Calendar
           localizer={localizer}
           events={events}
           startAccessor="start_date"
           endAccessor="end_date"
+          style={{ color: "#123c69" }}
         />
       </div>
     </>

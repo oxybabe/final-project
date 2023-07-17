@@ -9,11 +9,12 @@ const Recipe = () => {
   const navigate = useNavigate();
   const [recipes, setRecipes] = useState([]);
   const [isUserLoggedIn, setIsUserLoggedIn] = useState("false");
+  const [query, setQuery] = useState("");
   const fetchRecipeData = () => {
     fetch(
       `https://api.edamam.com/api/recipes/v2?type=public&app_id=5eee6e55&app_key=${
         import.meta.env.VITE_RECIPE_PUBLIC_KEY
-      }&mealType=Breakfast&mealType=Dinner&mealType=Lunch&mealType=Snack&random=true`
+      }&q=${query}&mealType=Breakfast&mealType=Dinner&mealType=Lunch&mealType=Snack&random=true`
     )
       .then((response) => {
         console.log(response);
@@ -36,7 +37,7 @@ const Recipe = () => {
   }, []);
 
   const sendRecipeData = (recipe) => {
-    fetch("http://127.0.0.1:8000/recipes/", {
+    fetch("http://127.0.0.1:8000/recipes/recipes", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -97,18 +98,45 @@ const Recipe = () => {
       navigate("/login");
     }
   };
+  const handleSearchInput = (event) => {
+    setQuery(event.target.value);
+  };
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    fetchRecipeData();
+  };
 
   return (
     <>
       <Header />
 
-      <h1>Welcome to Meal App</h1>
+      <h1 style={{ color: "#123c69" }}>Recipe Library</h1>
+      <form onSubmit={handleSearchSubmit}>
+        <input
+          className="search-bar"
+          type="text"
+          placeholder="Search recipes..."
+          value={query}
+          onChange={handleSearchInput}
+          style={{ backgroundColor: "#f4e9cd", color: "#123c69" }}
+        />
+        <button
+          className="search-button"
+          type="submit"
+          style={{ backgroundColor: "#20695e" }}
+        >
+          Search
+        </button>
+      </form>
 
-      <div className="row row-cols-1 row-cols-md-2 g-4">
+      <div className="row row-cols-1 row-cols-md-4 g-4">
         {recipes?.length > 0 &&
           recipes.map((recipe) => (
             <div className="col" key={recipe.recipe.label}>
-              <div className="card" style={{ backgroundColor: "#9dbebb" }}>
+              <div
+                className="card h-100"
+                style={{ backgroundColor: "#9dbebb" }}
+              >
                 <img
                   src={recipe.recipe.image}
                   className="card-img-top"
@@ -118,7 +146,7 @@ const Recipe = () => {
                   <h5 className="card-title">{recipe.recipe.label}</h5>
                   <p className="card-text"></p>
                   <button
-                    className="btn btn-primary"
+                    className="btn btn-primary btn-block"
                     style={{ backgroundColor: "#20695e" }}
                     onClick={() => handleRecipeClick(recipe.recipe)}
                   >
@@ -126,7 +154,7 @@ const Recipe = () => {
                   </button>
                   <br />
                   <button
-                    className="btn btn-primary"
+                    className="btn btn-primary btn-block padding-top"
                     style={{ backgroundColor: "#20695e" }}
                     onClick={() => handleAddRecipeClick(recipe.recipe)}
                   >

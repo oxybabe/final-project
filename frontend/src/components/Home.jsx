@@ -13,11 +13,11 @@ const Home = () => {
 
   return (
     <>
-      <div >
+      <div>
         <Header />
-        <h1 style={{ color: "black" }}>Welcome to Meal Master</h1>
+        <h1 style={{ color: "#123c69" }}>Welcome to Meal Master</h1>
         <Carousel>
-          <Carousel.Item interval={1000}>
+          <Carousel.Item interval={2500}>
             <img
               className="d-block w-100"
               src="./public/media/chocolatecake.jpg"
@@ -28,7 +28,7 @@ const Home = () => {
             <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p> */}
             </Carousel.Caption>
           </Carousel.Item>
-          <Carousel.Item interval={500}>
+          <Carousel.Item interval={2000}>
             <img
               className="d-block w-100"
               src="./public/media/food and drink.jpg"
@@ -39,10 +39,23 @@ const Home = () => {
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> */}
             </Carousel.Caption>
           </Carousel.Item>
-          <Carousel.Item>
+          <Carousel.Item interval={2000}>
             <img
               className="d-block w-100"
               src="./public/media/meal.jpg"
+              alt="Third slide"
+            />
+            <Carousel.Caption>
+              {/* <h3>Third slide label</h3>
+            <p>
+              Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+            </p> */}
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item interval={2500}>
+            <img
+              className="d-block w-100"
+              src="./public/media/brooke-lark-HlNcigvUi4Q-unsplash.jpg"
               alt="Third slide"
             />
             <Carousel.Caption>
