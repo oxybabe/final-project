@@ -8,7 +8,7 @@ const AddRecipe = () => {
   const input = document.getElementById("fileinput");
 
   const upload = (file) => {
-    fetch("http://localhost:8000/recipes/recipes/", {
+    fetch("http://localhost:8000/recipe/recipes/", {
       method: "POST",
       body: file,
       headers: { "Content-Type": "application/json" },
@@ -23,7 +23,7 @@ const AddRecipe = () => {
   }
   //   const submitForm = (event) => {
   //     event.preventDefault();
-  //     fetch("http://localhost:8000/recipes/recipes/", {
+  //     fetch("http://localhost:8000/recipe/recipes/", {
   //         method:'POST',
 
   //         body: JSON.stringify({title, selectedRecipeFile}),

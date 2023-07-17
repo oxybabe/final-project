@@ -9,7 +9,7 @@ import Header from "./Header";
 export default function UserLogin() {
   const navigate = useNavigate();
   const [user, setUser] = useState({
-    email: "",
+    username: "",
     password: "",
   });
 
@@ -33,12 +33,12 @@ export default function UserLogin() {
         "X-CSRFToken": Cookies.get("csrftoken"),
       },
       body: JSON.stringify({
-        email: user.email,
-        password: user.password,
+        username: "test8",
+        password: "welcomepass",
       }),
     };
     const response = await fetch(
-      "http://localhost:8000/auth/login/",
+      "http://127.0.0.1:8000/dj-rest-auth/login/",
       options
     ).catch(handleError);
     if (!response.ok) {
@@ -54,15 +54,16 @@ export default function UserLogin() {
   return (
     <>
       <Header />
+      <h1 style={{ color: "#123c69" }}>Login</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formUsername">
-          <Form.Label>Username</Form.Label>
+          <Form.Label style={{ color: "#123c69" }}>Username</Form.Label>
           <input
             className="form-control"
             type="text"
-            name="email"
-            placeholder="Enter email"
-            value={user.email}
+            name="username"
+            placeholder="Enter username"
+            value={user.username}
             onChange={handleInput}
           ></input>
 
@@ -70,7 +71,7 @@ export default function UserLogin() {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label style={{ color: "#123c69" }}>Password</Form.Label>
           <input
             className="form-control"
             type="password"

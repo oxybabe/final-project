@@ -9,7 +9,7 @@ const UserRecipes = () => {
   useEffect(() => {
     const fetchRecipeData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/recipes/recipes/");
+        const response = await fetch("http://localhost:8000/recipe/recipes/");
         if (response.ok) {
           const recipe = await response.json();
           setUserRecipes(recipe.hits);

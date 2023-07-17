@@ -6,10 +6,33 @@ import Navbar from "react-bootstrap/Navbar";
 
 function Header() {
   const navigate = useNavigate();
-
-  const handleLogout = () => {
-    Cookies.remove("Authorization"); // Remove the authorization token cookie
-    navigate("/login"); // Redirect to the login page
+  const handleError = (err) => {
+    console.log(err);
+  };
+  const handleLogout = async () => {
+    const user = {
+      username: "test8",
+      password: "welcomepass",
+    };
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": Cookies.get("csrftoken"),
+      },
+      body: JSON.stringify(user),
+    };
+    const response = await fetch(
+      "http://localhost:8000/dj-rest-auth/logout/",
+      options
+    ).catch(handleError);
+    if (!response.ok) {
+      throw new Error("Oops! Something went wrong");
+    } else {
+      const data = await response.json();
+      Cookies.remove("Authorization", `Token${" "}${data.key}`);
+    }
+    navigate("/login");
   };
 
   return (

@@ -131,9 +131,10 @@ const UserRegistration = () => {
   return (
     <>
       <Header />
+      <h1 style={{ color: "#123c69" }}>Registration</h1>
       <Form onSubmit={handleRegistrationSubmit}>
         <Form.Group className="mb-3" controlId="formUsername">
-          <Form.Label>Email</Form.Label>
+          <Form.Label style={{ color: "#123c69" }}>Email</Form.Label>
           <input
             className="form-control"
             type="text"
@@ -146,7 +147,7 @@ const UserRegistration = () => {
           <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formUsername">
-          <Form.Label>Username</Form.Label>
+          <Form.Label style={{ color: "#123c69" }}>Username</Form.Label>
           <input
             className="form-control"
             type="text"
@@ -160,7 +161,7 @@ const UserRegistration = () => {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label style={{ color: "#123c69" }}>Password</Form.Label>
           <input
             className="form-control"
             type="password"
@@ -171,7 +172,7 @@ const UserRegistration = () => {
           ></input>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Confirm Password</Form.Label>
+          <Form.Label style={{ color: "#123c69" }}>Confirm Password</Form.Label>
           <input
             className="form-control"
             type="password"

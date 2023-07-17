@@ -37,7 +37,7 @@ const Recipe = () => {
   }, []);
 
   const sendRecipeData = (recipe) => {
-    fetch("http://127.0.0.1:8000/recipes/recipes", {
+    fetch("http://127.0.0.1:8000/recipe/recipes/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,6 +50,7 @@ const Recipe = () => {
         if (response.ok) {
           return response.json();
         } else {
+          console.log(response);
           throw new Error("error");
         }
       })
@@ -156,7 +157,7 @@ const Recipe = () => {
                   <button
                     className="btn btn-primary btn-block padding-top"
                     style={{ backgroundColor: "#20695e" }}
-                    onClick={() => handleAddRecipeClick(recipe.recipe)}
+                    onClick={() => handleAddRecipeClick(recipe.recipe,)}
                   >
                     Add to my recipes
                   </button>
