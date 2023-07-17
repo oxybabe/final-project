@@ -10,7 +10,7 @@ const UserRegistration = () => {
   const [user, setUser] = useState({
     email: "",
     username: "",
-    password: "",
+    password1: "",
     password2: "",
   });
 
@@ -32,9 +32,9 @@ const UserRegistration = () => {
       body: JSON.stringify(user),
     };
     const response = await fetch(
-      "http://127.0.0.1:8000/auth/register/",
+      "http://127.0.0.1:8000/dj-rest-auth/registration/",
       options
-    )
+    );
 
     if (!response.ok) {
       setError(data);
@@ -164,9 +164,9 @@ const UserRegistration = () => {
           <input
             className="form-control"
             type="password"
-            name="password"
+            name="password1"
             placeholder="Password"
-            value={user.password}
+            value={user.password1}
             onChange={handleInput}
           ></input>
         </Form.Group>

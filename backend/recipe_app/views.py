@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login
 from rest_framework.decorators import api_view
 from .models import Recipe, MealPlan, CalendarEvent
 from dj_rest_auth.registration.views import RegisterView
+
 # from django.contrib.auth import get_user_model
 
 # User = get_user_model()
@@ -14,10 +15,8 @@ from dj_rest_auth.registration.views import RegisterView
 
 from .serializer import (
     RecipeSerializer,
- 
     MealPlanSerializer,
     CalendarEventSerializer,
- 
 )
 from rest_framework import generics
 from rest_framework.permissions import (
@@ -39,8 +38,6 @@ from rest_framework import status
 #     permission_classes = [AllowAny]
 
 
-
-
 class IsOwnerOrReadOnly(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
@@ -56,16 +53,17 @@ class RecipeListAPIView(generics.ListCreateAPIView):
     serializer_class = RecipeSerializer
     queryset = Recipe.objects.all()
 
-    def get_queryset(self):
-        return Recipe.objects.filter(user=self.request.user.id)
+    # def get_queryset(self):
+    #     print(self)
+    #     return Recipe.objects.filter(user=self.request.user.id)
 
     # filters so only the user sees their list of recipes
 
-    def perform_create(self, serializer):
-        if self.request.user.is_authenticated:
-            serializer.save(user=self.request.user.id)
-        else:
-            serializer.save()
+    # def perform_create(self, serializer):
+    #     if self.request.user.is_authenticated:
+    #         serializer.save(user=self.request.user.id)
+    #     else:
+    #         serializer.save()
 
 
 class RecipeDetailView(generics.RetrieveUpdateDestroyAPIView):
@@ -97,12 +95,10 @@ class CalendarEventDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CalendarEventSerializer
     queryset = CalendarEvent.objects.all()
 
+
 # class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 #     queryset = User.objects.all()
 #     serializer_class = UserSerializer
-
-
-
 
 
 # class UserDetail(generics.RetrieveAPIView):
