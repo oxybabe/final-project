@@ -49,12 +49,11 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "dj_rest_auth.registration",
-    # "authentication.apps.AuthenticationConfig",
-    # "recipe_app.apps.RecipeAppConfig",
-    # "api.apps.ApiConfig",
-    "authentication",
-    "recipe_app",
-    "api",
+    "accounts.apps.AccountsConfig",
+    "recipe_app.apps.RecipeAppConfig",
+    "api.apps.ApiConfig",
+    # "recipe_app",
+    # "api",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -79,9 +78,7 @@ REST_FRAMEWORK = {
     ],
 }
 
-REST_AUTH = {
-    "SESSION_LOGIN": False
-}
+REST_AUTH = {"SESSION_LOGIN": False}
 # SIMPLE_JWT = {
 #     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=10),
 #     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
@@ -93,7 +90,7 @@ REST_AUTH = {
 # }
 ROOT_URLCONF = "backend.urls"
 
-AUTH_USER_MODEL = "authentication.AppUser"
+AUTH_USER_MODEL = "accounts.User"
 
 TEMPLATES = [
     {
@@ -168,5 +165,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+REST_AUTH_SERIALIZERS = {
+    "TOKEN_SERIALIZER": "accounts.serializers.TokenSerializer",
+}
