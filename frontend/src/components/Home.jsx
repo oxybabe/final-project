@@ -17,7 +17,7 @@ const Home = () => {
         <Header />
         <h1 style={{ color: "#123c69" }}>Welcome to Meal Master</h1>
         <Carousel>
-          <Carousel.Item interval={2500}>
+          <Carousel.Item interval={3500}>
             <img
               className="d-block w-100"
               src="./public/media/chocolatecake.jpg"
@@ -28,7 +28,7 @@ const Home = () => {
             <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p> */}
             </Carousel.Caption>
           </Carousel.Item>
-          <Carousel.Item interval={2000}>
+          <Carousel.Item interval={3500}>
             <img
               className="d-block w-100"
               src="./public/media/food and drink.jpg"
@@ -39,7 +39,7 @@ const Home = () => {
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> */}
             </Carousel.Caption>
           </Carousel.Item>
-          <Carousel.Item interval={2000}>
+          <Carousel.Item interval={3500}>
             <img
               className="d-block w-100"
               src="./public/media/meal.jpg"
@@ -52,7 +52,7 @@ const Home = () => {
             </p> */}
             </Carousel.Caption>
           </Carousel.Item>
-          <Carousel.Item interval={2500}>
+          <Carousel.Item interval={3500}>
             <img
               className="d-block w-100"
               src="./public/media/brooke-lark-HlNcigvUi4Q-unsplash.jpg"

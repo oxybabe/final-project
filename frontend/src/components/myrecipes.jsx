@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import { useNavigate } from "react-router-dom";
+import AddRecipe from "./AddRecipes";
 
 const UserRecipes = () => {
   const [userRecipes, setUserRecipes] = useState([]);
@@ -45,6 +46,7 @@ const UserRecipes = () => {
     <>
       <Header />
       <h1 style={{ color: "#123c69" }}>My Recipe Collection</h1>
+      <AddRecipe />
       <div className="row row-cols-1 row-cols-md-4 g-4"></div>
       {userRecipes &&
         userRecipes.map((recipe, user) => (
