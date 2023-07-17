@@ -78,6 +78,10 @@ REST_FRAMEWORK = {
         # "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
 }
+
+REST_AUTH = {
+    "SESSION_LOGIN": False
+}
 # SIMPLE_JWT = {
 #     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=10),
 #     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
