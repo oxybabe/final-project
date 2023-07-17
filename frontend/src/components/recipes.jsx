@@ -9,12 +9,12 @@ const Recipe = () => {
   const navigate = useNavigate();
   const [recipes, setRecipes] = useState([]);
   const [isUserLoggedIn, setIsUserLoggedIn] = useState("false");
-  const [query, setQuery] = useState("");
+  const [search, setSearch] = useState("");
   const fetchRecipeData = () => {
     fetch(
       `https://api.edamam.com/api/recipes/v2?type=public&app_id=5eee6e55&app_key=${
         import.meta.env.VITE_RECIPE_PUBLIC_KEY
-      }&q=${query}&mealType=Breakfast&mealType=Dinner&mealType=Lunch&mealType=Snack&random=true`
+      }&q=${search}&mealType=Breakfast&mealType=Dinner&mealType=Lunch&mealType=Snack&random=true`
     )
       .then((response) => {
         console.log(response);
@@ -99,7 +99,7 @@ const Recipe = () => {
     }
   };
   const handleSearchInput = (event) => {
-    setQuery(event.target.value);
+    setSearch(event.target.value);
   };
   const handleSearchSubmit = (event) => {
     event.preventDefault();
@@ -116,7 +116,7 @@ const Recipe = () => {
           className="search-bar"
           type="text"
           placeholder="Search recipes..."
-          value={query}
+          value={search}
           onChange={handleSearchInput}
           style={{ backgroundColor: "#f4e9cd", color: "#123c69" }}
         />

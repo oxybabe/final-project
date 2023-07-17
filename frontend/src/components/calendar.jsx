@@ -24,16 +24,21 @@ const MyCalendar = () => {
   }, []);
   return (
     <>
-      <Header />
-      <div style={{ height: "500px" }}>
-        <h1 style={{ color: "#123c69" }}>Calendar</h1>
-        <Calendar
-          localizer={localizer}
-          events={events}
-          startAccessor="start_date"
-          endAccessor="end_date"
-          style={{ color: "#123c69" }}
-        />
+      <div style={{ display: "flex" }}>
+        <div style={{ flex: 1 }}>
+          <Header />
+          <div style={{ height: "500px" }}>
+            <h1 style={{ color: "#123c69" }}>Calendar</h1>
+            <Calendar
+              localizer={localizer}
+              events={events}
+              startAccessor="start_date"
+              endAccessor="end_date"
+              style={{ color: "#123c69" }}
+            />
+          </div>
+        </div>
+        
       </div>
     </>
   );
