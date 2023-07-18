@@ -2,60 +2,126 @@ import React, { useState } from "react";
 
 import FileUploader from "./FileUploaded";
 
-const AddRecipe = () => {
+const AddRecipe = ({ setUserRecipes, userRecipes }) => {
   const [title, setTitle] = useState("");
-  const [selectedRecipeFile, setSelectedRecipeFile] = useState(null);
+  const [image, setImage] = useState(null);
+  const [description, setDescription] = useState("");
+  const [cookingTime, setCookingTime] = useState("");
+  const [servings, setServings] = useState("");
+  const [ingredients, setIngredients] = useState("");
+  const [directions, setDirections] = useState("");
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+
+  const [selectedRecipeFile, setSelectedRecipeFile] = useState(false);
   const input = document.getElementById("fileinput");
-
-  const upload = (file) => {
-    fetch("http://localhost:8000/recipe/recipes/", {
-      method: "POST",
-      body: file,
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.json())
-      .then((success) => console.log(success))
-      .catch((error) => console.log(error));
+  const changeHandler = (event) => {
+    const file = event.target.files[0];
+    setImage(file);
   };
-  const onSelectFile = () => upload(input.files[0]);
-  if (input) {
-    input.addEventListener("change", onSelectFile, false);
-  }
-  //   const submitForm = (event) => {
-  //     event.preventDefault();
-  //     fetch("http://localhost:8000/recipe/recipes/", {
-  //         method:'POST',
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("image", image);
+    formData.append("description", description);
+    formData.append("cooking_time", cookingTime);
+    formData.append("servings", servings);
+    formData.append("ingredients", ingredients);
+    formData.append("directions", directions);
+    formData.append("author_id", user.id);
 
-  //         body: JSON.stringify({title, selectedRecipeFile}),
-  //         headers:{'Content-Type': 'application/json'},
-  //     })
-  //     .then(response => response.json())
-  //     .then(json => setTitle(json.title))
-
-  //     const formData = new FormData();
-  //     formData.append("title", title);
-  //     formData.append("file", selectedRecipeFile);
-  //   };
+    const response = await fetch(
+      `http://localhost:8000/recipe/recipes/${user.id}`,
+      {
+        method: "POST",
+        body: formData,
+        //   headers: { "Content-Type": "application/json" },
+      }
+    );
+    if (!response.ok) {
+      throw new Error("not working");
+    } else {
+      const data = await response.json();
+      console.log(data);
+      setUserRecipes([...userRecipes, data]);
+      setTitle("");
+      setDescription("");
+      setCookingTime("");
+      setServings("");
+      setIngredients("");
+      setDirections("");
+    }
+  };
 
   return (
     <div className="AddRecipe">
-      <form action="">
+      <form onSubmit={handleSubmit} style={{ backgroundColor: "#20695e" }}>
+        <label>
+          Recipe Title:
+          <input
+            type="text"
+            name="title"
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+          />
+        </label>
+        <br />
+        <label>
+          Add Image:
+          <input type="file" name="image" onChange={changeHandler} />
+          <br />
+          Recipe Description:
+          <input
+            type="text"
+            name="description"
+            value={description}
+            onChange={(event) => setDescription(event.target.value)}
+          />
+        </label>
+        <br />
+        Cooking Time:
         <input
           type="text"
-          value={title}
-          onChange={(event) => setTitle(event.target.value)}
+          name="cooking time"
+          value={cookingTime}
+          onChange={(event) => setCookingTime(event.target.value)}
         />
-        <FileUploader
+        <br />
+        Servings:
+        <input
+          type="text"
+          name="servings"
+          value={servings}
+          onChange={(event) => setServings(event.target.value)}
+        />
+        <br />
+        Ingredients:
+        <input
+          type="text"
+          name="ingredients"
+          value={ingredients}
+          onChange={(event) => setIngredients(event.target.value)}
+        />
+        <br />
+        Directions:
+        <input
+          type="text"
+          name="directions"
+          value={directions}
+          onChange={(event) => setDirections(event.target.value)}
+        />
+        {/* <FileUploader
           onFileSelectSuccess={(file) => setSelectedRecipeFile(file)}
           onFileSelectError={({ error }) => alert(error)}
-        />
-        <button onClick={AddRecipe}>Submit</button>
+        /> */}
+        <input type="submit" />
         {/* <input
           type="file"
           value={selectedRecipeFile}
           onChange={(event) => setSelectedRecipeFile(event.target.files[0])}
         /> */}
       </form>
+      //{" "}
     </div>
   );
 };

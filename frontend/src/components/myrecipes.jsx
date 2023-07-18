@@ -74,18 +74,18 @@ const UserRecipes = () => {
     <>
       <Header />
       <h1 style={{ color: "#123c69" }}>My Recipe Collection</h1>
-      <AddRecipe />
+      <AddRecipe setUserRecipes={setUserRecipes} userRecipes={userRecipes} />
       <div className="row row-cols-1 row-cols-md-4 g-4"></div>
       {userRecipes &&
         userRecipes.map((recipe) => (
-          <div className="col" key={recipe.id.user}>
+          <div className="col" key={recipe.id}>
             <div className="card h-100" style={{ backgroundColor: "#9dbebb" }}>
               <div className="card-body">
                 <h5 className="card-title">{recipe.title}</h5>
                 <p className="card-text">{recipe.description}</p>
                 <button
                   className="btn btn-primary btn-block"
-                  style={{ backgroundColor: "#20695e" }}
+                  style={{ backgroundColor: "#20695e", border: "#ac3b61" }}
                   onClick={() => handleRecipeClick(recipe.recipe)}
                 >
                   View Recipe
