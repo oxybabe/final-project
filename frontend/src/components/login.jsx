@@ -5,24 +5,25 @@ import Button from "react-bootstrap/Button";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import Header from "./Header";
+import useLocalStorage from "./UseLocalStorage";
 
 export default function UserLogin() {
   const navigate = useNavigate();
-  const [user, setUser] = useState({
-    username: "",
-    password: "",
-  });
+  const [isValid, setIsValid] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [user, setUser, removeUser] = useLocalStorage("user");
 
-  const handleInput = (e) => {
-    const { name, value } = e.target;
-    setUser((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+  const handleUsernameInput = (e) => {
+    setUsername(e.target.value)
   };
+  const handlePasswordInput = (e) => {
+    setPassword(e.target.value);
+  }
   const handleError = (err) => {
     console.log(err);
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -33,12 +34,13 @@ export default function UserLogin() {
         "X-CSRFToken": Cookies.get("csrftoken"),
       },
       body: JSON.stringify({
-        username: "test8",
-        password: "welcomepass",
+        username: username,
+        password: password,
+      
       }),
     };
     const response = await fetch(
-      "http://127.0.0.1:8000/dj-rest-auth/login/",
+      "http://127.0.0.1:8000/auth/login/",
       options
     ).catch(handleError);
     if (!response.ok) {
@@ -46,10 +48,14 @@ export default function UserLogin() {
     }
     const data = await response.json();
     console.log({ data });
+    setUser({
+      username: username, 
+      id: data.id,
+      token: data.key,
+    })
     Cookies.set("Authorization", `Token ${data.key}`);
-
+    setIsValid(true);
     navigate("/recipes");
-    console.log(data);
   };
   return (
     <>
@@ -63,8 +69,8 @@ export default function UserLogin() {
             type="text"
             name="username"
             placeholder="Enter username"
-            value={user.username}
-            onChange={handleInput}
+            value={username}
+            onChange={handleUsernameInput}
           ></input>
 
           <Form.Text className="text-muted"></Form.Text>
@@ -77,8 +83,8 @@ export default function UserLogin() {
             type="password"
             name="password"
             placeholder="Password"
-            value={user.password}
-            onChange={handleInput}
+            value={password}
+            onChange={handlePasswordInput}
           ></input>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCheckbox">

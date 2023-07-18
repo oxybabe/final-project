@@ -11,7 +11,7 @@ function Header() {
   };
   const handleLogout = async () => {
     const user = {
-      username: "test8",
+      username: "test",
       password: "welcomepass",
     };
     const options = {

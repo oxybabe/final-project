@@ -1,12 +1,15 @@
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from requests import Response
 
 # from requests import Response
 from rest_framework.views import APIView
 from django.contrib.auth import authenticate, login
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from .models import Recipe, MealPlan, CalendarEvent
 from dj_rest_auth.registration.views import RegisterView
+from rest_framework.permissions import IsAuthenticated
+
 
 # from django.contrib.auth import get_user_model
 
@@ -25,8 +28,7 @@ from rest_framework.permissions import (
     IsAdminUser,
     AllowAny,
 )
-from rest_framework import permissions
-from rest_framework import status
+from rest_framework import permissions, viewsets
 
 
 # Create your views here.
@@ -45,8 +47,36 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         return obj.user == request.user or request.user.is_superuser
 
 
-permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+# permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
+# @api_view(['POST'])
+# # @permission_classes([IsAuthenticated])
+# def create_recipe(request):
+    # Extract the recipe data from the request
+    
+    # title = request.data.get('title')
+    # description = request.data.get('description')
+    # cooking_time = request.data.get('cooking_time')
+    # servings = request.data.get('servings')
+    # ingredients = request.data.get('ingredients')
+    # directions = request.data.get('directions')
+
+    # # Get the authenticated user
+    # user = request.user
+
+    # # Create the recipe and associate it with the user
+    # recipe = Recipe.objects.create(
+    #     title=title,
+    #     description=description,
+    #     cooking_time=cooking_time,
+    #     servings=servings,
+    #     ingredients=ingredients,
+    #     directions=directions,
+    #     user=user
+    # )
+
+    # # Return the response
+    # return Response({'message': 'Recipe created successfully'})
 
 class RecipeListAPIView(generics.ListCreateAPIView):
     permission_classes = (AllowAny,)
@@ -60,16 +90,31 @@ class RecipeListAPIView(generics.ListCreateAPIView):
     # filters so only the user sees their list of recipes
 
     # def perform_create(self, serializer):
+    #     serializer.save(user=self.request.user)
+
     #     if self.request.user.is_authenticated:
     #         serializer.save(user=self.request.user.id)
     #     else:
     #         serializer.save()
 
 
+class RecipeViewSet(viewsets.ModelViewSet):
+    queryset = Recipe.objects.all()
+    serializer_class = RecipeSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def perform_update(self, serializer):
+        serializer.save(user=self.request.user)
+
+
 class RecipeDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsOwnerOrReadOnly,)
     serializer_class = RecipeSerializer
     queryset = Recipe.objects.all()
+
+
 
 
 class MealPlanListAPIView(generics.ListCreateAPIView):

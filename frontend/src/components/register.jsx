@@ -43,7 +43,7 @@ const UserRegistration = () => {
       const data = await response.json();
       console.log({ data });
       Cookies.set("Authorization", `Token ${data.key}`);
-      navigate("/recipes");
+      navigate("/login");
     }
   };
   // const handleRegistrationSubmit = async (e) => {

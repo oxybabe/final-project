@@ -29,3 +29,4 @@ class CustomLoginView(LoginView):
     def get_response_serializer(self):
         return serializers.CustomLoginSerializer
     
+    

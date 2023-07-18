@@ -1,6 +1,7 @@
-import { useEffect, useState, process } from "react";
+import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
+import useLocalStorage from "./useLocalStorage";
 
 import React from "react";
 import Header from "./Header";
@@ -8,8 +9,11 @@ import Header from "./Header";
 const Recipe = () => {
   const navigate = useNavigate();
   const [recipes, setRecipes] = useState([]);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [isUserLoggedIn, setIsUserLoggedIn] = useState("false");
   const [search, setSearch] = useState("");
+  console.log(user.username);
+
   const fetchRecipeData = () => {
     fetch(
       `https://api.edamam.com/api/recipes/v2?type=public&app_id=5eee6e55&app_key=${
@@ -26,23 +30,24 @@ const Recipe = () => {
       });
   };
   useEffect(() => {
-    const checkAuth = () => {
-      const token = Cookies.get("Authorization");
-      console.log("auth cookie", Cookies.get("Authorization"));
-      if (token) {
-        setIsUserLoggedIn(true);
-      }
-    };
-    checkAuth();
+    // const checkAuth = () => {
+    //   const token = Cookies.get("Authorization");
+    //   console.log("auth cookie", Cookies.get("Authorization"));
+    //   if (token) {
+    //     setIsUserLoggedIn(true);
+    //     setUser(token);
+    //   }
+    // };
+    // checkAuth();
   }, []);
 
   const sendRecipeData = (recipe) => {
-    fetch("http://127.0.0.1:8000/recipe/recipes/", {
+    fetch("http://localhost:8000/recipe/recipes/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "X-CSRFToken": Cookies.get("csrftoken"),
-        Authorization: Cookies.get("Authorization"),
+        Authorization: Cookies.get("Authorization").trim(),
       },
       body: JSON.stringify(recipe),
     })
@@ -68,22 +73,13 @@ const Recipe = () => {
   const handleRecipeClick = (recipe) => {
     // const selectedRecipe = {
     window.location.href = recipe.shareAs;
-    // title: recipe.label,
-    // description: JSON.stringify(recipe.cuisineType),
-    // image: data.image,
-    // cooking_time: recipe.totalTime,
-    // directions: recipe.shareAs,
-    // servings: recipe.yield,
-    // ingredients: JSON.stringify(recipe.ingredientLines),
-    // user: null,
-    // };
-
-    console.log(selectedRecipe);
   };
 
-  const handleAddRecipeClick = (recipe, user) => {
+  const handleAddRecipeClick = async (recipe) => {
+    // console.log("user:", username);
     if (Cookies.get("Authorization")) {
       const selectedRecipe = {
+        // user: user?.username, // Use the username from local storage
         title: recipe.label,
         description: JSON.stringify(recipe.cuisineType),
         // image: data.image,
@@ -91,14 +87,31 @@ const Recipe = () => {
         directions: recipe.shareAs,
         servings: recipe.yield,
         ingredients: JSON.stringify(recipe.ingredientLines),
-        user: user,
       };
       console.log(selectedRecipe);
       sendRecipeData(selectedRecipe);
     } else {
       navigate("/login");
     }
+
+    // const options = {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "X-CSRFToken": Cookies.get("csrftoken"),
+    //   },
+    //   body: selectedRecipe,
+    // };
+    // const response = await fetch("http://127.0.0.1:8000/recipe/recipes/");
+    // if (!response.ok) {
+    //   throw new Error("Network response not ok");
+    // } else alert("Recipe added!");
+
+    // const data = await response.json();
+    // console.log({ data });
+    // // navigate("/myrecipes");
   };
+
   const handleSearchInput = (event) => {
     setSearch(event.target.value);
   };
@@ -157,7 +170,7 @@ const Recipe = () => {
                   <button
                     className="btn btn-primary btn-block padding-top"
                     style={{ backgroundColor: "#20695e" }}
-                    onClick={() => handleAddRecipeClick(recipe.recipe,)}
+                    onClick={() => handleAddRecipeClick(recipe.recipe)}
                   >
                     Add to my recipes
                   </button>

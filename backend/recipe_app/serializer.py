@@ -22,11 +22,8 @@ class RecipeSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-
-
-
 class MealPlanSerializer(serializers.ModelSerializer):
-    recipes = RecipeSerializer(many=True)
+    recipes = RecipeSerializer(many=True, read_only=True)
 
     class Meta:
         model = MealPlan

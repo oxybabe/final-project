@@ -1,8 +1,11 @@
+from requests import request
 from rest_framework import serializers
 from dj_rest_auth.models import TokenModel
 from . import models
 from recipe_app.models import Recipe
 from django.contrib.auth import get_user_model
+
+User = get_user_model
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -34,14 +37,14 @@ class TokenSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class RecipeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Recipe
-        fields = "__all__"
+# class RecipeSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Recipe
+#         fields = "__all__"
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
-    recipes = RecipeSerializer(many=True, read_only=True)
+    recipes = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = get_user_model()
