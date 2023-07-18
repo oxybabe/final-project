@@ -42,7 +42,7 @@ const Recipe = () => {
   }, []);
 
   const sendRecipeData = (recipe) => {
-    fetch("http://localhost:8000/recipe/recipes/", {
+    fetch(`http://localhost:8000/recipe/recipes/${user.id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -79,14 +79,14 @@ const Recipe = () => {
     // console.log("user:", username);
     if (Cookies.get("Authorization")) {
       const selectedRecipe = {
-        // user: user?.username, // Use the username from local storage
+        author_id: user.id, // Use the username from local storage
         title: recipe.label,
-        description: JSON.stringify(recipe.cuisineType),
+        description: recipe.cuisineType[0],
         // image: data.image,
         cooking_time: recipe.totalTime,
         directions: recipe.shareAs,
         servings: recipe.yield,
-        ingredients: JSON.stringify(recipe.ingredientLines),
+        ingredients: recipe.ingredientLines.join(", "),
       };
       console.log(selectedRecipe);
       sendRecipeData(selectedRecipe);
