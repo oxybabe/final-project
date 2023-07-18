@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 
-import FileUploader from "./FileUploaded";
-
 const AddRecipe = ({ setUserRecipes, userRecipes }) => {
   const [title, setTitle] = useState("");
   const [image, setImage] = useState(null);
@@ -14,15 +12,15 @@ const AddRecipe = ({ setUserRecipes, userRecipes }) => {
 
   const [selectedRecipeFile, setSelectedRecipeFile] = useState(false);
   const input = document.getElementById("fileinput");
-  const resizeFile = (file) => new Promise(resolve => {
-    Resizer.imageFileResizer(file, 300, 300, 'JPEG', 100, 0,
-    uri => {
-      resolve(uri);
-    }, 'base64' );
-});
+  //   const resizeFile = (file) => new Promise(resolve => {
+  //     Resizer.imageFileResizer(file, 300, 300, 'JPEG', 100, 0,
+  //     uri => {
+  //       resolve(uri);
+  //     }, 'base64' );
+  // });
   const changeHandler = async (event) => {
     const file = event.target.files[0];
-    const image = await resizeFile(file);
+    // const image = await resizeFile(file);
     setImage(file);
   };
   const handleSubmit = async (event) => {
@@ -67,6 +65,7 @@ const AddRecipe = ({ setUserRecipes, userRecipes }) => {
   return (
     <div className="AddRecipe">
       <form onSubmit={handleSubmit} style={{ backgroundColor: "#20695e" }}>
+        <h5>Add to your collection:</h5>
         <label>
           Recipe Title:
           <input
