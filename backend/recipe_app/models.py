@@ -10,7 +10,6 @@ from django.utils.html import mark_safe
 
 
 class Recipe(models.Model):
-  
     title = models.CharField(max_length=100, null=False)
     image = models.ImageField(upload_to="images/", null=True, blank=True)
     description = models.CharField(max_length=500, null=True)
@@ -18,11 +17,11 @@ class Recipe(models.Model):
     servings = models.IntegerField(null=True, blank=True)
     ingredients = models.CharField(max_length=5000, null=True)
     directions = models.CharField(max_length=5000, null=True)
-    
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name="recipes", on_delete=models.CASCADE
-    )
-    
+    author_id = models.IntegerField(null=True, blank=True)
+    # user = models.ForeignKey(
+    #     settings.AUTH_USER_MODEL, related_name="recipes", on_delete=models.CASCADE
+    # )
+
     def img_preview(self):  # new
         return mark_safe(f'<img src = "{self.image.url}" width = "300"/>')
 

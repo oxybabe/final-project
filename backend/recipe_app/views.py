@@ -52,40 +52,41 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 # @api_view(['POST'])
 # # @permission_classes([IsAuthenticated])
 # def create_recipe(request):
-    # Extract the recipe data from the request
-    
-    # title = request.data.get('title')
-    # description = request.data.get('description')
-    # cooking_time = request.data.get('cooking_time')
-    # servings = request.data.get('servings')
-    # ingredients = request.data.get('ingredients')
-    # directions = request.data.get('directions')
+# Extract the recipe data from the request
 
-    # # Get the authenticated user
-    # user = request.user
+# title = request.data.get('title')
+# description = request.data.get('description')
+# cooking_time = request.data.get('cooking_time')
+# servings = request.data.get('servings')
+# ingredients = request.data.get('ingredients')
+# directions = request.data.get('directions')
 
-    # # Create the recipe and associate it with the user
-    # recipe = Recipe.objects.create(
-    #     title=title,
-    #     description=description,
-    #     cooking_time=cooking_time,
-    #     servings=servings,
-    #     ingredients=ingredients,
-    #     directions=directions,
-    #     user=user
-    # )
+# # Get the authenticated user
+# user = request.user
 
-    # # Return the response
-    # return Response({'message': 'Recipe created successfully'})
+# # Create the recipe and associate it with the user
+# recipe = Recipe.objects.create(
+#     title=title,
+#     description=description,
+#     cooking_time=cooking_time,
+#     servings=servings,
+#     ingredients=ingredients,
+#     directions=directions,
+#     user=user
+# )
+
+# # Return the response
+# return Response({'message': 'Recipe created successfully'})
+
 
 class RecipeListAPIView(generics.ListCreateAPIView):
     permission_classes = (AllowAny,)
     serializer_class = RecipeSerializer
     queryset = Recipe.objects.all()
 
-    # def get_queryset(self):
-    #     print(self)
-    #     return Recipe.objects.filter(user=self.request.user.id)
+    def get_queryset(self):
+        author_id = self.kwargs["author_id"]
+        return Recipe.objects.filter(author_id=author_id)
 
     # filters so only the user sees their list of recipes
 
@@ -113,8 +114,6 @@ class RecipeDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsOwnerOrReadOnly,)
     serializer_class = RecipeSerializer
     queryset = Recipe.objects.all()
-
-
 
 
 class MealPlanListAPIView(generics.ListCreateAPIView):
