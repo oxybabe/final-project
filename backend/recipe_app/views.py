@@ -111,19 +111,19 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
 
 class RecipeDetailView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsOwnerOrReadOnly,)
+    # permission_classes = (IsOwnerOrReadOnly,)
     serializer_class = RecipeSerializer
     queryset = Recipe.objects.all()
 
 
 class MealPlanListAPIView(generics.ListCreateAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     serializer_class = MealPlanSerializer
     queryset = MealPlan.objects.all()
 
 
 class MealPlanDetailView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsOwnerOrReadOnly,)
+    # permission_classes = (IsOwnerOrReadOnly,)
     serializer_class = MealPlanSerializer
     queryset = MealPlan.objects.all()
 

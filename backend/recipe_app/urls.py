@@ -6,10 +6,11 @@ urlpatterns = [
     # path("home/", views.HomeView.as_view(), name="home"),
     # path("", views.getRecipe),
     # path("post/", views.postRecipe),
-    path("recipes/<int:author_id>", views.RecipeListAPIView.as_view(), name="recipe_list"),
-    path("recipes/<int:pk>/", views.RecipeDetailView.as_view(), name="recipe_detail"),
+    path(
+        "recipes/<int:author_id>", views.RecipeListAPIView.as_view(), name="recipe_list"
+    ),
+    path("recipe/<int:pk>/", views.RecipeDetailView.as_view(), name="recipe_detail"),
     path("mealplans/", views.MealPlanListAPIView.as_view(), name="meal_plan_list"),
-    
     path(
         "mealplans/<int:pk>/",
         views.MealPlanDetailView.as_view(),
@@ -25,7 +26,6 @@ urlpatterns = [
         views.CalendarEventDetailView.as_view(),
         name="calendar_event_detail",
     ),
-   
     # ),
     # path("update/", views.updateRecipe),
     # path("delete/", views.deleteRecipe),

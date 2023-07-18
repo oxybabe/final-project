@@ -14,8 +14,15 @@ const AddRecipe = ({ setUserRecipes, userRecipes }) => {
 
   const [selectedRecipeFile, setSelectedRecipeFile] = useState(false);
   const input = document.getElementById("fileinput");
-  const changeHandler = (event) => {
+  const resizeFile = (file) => new Promise(resolve => {
+    Resizer.imageFileResizer(file, 300, 300, 'JPEG', 100, 0,
+    uri => {
+      resolve(uri);
+    }, 'base64' );
+});
+  const changeHandler = async (event) => {
     const file = event.target.files[0];
+    const image = await resizeFile(file);
     setImage(file);
   };
   const handleSubmit = async (event) => {
@@ -51,6 +58,10 @@ const AddRecipe = ({ setUserRecipes, userRecipes }) => {
       setIngredients("");
       setDirections("");
     }
+  };
+  const handleRecipeClick = (recipe) => {
+    window.location.href = recipe.shareAs;
+    console.log(selectedRecipeFile);
   };
 
   return (

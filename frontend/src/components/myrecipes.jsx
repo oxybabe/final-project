@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import { useNavigate } from "react-router-dom";
 import AddRecipe from "./AddRecipes";
+import Cookies from "js-cookie";
 
 const UserRecipes = () => {
   const [userRecipes, setUserRecipes] = useState([]);
@@ -43,9 +44,33 @@ const UserRecipes = () => {
     console.log(selectedRecipe);
     getRecipeData(selectedRecipe);
   };
+  const deleteRecipe = async (id) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8000/recipe/recipe/${id}/`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": Cookies.get("csrftoken"),
+            Authorization: Cookies.get("Authorization").trim(),
+          },
+          body: JSON.stringify({ id }),
+        }
+      );
+      if (response.ok) {
+        console.log("Recipe deleted");
+        fetchRecipeData();
+      } else {
+        console.log("failed to delete recipe");
+      }
+    } catch (error) {
+      console.log("An error occurred while delete the recipe", error);
+    }
+  };
+
   // const getRecipeData = (recipe) => {
-  //   fetch(`http://localhost:8000/recipe/recipes/${user.id}`,
-  //   {
+  //   fetch(`http://localhost:8000/recipe/recipes/${user.id}`, {
   //     method: "GET",
   //     headers: {
   //       "Content-Type": "application/json",
@@ -83,12 +108,30 @@ const UserRecipes = () => {
               <div className="card-body">
                 <h5 className="card-title">{recipe.title}</h5>
                 <p className="card-text">{recipe.description}</p>
+                <p className="card-text">{recipe.ingredients}</p>
+
+                <img src={recipe.image} className="card-img-top" alt="..." />
                 <button
                   className="btn btn-primary btn-block"
                   style={{ backgroundColor: "#20695e", border: "#ac3b61" }}
-                  onClick={() => handleRecipeClick(recipe.recipe)}
+                  onClick={() => viewRecipe(recipe)}
                 >
                   View Recipe
+                </button>
+                <br />
+                <button
+                  className="btn btn-primary btn-block"
+                  style={{ backgroundColor: "#20695e", border: "#ac3b61" }}
+                >
+                  Edit Recipe
+                </button>
+                <br />
+                <button
+                  className="btn btn-primary btn-block"
+                  style={{ backgroundColor: "#20695e", border: "#ac3b61" }}
+                  onClick={() => deleteRecipe(recipe.id)}
+                >
+                  Delete Recipe
                 </button>
               </div>
             </div>

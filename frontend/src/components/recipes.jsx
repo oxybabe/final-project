@@ -71,7 +71,6 @@ const Recipe = () => {
   }, []);
 
   const handleRecipeClick = (recipe) => {
-    // const selectedRecipe = {
     window.location.href = recipe.shareAs;
   };
 
@@ -93,23 +92,6 @@ const Recipe = () => {
     } else {
       navigate("/login");
     }
-
-    // const options = {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "X-CSRFToken": Cookies.get("csrftoken"),
-    //   },
-    //   body: selectedRecipe,
-    // };
-    // const response = await fetch("http://127.0.0.1:8000/recipe/recipes/");
-    // if (!response.ok) {
-    //   throw new Error("Network response not ok");
-    // } else alert("Recipe added!");
-
-    // const data = await response.json();
-    // console.log({ data });
-    // // navigate("/myrecipes");
   };
 
   const handleSearchInput = (event) => {
