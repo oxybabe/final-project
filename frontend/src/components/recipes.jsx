@@ -61,6 +61,7 @@ const Recipe = () => {
       })
       .then((data) => {
         console.log(data);
+        alert("Recipe added to your library!");
       })
       .catch((error) => {
         console.log(error);
@@ -81,7 +82,8 @@ const Recipe = () => {
         author_id: user.id, // Use the username from local storage
         title: recipe.label,
         description: recipe.cuisineType[0],
-        // image: data.image,
+        // image: recipe.image,
+        dish_type: recipe.dish_type,
         cooking_time: recipe.totalTime,
         directions: recipe.shareAs,
         servings: recipe.yield,
@@ -143,7 +145,7 @@ const Recipe = () => {
                   <p className="card-text"></p>
                   <button
                     className="btn btn-primary btn-block"
-                    style={{ backgroundColor: "#20695e" }}
+                    style={{ backgroundColor: "#20695e", border: "#123c69" }}
                     onClick={() => handleRecipeClick(recipe.recipe)}
                   >
                     View Recipe
@@ -151,7 +153,7 @@ const Recipe = () => {
                   <br />
                   <button
                     className="btn btn-primary btn-block padding-top"
-                    style={{ backgroundColor: "#20695e" }}
+                    style={{ backgroundColor: "#20695e", border: "#123c69" }}
                     onClick={() => handleAddRecipeClick(recipe.recipe)}
                   >
                     Add to my recipes

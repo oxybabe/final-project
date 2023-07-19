@@ -15,6 +15,7 @@ export default function UpdateRecipe({
       title: "",
       image: "",
       description: "",
+      dish_type: "",
       cooking_time: "",
       servings: "",
       ingredients: "",
@@ -24,12 +25,12 @@ export default function UpdateRecipe({
     <>
       <form onSubmit={editFormSubmit}>
         <div className="form-group">
-          <label>Recipe title:{""}</label>
+          <label htmlFor="title">Recipe title:</label>
           <input
             type="text"
             className="form-control"
             id="title"
-            placeholder="title"
+            placeholder="Title"
             value={recipeData.title}
             onChange={(e) =>
               setRecipeData({ ...recipeData, title: e.target.value })
@@ -37,12 +38,12 @@ export default function UpdateRecipe({
           />
         </div>
         <div className="form-group">
-          <label>Description:{""}</label>
+          <label htmlFor="description">Description:</label>
           <input
             type="text"
             className="form-control"
             id="description"
-            placeholder="description"
+            placeholder="Description"
             value={recipeData.description}
             onChange={(e) =>
               setRecipeData({ ...recipeData, description: e.target.value })
@@ -50,11 +51,24 @@ export default function UpdateRecipe({
           />
         </div>
         <div className="form-group">
-          <label>Cooking time:{""}</label>
+          <label htmlFor="description">Dish Type:</label>
+          <input
+            type="text"
+            className="form-control"
+            id="dish_type"
+            placeholder="Dish Type"
+            value={recipeData.dish_type}
+            onChange={(e) =>
+              setRecipeData({ ...recipeData, dish_type: e.target.value })
+            }
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="cooking_time">Cooking time:</label>
           <input
             className="form-control"
             id="cooking_time"
-            placeholder="cooking time"
+            placeholder="Cooking time"
             value={recipeData.cooking_time}
             onChange={(e) =>
               setRecipeData({ ...recipeData, cooking_time: e.target.value })
@@ -62,15 +76,20 @@ export default function UpdateRecipe({
           />
         </div>
         <div className="form-group">
-          <label>Servings:</label>
-          <input className="form-control" id="" placeholder="servings" />
+          <label htmlFor="servings">Servings:</label>
+          <input
+            type="text"
+            className="form-control"
+            id="servings"
+            placeholder="Servings"
+          />
         </div>
         <div className="form-group">
-          <label>Ingredients:{""}</label>
+          <label htmlFor="ingredients">Ingredients:</label>
           <textarea
             className="form-control"
-            id=""
-            placeholder="ingredients"
+            id="ingredients"
+            placeholder="Ingredients"
             value={recipeData.ingredients}
             onChange={(e) =>
               setRecipeData({ ...recipeData, ingredients: e.target.value })
@@ -79,11 +98,11 @@ export default function UpdateRecipe({
           ></textarea>
         </div>
         <div className="form-group">
-          <label>Directions:{""}</label>
+          <label htmlFor="directions">Directions:</label>
           <textarea
             className="form-control"
-            id=""
-            placeholder="directions"
+            id="directions"
+            placeholder="Directions"
             value={recipeData.directions}
             rows="3"
             onChange={(e) =>
@@ -91,22 +110,24 @@ export default function UpdateRecipe({
             }
           ></textarea>
         </div>
+        <button
+          type="submit"
+          className="btn btn-primary"
+          onClick={() => handleUpdateRecipe(recipe.id, recipeData)}
+          style={{ backgroundColor: "#20695e", border: "#ac3b61" }}
+        >
+          Submit Change
+        </button>
+        <button
+          style={{ backgroundColor: "#20695e", border: "#ac3b61" }}
+          className="btn btn-secondary"
+          onClick={() => {
+            setIsEditing(false);
+          }}
+        >
+          Cancel
+        </button>
       </form>
-      <button
-        type="submit"
-        onClick={() => handleUpdateRecipe(recipe.id, recipeData)}
-      >
-        Submit Change
-      </button>
-      <br />
-      <button
-        onClick={() => {
-          console.log("here");
-          setIsEditing(false);
-        }}
-      >
-        Cancel
-      </button>
     </>
   );
 }

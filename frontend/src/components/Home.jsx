@@ -22,6 +22,7 @@ const Home = () => {
               className="d-block w-100"
               src="./public/media/chocolatecake.jpg"
               alt="First slide"
+              style={{ width: 300 }}
             />
             <Carousel.Caption>
               {/* <h3>First slide label</h3>
@@ -33,6 +34,7 @@ const Home = () => {
               className="d-block w-100"
               src="./public/media/food and drink.jpg"
               alt="Second slide"
+              style={{ width: 300 }}
             />
             <Carousel.Caption>
               {/* <h3>Second slide label</h3>
@@ -44,6 +46,7 @@ const Home = () => {
               className="d-block w-100"
               src="./public/media/meal.jpg"
               alt="Third slide"
+              style={{ width: 300 }}
             />
             <Carousel.Caption>
               {/* <h3>Third slide label</h3>
@@ -57,6 +60,7 @@ const Home = () => {
               className="d-block w-100"
               src="./public/media/brooke-lark-HlNcigvUi4Q-unsplash.jpg"
               alt="Third slide"
+              style={{ width: 300 }}
             />
             <Carousel.Caption>
               {/* <h3>Third slide label</h3>

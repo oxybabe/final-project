@@ -8,7 +8,7 @@ import UpdateForm from "./UpdateForm";
 const UserRecipes = () => {
   const [userRecipes, setUserRecipes] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
-  // const [editedRecipe, setEditedRecipe] = useState({ ...data });
+  const [viewedRecipe, setViewedRecipe] = useState(null); 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [activeId, setActiveId] = useState(null);
 
@@ -36,21 +36,23 @@ const UserRecipes = () => {
     fetchRecipeData();
   }, []);
   const handleRecipeClick = (recipe) => {
+    setViewedRecipe(recipe);
     window.location.href = recipe.shareAs;
   };
   const viewRecipe = (recipe) => {
     const selectedRecipe = {
       title: recipe.label,
       description: JSON.stringify(recipe.cuisineType),
-      image: data.image,
+      // image: data.image,
       cooking_time: recipe.totalTime,
+      dish_type: recipe.dish_type,
       directions: recipe.shareAs,
       servings: recipe.yield,
       ingredients: JSON.stringify(recipe.ingredientLines),
       user: user,
     };
     console.log(selectedRecipe);
-    getRecipeData(selectedRecipe);
+    // getRecipeData(selectedRecipe);
   };
   const deleteRecipe = async (id) => {
     try {
@@ -70,7 +72,7 @@ const UserRecipes = () => {
         console.log("Recipe deleted");
         const index = userRecipes.findIndex((recipe) => recipe.id === id);
         const newRecipe = [...userRecipes];
-        newRecipe.splice(index, 1);
+        newRecipe.splice(index, 1, data);
         setUserRecipes(newRecipe);
       } else {
         console.log("failed to delete recipe");
@@ -144,60 +146,63 @@ const UserRecipes = () => {
       <h1 style={{ color: "#123c69" }}>My Recipe Collection</h1>
 
       <AddRecipe setUserRecipes={setUserRecipes} userRecipes={userRecipes} />
-      <div className="row row-cols-1 row-cols-md-4 g-4"></div>
+      <br />
 
-      {userRecipes &&
-        userRecipes.map((recipe) => (
-          <div className="col" key={recipe.id}>
-            <div className="card h-100" style={{ backgroundColor: "#9dbebb" }}>
-              <div className="card-body">
-                <h5 className="card-title">{recipe.title}</h5>
-                <p className="card-text">{recipe.description}</p>
-                <p className="card-text">{recipe.ingredients}</p>
-
-                <img
-                  src={recipe.image}
-                  className="card-img-top"
-                  style={{ width: 400 }}
-                  alt="..."
-                />
-                <br />
-                <button
-                  className="btn btn-primary btn-block"
-                  style={{ backgroundColor: "#20695e", border: "#ac3b61" }}
-                  onClick={() => viewRecipe(recipe.id)}
-                >
-                  View Recipe
-                </button>
-                <br />
-                {activeId === recipe.id && isEditing ? (
-                  <UpdateForm
-                    recipe={recipe}
-                    handleUpdateRecipe={handleUpdateRecipe}
-                    setIsEditing={setIsEditing}
+      <div className="row row-cols-1 row-cols-md-4 g-4">
+        {userRecipes &&
+          userRecipes.map((recipe) => (
+            <div className="col" key={recipe.id}>
+              <div
+                className="card h-100"
+                style={{ backgroundColor: "#9dbebb" }}
+              >
+                <div className="card-body">
+                  <h5 className="card-title">{recipe.title}</h5>
+                  Meal Type:
+                  <p className="card-text">{recipe.dish_type}</p>
+                  <img
+                    src={recipe.image}
+                    className="card-img-top"
+                    style={{ width: 400 }}
+                    alt="..."
                   />
-                ) : (
+                  <br />
                   <button
                     className="btn btn-primary btn-block"
                     style={{ backgroundColor: "#20695e", border: "#ac3b61" }}
-                    onClick={() => openEditor(recipe.id)}
+                    onClick={() => viewRecipe(recipe.id)}
                   >
-                    Edit Recipe
+                    View Recipe
                   </button>
-                )}
-
-                <br />
-                <button
-                  className="btn btn-primary btn-block"
-                  style={{ backgroundColor: "#20695e", border: "#ac3b61" }}
-                  onClick={() => deleteRecipe(recipe.id)}
-                >
-                  Delete Recipe
-                </button>
+                  <br />
+                  {activeId === recipe.id && isEditing ? (
+                    <UpdateForm
+                      recipe={recipe}
+                      handleUpdateRecipe={handleUpdateRecipe}
+                      setIsEditing={setIsEditing}
+                    />
+                  ) : (
+                    <button
+                      className="btn btn-primary btn-block"
+                      style={{ backgroundColor: "#20695e", border: "#ac3b61" }}
+                      onClick={() => openEditor(recipe.id)}
+                    >
+                      Edit Recipe
+                    </button>
+                  )}
+                  <br />
+                  <button
+                    className="btn btn-primary btn-block"
+                    style={{ backgroundColor: "#20695e", border: "#ac3b61" }}
+                    onClick={() => deleteRecipe(recipe.id)}
+                  >
+                    Delete Recipe
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+      </div>
     </>
   );
 };
