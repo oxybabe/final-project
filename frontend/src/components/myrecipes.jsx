@@ -66,7 +66,7 @@ const UserRecipes = () => {
         console.log("Recipe deleted");
         const index = userRecipes.findIndex((recipe) => recipe.id === id);
         const newRecipe = [...userRecipes];
-        newRecipe.splice(index, 1, data);
+        newRecipe.splice(index, 1);
         setUserRecipes(newRecipe);
       } else {
         console.log("failed to delete recipe");
@@ -77,17 +77,37 @@ const UserRecipes = () => {
   };
 
   const handleUpdateRecipe = async (id, recipeData) => {
+    const {
+      title,
+      description,
+      dish_type,
+      cooking_time,
+      servings,
+      ingredients,
+      directions,
+    } = recipeData;
+    console.log("here", { recipeData });
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("dish_type", dish_type);
+    formData.append("cooking_type", cooking_time);
+    formData.append("servings", servings);
+    formData.append("ingredients", ingredients);
+    formData.append("directions", directions);
+
     try {
       const response = await fetch(
         `http://localhost:8000/recipe/recipe/${id}/`,
         {
           method: "PATCH",
           headers: {
-            "Content-Type": "application/json",
+            // "Content-Type": "application/json",
             "X-CSRFToken": Cookies.get("csrftoken"),
             Authorization: Cookies.get("Authorization").trim(),
           },
-          body: JSON.stringify(recipeData),
+          body: formData,
         }
       );
       if (response.ok) {
@@ -128,12 +148,22 @@ const UserRecipes = () => {
                   <h5 className="card-title">{recipe.title}</h5>
                   Meal Type:
                   <p className="card-text">{recipe.dish_type}</p>
-                  <img
-                    src={recipe.image}
-                    className="card-img-top"
-                    style={{ width: 400 }}
-                    alt="..."
-                  />
+                  {recipe.image && (
+                    <img
+                      src={recipe.image}
+                      className="card-img-top"
+                      style={{ width: 400 }}
+                      alt="..."
+                    />
+                  )}
+                  {recipe.imageURL && (
+                    <img
+                      src={recipe.imageURL}
+                      className="card-img-top"
+                      style={{ width: 400 }}
+                      alt="..."
+                    />
+                  )}
                   <br />
                   <button
                     className="btn btn-primary btn-block"

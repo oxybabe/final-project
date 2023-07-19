@@ -9,18 +9,23 @@ export default function UpdateRecipe({
   const [recipeData, setRecipeData] = useState(recipe);
   const editFormSubmit = (e) => {
     e.preventDefault();
+    console.log("recipe", { recipe });
+    console.log("data", recipeData);
     handleUpdateRecipe(recipe.id, recipeData);
-    setRecipeData({
-      id: "",
-      title: "",
-      image: "",
-      description: "",
-      dish_type: "",
-      cooking_time: "",
-      servings: "",
-      ingredients: "",
-    });
+    // setRecipeData({
+    //   id: "",
+    //   title: "",
+    //   image: null,
+    //   imageURL: "",
+    //   description: "",
+    //   dish_type: "",
+    //   cooking_time: "",
+    //   servings: "",
+    //   ingredients: "",
+    // });
   };
+
+  console.log({ recipe });
   return (
     <>
       <form onSubmit={editFormSubmit}>

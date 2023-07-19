@@ -34,45 +34,19 @@ const Recipe = () => {
     fetchRecipeData();
   }, []);
 
-  // const sendRecipeData = (recipe) => {
-  //   fetch(`http://localhost:8000/recipe/recipes/${user.id}`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "X-CSRFToken": Cookies.get("csrftoken"),
-  //       Authorization: Cookies.get("Authorization").trim(),
-  //     },
-  //     body: JSON.stringify(recipe),
-  //   })
-  //     .then((response) => {
-  //       if (response.ok) {
-  //         return response.json();
-  //       } else {
-  //         console.log(response);
-  //         throw new Error("error");
-  //       }
-  //     })
-  //     .then((data) => {
-  //       console.log(data);
-  //       alert("Recipe added to your library!");
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
-
-  const handleRecipeClick = (recipe) => {
+  const viewRecipe = (recipe) => {
     window.location.href = recipe.shareAs;
   };
 
-  const handleAddRecipeClick = async (recipe) => {
+  const addRecipeToCollection = async (recipe) => {
     // console.log("user:", username);
     if (Cookies.get("Authorization")) {
       const selectedRecipe = {
         author_id: user.id, // Use the username from local storage
         title: recipe.label,
         description: recipe.cuisineType[0],
-        image: recipe.image,
+        image: null,
+        imageURL: recipe.image,
         dish_type: recipe.dish_type,
         cooking_time: recipe.totalTime,
         directions: recipe.shareAs,
@@ -93,7 +67,7 @@ const Recipe = () => {
           if (response.ok) {
             return response.json();
           } else {
-            console.log(response);
+            console.log({ response });
             throw new Error("error");
           }
         })
@@ -159,7 +133,7 @@ const Recipe = () => {
                   <button
                     className="btn btn-primary btn-block"
                     style={{ backgroundColor: "#20695e", border: "#123c69" }}
-                    onClick={() => handleRecipeClick(recipe.recipe)}
+                    onClick={() => viewRecipe(recipe.recipe)}
                   >
                     View Recipe
                   </button>
@@ -167,7 +141,7 @@ const Recipe = () => {
                   <button
                     className="btn btn-primary btn-block padding-top"
                     style={{ backgroundColor: "#20695e", border: "#123c69" }}
-                    onClick={() => handleAddRecipeClick(recipe.recipe)}
+                    onClick={() => addRecipeToCollection(recipe.recipe)}
                   >
                     Add to my recipes
                   </button>

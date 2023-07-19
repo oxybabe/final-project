@@ -12,7 +12,7 @@ from django.utils.html import mark_safe
 class Recipe(models.Model):
     title = models.CharField(max_length=100, null=False)
     image = models.ImageField(upload_to="images/", null=True, blank=True)
-    
+    imageURL = models.CharField(max_length=5000, null=True, blank=True)
     description = models.CharField(max_length=500, null=True)
     dish_type = models.CharField(max_length=50, null=True, blank=True)
     cooking_time = models.IntegerField(null=True, blank=True)
