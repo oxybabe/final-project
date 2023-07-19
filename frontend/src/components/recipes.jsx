@@ -29,47 +29,37 @@ const Recipe = () => {
         setRecipes(data.hits);
       });
   };
-  useEffect(() => {
-    // const checkAuth = () => {
-    //   const token = Cookies.get("Authorization");
-    //   console.log("auth cookie", Cookies.get("Authorization"));
-    //   if (token) {
-    //     setIsUserLoggedIn(true);
-    //     setUser(token);
-    //   }
-    // };
-    // checkAuth();
-  }, []);
 
-  const sendRecipeData = (recipe) => {
-    fetch(`http://localhost:8000/recipe/recipes/${user.id}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRFToken": Cookies.get("csrftoken"),
-        Authorization: Cookies.get("Authorization").trim(),
-      },
-      body: JSON.stringify(recipe),
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          console.log(response);
-          throw new Error("error");
-        }
-      })
-      .then((data) => {
-        console.log(data);
-        alert("Recipe added to your library!");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
   useEffect(() => {
     fetchRecipeData();
   }, []);
+
+  // const sendRecipeData = (recipe) => {
+  //   fetch(`http://localhost:8000/recipe/recipes/${user.id}`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "X-CSRFToken": Cookies.get("csrftoken"),
+  //       Authorization: Cookies.get("Authorization").trim(),
+  //     },
+  //     body: JSON.stringify(recipe),
+  //   })
+  //     .then((response) => {
+  //       if (response.ok) {
+  //         return response.json();
+  //       } else {
+  //         console.log(response);
+  //         throw new Error("error");
+  //       }
+  //     })
+  //     .then((data) => {
+  //       console.log(data);
+  //       alert("Recipe added to your library!");
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   const handleRecipeClick = (recipe) => {
     window.location.href = recipe.shareAs;
@@ -82,15 +72,38 @@ const Recipe = () => {
         author_id: user.id, // Use the username from local storage
         title: recipe.label,
         description: recipe.cuisineType[0],
-        // image: recipe.image,
+        image: recipe.image,
         dish_type: recipe.dish_type,
         cooking_time: recipe.totalTime,
         directions: recipe.shareAs,
         servings: recipe.yield,
         ingredients: recipe.ingredientLines.join(", "),
       };
-      console.log(selectedRecipe);
-      sendRecipeData(selectedRecipe);
+      console.log({ selectedRecipe });
+      fetch(`http://localhost:8000/recipe/recipes/${user.id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": Cookies.get("csrftoken"),
+          Authorization: Cookies.get("Authorization").trim(),
+        },
+        body: JSON.stringify(selectedRecipe),
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            console.log(response);
+            throw new Error("error");
+          }
+        })
+        .then((data) => {
+          console.log(data);
+          alert("Recipe added to your library!");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } else {
       navigate("/login");
     }

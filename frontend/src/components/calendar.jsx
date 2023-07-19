@@ -9,14 +9,14 @@ import Header from "./Header";
 const MealCalendar = () => {
   const localizer = momentLocalizer(moment);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
-
   const [mealEvent, setMealEvent] = useState([]);
+
   const handleError = (err) => {
     console.warn(err);
   };
 
   useEffect(() => {
-    const fetchRecipeData = async () => {
+    const fetchUserRecipeData = async () => {
       const response = await fetch(
         `http://localhost:8000/recipe/recipes/${user.id}`
       ).catch(handleError);
@@ -28,10 +28,11 @@ const MealCalendar = () => {
       setMealEvent(data);
     };
 
-    fetchRecipeData();
+    fetchUserRecipeData();
   }, []);
 
   const meal = mealEvent.map((event) => {
+    // const title = window.prompt("New Event");
     return {
       allDay: "false",
       id: mealEvent.id,
@@ -39,22 +40,8 @@ const MealCalendar = () => {
       start: mealEvent.date,
       end: mealEvent.date,
     };
+    // setMealEvent([...mealEvent, event]);
   });
-
-  // useEffect(() => {
-  //   const fetchEvents = [];
-
-  //   // async () => {
-  //   //   try {
-  //   //     const response = await fetch("http://127.0.0.1:8000/recipe/calendarevents/");
-  //   //     const data = await response.json();
-  //   //     setEvents(data);
-  //   //   } catch (error) {
-  //   //     console.error("error fetching events");
-  //   //   }
-  //   // };
-  //   setEvents(fetchEvents);
-  // }, []);
 
   return (
     <>

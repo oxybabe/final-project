@@ -5,6 +5,7 @@ import AddRecipe from "./AddRecipes";
 import Cookies from "js-cookie";
 import UpdateForm from "./UpdateForm";
 import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
 const UserRecipes = () => {
   const [userRecipes, setUserRecipes] = useState([]);
@@ -37,7 +38,7 @@ const UserRecipes = () => {
 
     fetchRecipeData();
   }, []);
- 
+
   const viewRecipe = (recipe) => {
     console.log(recipe);
     setRecipeModalData(recipe);
@@ -105,6 +106,8 @@ const UserRecipes = () => {
     }
   };
 
+  console.log({ userRecipes });
+
   return (
     <>
       <Header />
@@ -141,7 +144,11 @@ const UserRecipes = () => {
                   </button>
                   {recipeModalData && (
                     <Modal show={show} onHide={handleClose}>
+                      <Modal.Header closeButton></Modal.Header>
                       <Modal.Body>{recipeModalData.title}</Modal.Body>
+                      <Button variant="primary" onClick={handleClose}>
+                        Add to Calendar
+                      </Button>
                     </Modal>
                   )}
                   <br />

@@ -17,7 +17,7 @@ urlpatterns = [
     #     name="meal_plan_detail",
     # ),
     path(
-        "calendarevents/",
+        "calendarevents/<int:author_id>",
         views.CalendarEventListAPIView.as_view(),
         name="calendar_event",
     ),

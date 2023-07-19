@@ -12,6 +12,7 @@ from django.utils.html import mark_safe
 class Recipe(models.Model):
     title = models.CharField(max_length=100, null=False)
     image = models.ImageField(upload_to="images/", null=True, blank=True)
+    
     description = models.CharField(max_length=500, null=True)
     dish_type = models.CharField(max_length=50, null=True, blank=True)
     cooking_time = models.IntegerField(null=True, blank=True)
@@ -43,7 +44,6 @@ class CalendarEvent(models.Model):
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     author_id = models.IntegerField(null=True, blank=True)
-
 
 
 # https://www.sankalpjonna.com/learn-django/the-right-way-to-use-a-manytomanyfield-in-django
