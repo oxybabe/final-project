@@ -37,28 +37,11 @@ const UserRecipes = () => {
 
     fetchRecipeData();
   }, []);
-  const handleRecipeClick = (recipe) => {
-    setViewedRecipe(recipe);
-    window.location.href = recipe.shareAs;
-  };
+ 
   const viewRecipe = (recipe) => {
     console.log(recipe);
     setRecipeModalData(recipe);
     setShow(true);
-    // const selectedRecipe = {
-    // id: recipe.id,
-    // title: recipe.label,
-    // description: JSON.stringify(recipe.cuisineType),
-    // // image: data.image,
-    // cooking_time: recipe.totalTime,
-    // dish_type: recipe.dish_type,
-    // directions: recipe.shareAs,
-    // servings: recipe.yield,
-    // ingredients: JSON.stringify(recipe.ingredientLines),
-    // user: user,
-
-    console.log(selectedRecipe);
-    // getRecipeData(selectedRecipe);
   };
   const handleClose = () => {
     setRecipeModalData(null);

@@ -42,6 +42,8 @@ class CalendarEvent(models.Model):
     # title = models.CharField(max_length=100)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
+    author_id = models.IntegerField(null=True, blank=True)
+
 
 
 # https://www.sankalpjonna.com/learn-django/the-right-way-to-use-a-manytomanyfield-in-django

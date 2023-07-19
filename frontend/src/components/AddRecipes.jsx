@@ -15,15 +15,10 @@ const AddRecipe = ({ setUserRecipes, userRecipes }) => {
 
   const [selectedRecipeFile, setSelectedRecipeFile] = useState(false);
   const input = document.getElementById("fileinput");
-  //   const resizeFile = (file) => new Promise(resolve => {
-  //     Resizer.imageFileResizer(file, 300, 300, 'JPEG', 100, 0,
-  //     uri => {
-  //       resolve(uri);
-  //     }, 'base64' );
-  // });
+
   const changeHandler = async (event) => {
     const file = event.target.files[0];
-    // const image = await resizeFile(file);
+    
     setImage(file);
   };
 
