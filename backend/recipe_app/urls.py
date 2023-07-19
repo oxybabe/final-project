@@ -19,13 +19,13 @@ urlpatterns = [
     path(
         "calendarevents/<int:author_id>",
         views.CalendarEventListAPIView.as_view(),
-        name="calendar_event",
+        name="calendarevent-list",
     ),
-    path(
-        "calendarevents/<int:pk>",
-        views.CalendarEventDetailView.as_view(),
-        name="calendar_event_detail",
-    ),
+    # path(
+    #     "calendarevents/<int:pk>",
+    #     views.CalendarEventDetailView.as_view(),
+    #     name="calendar_event_detail",
+    # ),
     # ),
     # path("update/", views.updateRecipe),
     # path("delete/", views.deleteRecipe),

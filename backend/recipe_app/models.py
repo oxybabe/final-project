@@ -39,10 +39,9 @@ class Recipe(models.Model):
 
 
 class CalendarEvent(models.Model):
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, blank=True)
-    # title = models.CharField(max_length=100)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    all_day = models.BooleanField(default=True)
+    date = models.DateField(null=True)
     author_id = models.IntegerField(null=True, blank=True)
 
 

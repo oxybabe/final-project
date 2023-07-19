@@ -15,6 +15,7 @@ const UserRecipes = () => {
   const [activeId, setActiveId] = useState(null);
   const [recipeModalData, setRecipeModalData] = useState(null);
   const [show, setShow] = useState(false);
+  const [date, setDate] = useState("");
   const openEditor = (id) => {
     setActiveId(id);
     setIsEditing(true);
@@ -23,6 +24,7 @@ const UserRecipes = () => {
   const handleError = (err) => {
     console.warn(err);
   };
+
   useEffect(() => {
     const fetchRecipeData = async () => {
       const response = await fetch(
@@ -32,7 +34,6 @@ const UserRecipes = () => {
         throw new Error("Network error");
       }
       const data = await response.json();
-      console.log(data);
       setUserRecipes(data);
     };
 
@@ -40,7 +41,6 @@ const UserRecipes = () => {
   }, []);
 
   const viewRecipe = (recipe) => {
-    console.log(recipe);
     setRecipeModalData(recipe);
     setShow(true);
   };
@@ -126,7 +126,36 @@ const UserRecipes = () => {
     }
   };
 
-  console.log({ userRecipes });
+  const addToCalendar = async (recipe) => {
+    e.preventDefault();
+    console.log({ recipe });
+    const body = {
+      recipe: recipe,
+      allDay: "true",
+      start: date,
+      author_id: user.id,
+    };
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": Cookies.get("csrftoken"),
+        Authorization: Cookies.get("Authorization").trim(),
+      },
+      body: JSON.stringify(body),
+    };
+    console.log("herer");
+    const response = await fetch(
+      `http://127.0.0.1:8000/recipe/calendarevents/${user.id}`,
+      options
+    ).catch(handleError);
+    if (!response.ok) {
+      console.log("login not successful");
+    }
+    const data = await response.json();
+    console.log({ data });
+    handleClose();
+  };
 
   return (
     <>
@@ -172,15 +201,6 @@ const UserRecipes = () => {
                   >
                     View Recipe
                   </button>
-                  {recipeModalData && (
-                    <Modal show={show} onHide={handleClose}>
-                      <Modal.Header closeButton></Modal.Header>
-                      <Modal.Body>{recipeModalData.title}</Modal.Body>
-                      <Button variant="primary" onClick={handleClose}>
-                        Add to Calendar
-                      </Button>
-                    </Modal>
-                  )}
                   <br />
                   {activeId === recipe.id && isEditing ? (
                     <UpdateForm
@@ -210,6 +230,22 @@ const UserRecipes = () => {
             </div>
           ))}
       </div>
+      {recipeModalData && (
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>{recipeModalData.title}</Modal.Header>
+          <Modal.Body>
+            <form onSubmit={() => addToCalendar(recipeModalData)}>
+              <input
+                type="date"
+                name="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+              />
+              <button type="submit">Add to Calendar</button>
+            </form>
+          </Modal.Body>
+        </Modal>
+      )}
     </>
   );
 };

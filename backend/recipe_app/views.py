@@ -127,10 +127,33 @@ class RecipeDetailView(generics.RetrieveUpdateDestroyAPIView):
 #     queryset = MealPlan.objects.all()
 
 
+class RecipeListAPIView(generics.ListCreateAPIView):
+    permission_classes = (AllowAny,)
+    serializer_class = RecipeSerializer
+    queryset = Recipe.objects.all()
+
+    def get_queryset(self):
+        author_id = self.kwargs["author_id"]
+        return Recipe.objects.filter(author_id=author_id)
+
+    # filters so only the user sees their list of recipes
+
+    # def perform_create(self, serializer):
+    #     serializer.save(user=self.request.user)
+
+    #     if self.request.user.is_authenticated:
+    #         serializer.save(user=self.request.user.id)
+    #     else:
+    #         serializer.save()
+
+
 class CalendarEventListAPIView(generics.ListCreateAPIView):
-    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     serializer_class = CalendarEventSerializer
-    queryset = CalendarEvent.objects.all()
+    # queryset = CalendarEvent.objects.all()
+
+    def get_queryset(self):
+        author_id = self.kwargs["author_id"]
+        return CalendarEvent.objects.filter(author_id=author_id)
 
 
 class CalendarEventDetailView(generics.RetrieveUpdateDestroyAPIView):

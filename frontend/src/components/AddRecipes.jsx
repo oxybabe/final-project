@@ -60,7 +60,6 @@ const AddRecipe = ({ setUserRecipes, userRecipes }) => {
   };
   const handleRecipeClick = (recipe) => {
     window.location.href = recipe.shareAs;
-    console.log(selectedRecipeFile);
   };
   const handleClick = (event) => {
     setIsShown(true);

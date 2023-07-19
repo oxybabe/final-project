@@ -31,10 +31,10 @@ const MealCalendar = () => {
     fetchUserRecipeData();
   }, []);
 
-  const meal = mealEvent.map((event) => {
+  const meals = mealEvent.map((event) => {
     // const title = window.prompt("New Event");
     return {
-      allDay: "false",
+      allDay: "true",
       id: mealEvent.id,
       title: mealEvent.title,
       start: mealEvent.date,
@@ -52,7 +52,7 @@ const MealCalendar = () => {
             <h1 style={{ color: "#123c69" }}>Calendar</h1>
             <Calendar
               localizer={localizer}
-              events={meal}
+              events={meals}
               startAccessor="start_date"
               endAccessor="end_date"
               style={{ color: "#123c69" }}

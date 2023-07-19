@@ -15,11 +15,11 @@ export default function UserLogin() {
   const [user, setUser, removeUser] = useLocalStorage("user");
 
   const handleUsernameInput = (e) => {
-    setUsername(e.target.value)
+    setUsername(e.target.value);
   };
   const handlePasswordInput = (e) => {
     setPassword(e.target.value);
-  }
+  };
   const handleError = (err) => {
     console.log(err);
   };
@@ -36,7 +36,6 @@ export default function UserLogin() {
       body: JSON.stringify({
         username: username,
         password: password,
-      
       }),
     };
     const response = await fetch(
@@ -49,10 +48,10 @@ export default function UserLogin() {
     const data = await response.json();
     console.log({ data });
     setUser({
-      username: username, 
+      username: username,
       id: data.id,
       token: data.key,
-    })
+    });
     Cookies.set("Authorization", `Token ${data.key}`);
     setIsValid(true);
     navigate("/recipes");
