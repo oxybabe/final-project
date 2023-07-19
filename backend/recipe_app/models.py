@@ -31,16 +31,15 @@ class Recipe(models.Model):
 # https://codinggear.blog/how-to-show-image-in-django-admin/
 
 
-class MealPlan(models.Model):
-    # user = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=100, default=1)
-    recipes = models.ManyToManyField(Recipe)
+# class MealPlan(models.Model):
+#     # user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     title = models.CharField(max_length=100, default=1)
+#     recipes = models.ManyToManyField(Recipe)
 
 
 class CalendarEvent(models.Model):
-    # user = models.ForeignKey(User, on_delete=models.CASCADE)
-    meal_plan = models.ForeignKey(MealPlan, on_delete=models.CASCADE)
-    title = models.CharField(max_length=100)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, blank=True)
+    # title = models.CharField(max_length=100)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
 

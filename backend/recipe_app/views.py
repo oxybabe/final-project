@@ -6,7 +6,7 @@ from requests import Response
 from rest_framework.views import APIView
 from django.contrib.auth import authenticate, login
 from rest_framework.decorators import api_view, permission_classes
-from .models import Recipe, MealPlan, CalendarEvent
+from .models import Recipe, CalendarEvent
 from dj_rest_auth.registration.views import RegisterView
 from rest_framework.permissions import IsAuthenticated
 
@@ -18,7 +18,6 @@ from rest_framework.permissions import IsAuthenticated
 
 from .serializer import (
     RecipeSerializer,
-    MealPlanSerializer,
     CalendarEventSerializer,
 )
 from rest_framework import generics
@@ -116,20 +115,20 @@ class RecipeDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Recipe.objects.all()
 
 
-class MealPlanListAPIView(generics.ListCreateAPIView):
-    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    serializer_class = MealPlanSerializer
-    queryset = MealPlan.objects.all()
+# class MealPlanListAPIView(generics.ListCreateAPIView):
+#     # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+#     serializer_class = MealPlanSerializer
+#     queryset = MealPlan.objects.all()
 
 
-class MealPlanDetailView(generics.RetrieveUpdateDestroyAPIView):
-    # permission_classes = (IsOwnerOrReadOnly,)
-    serializer_class = MealPlanSerializer
-    queryset = MealPlan.objects.all()
+# class MealPlanDetailView(generics.RetrieveUpdateDestroyAPIView):
+#     # permission_classes = (IsOwnerOrReadOnly,)
+#     serializer_class = MealPlanSerializer
+#     queryset = MealPlan.objects.all()
 
 
 class CalendarEventListAPIView(generics.ListCreateAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     serializer_class = CalendarEventSerializer
     queryset = CalendarEvent.objects.all()
 

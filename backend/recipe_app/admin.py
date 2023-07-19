@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Recipe
+from .models import Recipe, CalendarEvent
 
 
 class RecipeAdmin(admin.ModelAdmin):
@@ -8,3 +8,4 @@ class RecipeAdmin(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(Recipe, RecipeAdmin)
+admin.site.register(CalendarEvent)
