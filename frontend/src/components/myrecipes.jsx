@@ -4,14 +4,16 @@ import { useNavigate } from "react-router-dom";
 import AddRecipe from "./AddRecipes";
 import Cookies from "js-cookie";
 import UpdateForm from "./UpdateForm";
+import Modal from "react-bootstrap/Modal";
 
 const UserRecipes = () => {
   const [userRecipes, setUserRecipes] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
-  const [viewedRecipe, setViewedRecipe] = useState(null); 
+  const [viewedRecipe, setViewedRecipe] = useState(null);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [activeId, setActiveId] = useState(null);
-
+  const [recipeModalData, setRecipeModalData] = useState(null);
+  const [show, setShow] = useState(false);
   const openEditor = (id) => {
     setActiveId(id);
     setIsEditing(true);
@@ -40,19 +42,27 @@ const UserRecipes = () => {
     window.location.href = recipe.shareAs;
   };
   const viewRecipe = (recipe) => {
-    const selectedRecipe = {
-      title: recipe.label,
-      description: JSON.stringify(recipe.cuisineType),
-      // image: data.image,
-      cooking_time: recipe.totalTime,
-      dish_type: recipe.dish_type,
-      directions: recipe.shareAs,
-      servings: recipe.yield,
-      ingredients: JSON.stringify(recipe.ingredientLines),
-      user: user,
-    };
+    console.log(recipe);
+    setRecipeModalData(recipe);
+    setShow(true);
+    // const selectedRecipe = {
+    // id: recipe.id,
+    // title: recipe.label,
+    // description: JSON.stringify(recipe.cuisineType),
+    // // image: data.image,
+    // cooking_time: recipe.totalTime,
+    // dish_type: recipe.dish_type,
+    // directions: recipe.shareAs,
+    // servings: recipe.yield,
+    // ingredients: JSON.stringify(recipe.ingredientLines),
+    // user: user,
+
     console.log(selectedRecipe);
     // getRecipeData(selectedRecipe);
+  };
+  const handleClose = () => {
+    setRecipeModalData(null);
+    setShow(false);
   };
   const deleteRecipe = async (id) => {
     try {
@@ -111,34 +121,6 @@ const UserRecipes = () => {
       console.log("An error occurred while updated book", error);
     }
   };
-  // const setActive = (id) => {
-  //   const index = recipe.findIndex(recipe)
-  // }
-  // const getRecipeData = (recipe) => {
-  //   fetch(`http://localhost:8000/recipe/recipes/${user.id}`, {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "X-CSRFToken": Cookies.get("csrftoken"),
-  //       Authorization: Cookies.get("Authorization").trim(),
-  //     },
-  //     body: JSON.stringify(recipe),
-  //   })
-  //     .then((response) => {
-  //       if (response.ok) {
-  //         return response.json();
-  //       } else {
-  //         console.log(response);
-  //         throw new Error("error");
-  //       }
-  //     })
-  //     .then((data) => {
-  //       console.log(data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
 
   return (
     <>
@@ -170,10 +152,15 @@ const UserRecipes = () => {
                   <button
                     className="btn btn-primary btn-block"
                     style={{ backgroundColor: "#20695e", border: "#ac3b61" }}
-                    onClick={() => viewRecipe(recipe.id)}
+                    onClick={() => viewRecipe(recipe)}
                   >
                     View Recipe
                   </button>
+                  {recipeModalData && (
+                    <Modal show={show} onHide={handleClose}>
+                      <Modal.Body>{recipeModalData.title}</Modal.Body>
+                    </Modal>
+                  )}
                   <br />
                   {activeId === recipe.id && isEditing ? (
                     <UpdateForm
