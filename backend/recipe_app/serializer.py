@@ -17,13 +17,6 @@ class RecipeSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-# class MealPlanSerializer(serializers.ModelSerializer):
-#     recipes = RecipeSerializer(many=True, read_only=True)
-
-#     class Meta:
-#         model = MealPlan
-#         fields = "__all__"
-
 
 class CalendarEventSerializer(serializers.ModelSerializer):
     recipe = RecipeSerializer(read_only=True)

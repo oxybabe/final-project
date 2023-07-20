@@ -125,7 +125,7 @@ const UserRecipes = () => {
     }
   };
 
-  const addToCalendar = async (recipe) => {
+  const addToCalendar = async (e, recipe) => {
     e.preventDefault();
     console.log({ recipe });
     const body = {
@@ -171,14 +171,11 @@ const UserRecipes = () => {
                 className="card h-100"
                 style={{ backgroundColor: "#9dbebb", border: "1px solid #ddd" }}
               >
-                <div
-                  className="card-body"
-                  // style={{ display: "flex", flexDirection: "column" }}
-                >
+                <div className="card-body">
                   <h5 className="card-title">{recipe.title}</h5>
 
                   <p className="card-text">{recipe.dish_type}</p>
-                  <div >
+                  <div>
                     {recipe.image && (
                       <img
                         src={recipe.image}
@@ -190,7 +187,6 @@ const UserRecipes = () => {
                         }}
                         alt="..."
                       />
-    
                     )}
                     {recipe.imageURL && (
                       <img
@@ -203,14 +199,17 @@ const UserRecipes = () => {
                         }}
                         alt="..."
                       />
-                      
                     )}
 
                     <br />
-                 
+
                     <button
                       className="btn btn-primary btn-block  mb-2"
-                      style={{ backgroundColor: "#20695e", border: "#ac3b61", marginTop: "20px"  }}
+                      style={{
+                        backgroundColor: "#20695e",
+                        border: "#ac3b61",
+                        marginTop: "20px",
+                      }}
                       onClick={() => viewRecipe(recipe)}
                     >
                       View Recipe
@@ -248,7 +247,7 @@ const UserRecipes = () => {
             </div>
           ))}
       </div>
-    <br/>
+      <br />
       <AddRecipe setUserRecipes={setUserRecipes} userRecipes={userRecipes} />
       {recipeModalData && (
         <Modal show={show} onHide={handleClose}>
@@ -285,10 +284,7 @@ const UserRecipes = () => {
             </div>
             <p>
               Directions:{" "}
-              <a
-                href={recipeModalData.directions}
-                target="_blank"
-              >
+              <a href={recipeModalData.directions} target="_blank">
                 Click here to view the recipe directions
               </a>
             </p>
@@ -303,7 +299,7 @@ const UserRecipes = () => {
               alt="..."
             />
 
-            <form onSubmit={() => addToCalendar(recipeModalData)}>
+            <form onSubmit={(e) => addToCalendar(e, recipeModalData)}>
               <input
                 type="date"
                 name="date"

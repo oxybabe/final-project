@@ -167,9 +167,9 @@ const Recipe = () => {
                     >
                       Add to my recipes
                     </Button>
-                    {/* <div className="icon">
-      <a href="#" onClick={() => addRecipeToCollection(recipe.recipe)}><i className="fa-regular fa-heart"></i></a>
-      </div> */}
+                    <div className="icon">
+      <a  onClick={() => addRecipeToCollection(recipe.recipe)}><i className="fa-regular fa-heart"></i></a>
+      </div>
                   </div>
                 </div>
               </div>

@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from requests import Response
 
 # from requests import Response
@@ -43,7 +43,6 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         return obj.user == request.user or request.user.is_superuser
 
 
-
 class RecipeListAPIView(generics.ListCreateAPIView):
     permission_classes = (AllowAny,)
     serializer_class = RecipeSerializer
@@ -81,8 +80,6 @@ class RecipeDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Recipe.objects.all()
 
 
-
-
 class RecipeListAPIView(generics.ListCreateAPIView):
     permission_classes = (AllowAny,)
     serializer_class = RecipeSerializer
@@ -111,6 +108,15 @@ class CalendarEventListAPIView(generics.ListCreateAPIView):
         author_id = self.kwargs["author_id"]
         return CalendarEvent.objects.filter(author_id=author_id)
 
+    def perform_create(self, serializer):
+        recipe_id = self.request.data.get("recipe")[
+            "id"
+        ]  # Extract recipe_id from the request data
+        date = self.request.data.get("start")
+        print(recipe_id)
+        recipe = get_object_or_404(Recipe, pk=recipe_id)  # Retrieve the Recipe object
+        serializer.save(recipe=recipe, date=date)
+
 
 class CalendarEventDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsOwnerOrReadOnly,)
@@ -118,12 +124,7 @@ class CalendarEventDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = CalendarEvent.objects.all()
 
 
-
-
-
 # https://www.django-rest-framework.org/api-guide/generic-views/
-
-
 
 
 #  https://www.makeuseof.com/django-rest-api-create/

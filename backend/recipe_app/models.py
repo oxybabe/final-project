@@ -20,9 +20,6 @@ class Recipe(models.Model):
     ingredients = models.CharField(max_length=5000, null=True)
     directions = models.CharField(max_length=5000, null=True)
     author_id = models.IntegerField(null=True, blank=True)
-    # user = models.ForeignKey(
-    #     settings.AUTH_USER_MODEL, related_name="recipes", on_delete=models.CASCADE
-    # )
 
     def img_preview(self):  # new
         return mark_safe(f'<img src = "{self.image.url}" width = "300"/>')
@@ -30,12 +27,6 @@ class Recipe(models.Model):
 
 # https://codinggear.blog/how-to-upload-images-in-django/
 # https://codinggear.blog/how-to-show-image-in-django-admin/
-
-
-# class MealPlan(models.Model):
-#     # user = models.ForeignKey(User, on_delete=models.CASCADE)
-#     title = models.CharField(max_length=100, default=1)
-#     recipes = models.ManyToManyField(Recipe)
 
 
 class CalendarEvent(models.Model):

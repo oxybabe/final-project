@@ -45,6 +45,18 @@
     background: food;
     background-size: cover;
     min-height: 350px;
+    .icon {
+      position: absolute;
+      left: 85%;
+      bottom: 30.7%;
+      background: heart;
+      color: #ac3b61;
+      font-size: 1.3em;
+      font-weight: bold;
+      padding: 15px;
+      border-radius: 50%;
+      box-shadow: 0px 5px 30px 1px heart;
+    }
        
   }
 }
@@ -53,16 +65,4 @@ img {
 }
 .read-the-docs {
   color: #888;
-}
-.icon {
-  position: absolute;
-  left: 85%;
-  bottom: 30.7%;
-  background: heart;
-  color: #ac3b61;
-  font-size: 1.3em;
-  font-weight: bold;
-  padding: 15px;
-  border-radius: 50%;
-  box-shadow: 0px 5px 30px 1px heart;
 }
