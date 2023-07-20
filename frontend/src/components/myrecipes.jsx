@@ -302,8 +302,28 @@ const MyRecipes = () => {
               >
                 Add to Calendar
               </Button>
+              {/* {activeId === recipe.id && isEditing ? (
+                      <UpdateForm
+                        recipe={recipe}
+                        handleUpdateRecipe={handleUpdateRecipe}
+                        setIsEditing={setIsEditing}
+                      />
+                    ) : (
+                      <button
+                        className="btn btn-primary btn-block mb-2 "
+                        style={{
+                          backgroundColor: "#20695e",
+                          border: "#ac3b61",
+                        }}
+                        onClick={() => openEditor(recipe.id)}
+                      >
+                        Edit Recipe
+                      </button>
+                    )} */}
             </form>
+            
           </Modal.Body>
+          
         </Modal>
       )}
     </>

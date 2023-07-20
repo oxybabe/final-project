@@ -68,113 +68,122 @@ const AddRecipe = ({ setUserRecipes, userRecipes }) => {
       </Button>
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header style={{ color: "#f4e9cd", background: "#123c69" }}>
-          Add to your collection:
+          <Modal.Title style={{ color: "#f4e9cd" }}>
+            Add to your collection:
+          </Modal.Title>
         </Modal.Header>
-        <Form onSubmit={addRecipe} style={{ background: "#123c69" }}>
-          <Form.Group controlId="title">
-            <Form.Label style={{ color: "#f4e9cd" }}>Recipe Title:</Form.Label>
-            <Form.Control
-              style={{ background: "#f4e9cd" }}
-              type="text"
-              placeholder="title"
-              value={title}
-              onChange={(event) => setTitle(event.target.value)}
-            />
-          </Form.Group>
+        <Modal.Body style={{ backgroundColor: "#123c69" }}>
+          <Form onSubmit={addRecipe} style={{ background: "#123c69" }}>
+            <Form.Group controlId="title">
+              <Form.Label style={{ color: "#f4e9cd" }}>
+                Recipe Title:
+              </Form.Label>
+              <Form.Control
+                style={{ background: "#f4e9cd" }}
+                type="text"
+                placeholder="title"
+                value={title}
+                onChange={(event) => setTitle(event.target.value)}
+              />
+            </Form.Group>
 
-          <Form.Group controlId="image">
-            <Form.Label style={{ color: "#f4e9cd" }}>Add Image:</Form.Label>
-            <Form.Control
-              type="file"
-              style={{ background: "#f4e9cd" }}
-              onChange={changeHandler}
-            />
-          </Form.Group>
+            <Form.Group controlId="image">
+              <Form.Label style={{ color: "#f4e9cd" }}>Add Image:</Form.Label>
+              <Form.Control
+                type="file"
+                style={{ background: "#f4e9cd" }}
+                onChange={changeHandler}
+              />
+            </Form.Group>
 
-          <Form.Group controlId="description">
-            <Form.Label style={{ color: "#f4e9cd" }}>
-              Recipe Description:
-            </Form.Label>
-            <Form.Control
-              placeholder="description"
-              style={{ background: "#f4e9cd" }}
-              type="text"
-              value={description}
-              onChange={(event) => setDescription(event.target.value)}
-            />
-          </Form.Group>
-          <Form.Group controlId="dish type">
-            <Form.Label style={{ color: "#f4e9cd" }}>
-              Recipe Dish Type:
-            </Form.Label>
-            <Form.Control
-              placeholder="dish type"
-              style={{ background: "#f4e9cd" }}
-              type="text"
-              value={dishType}
-              onChange={(event) => setDishType(event.target.value)}
-            />
-          </Form.Group>
-          <Form.Group controlId="cooking time">
-            <Form.Label style={{ color: "#f4e9cd" }}>Cooking Time:</Form.Label>
-            <Form.Control
-              placeholder="cooking time"
-              style={{ background: "#f4e9cd" }}
-              type="text"
-              value={cookingTime}
-              onChange={(event) => setCookingTime(event.target.value)}
-            />
-          </Form.Group>
-          <Form.Group controlId="servings">
-            <Form.Label style={{ color: "#f4e9cd" }}>Servings:</Form.Label>
-            <Form.Control
-              placeholder="servings"
-              style={{ background: "#f4e9cd" }}
-              type="text"
-              value={servings}
-              onChange={(event) => setServings(event.target.value)}
-            />
-          </Form.Group>
-          <Form.Group controlId="ingredients">
-            <Form.Label style={{ color: "#f4e9cd" }}>Ingredients:</Form.Label>
-            <Form.Control
-              placeholder="ingredients"
-              style={{ background: "#f4e9cd" }}
-              type="text"
-              value={ingredients}
-              onChange={(event) => setIngredients(event.target.value)}
-            />
-          </Form.Group>
-          <Form.Group controlId="directions">
-            <Form.Label style={{ color: "#f4e9cd" }}>Directions:</Form.Label>
-            <Form.Control
-              placeholder="directions"
-              style={{ background: "#f4e9cd" }}
-              type="text"
-              value={directions}
-              onChange={(event) => setDirections(event.target.value)}
-            />
-          </Form.Group>
+            <Form.Group controlId="description">
+              <Form.Label style={{ color: "#f4e9cd" }}>
+                Recipe Description:
+              </Form.Label>
+              <Form.Control
+                placeholder="description"
+                style={{ background: "#f4e9cd" }}
+                type="text"
+                value={description}
+                onChange={(event) => setDescription(event.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="dish type">
+              <Form.Label style={{ color: "#f4e9cd" }}>
+                Recipe Dish Type:
+              </Form.Label>
+              <Form.Control
+                placeholder="dish type"
+                style={{ background: "#f4e9cd" }}
+                type="text"
+                value={dishType}
+                onChange={(event) => setDishType(event.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="cooking time">
+              <Form.Label style={{ color: "#f4e9cd" }}>
+                Cooking Time:
+              </Form.Label>
+              <Form.Control
+                placeholder="cooking time"
+                style={{ background: "#f4e9cd" }}
+                type="text"
+                value={cookingTime}
+                onChange={(event) => setCookingTime(event.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="servings">
+              <Form.Label style={{ color: "#f4e9cd" }}>Servings:</Form.Label>
+              <Form.Control
+                placeholder="servings"
+                style={{ background: "#f4e9cd" }}
+                type="text"
+                value={servings}
+                onChange={(event) => setServings(event.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="ingredients">
+              <Form.Label style={{ color: "#f4e9cd" }}>Ingredients:</Form.Label>
+              <Form.Control
+                placeholder="ingredients"
+                style={{ background: "#f4e9cd" }}
+                type="text"
+                value={ingredients}
+                onChange={(event) => setIngredients(event.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="directions">
+              <Form.Label style={{ color: "#f4e9cd" }}>Directions:</Form.Label>
+              <Form.Control
+                placeholder="directions"
+                style={{ background: "#f4e9cd" }}
+                type="text"
+                value={directions}
+                onChange={(event) => setDirections(event.target.value)}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer style={{ backgroundColor: "#123c69" }}>
           <Button
             variant="primary"
-            style={{ backgroundColor: "#ac3b61", border: "#f4e9cd" }}
+            style={{ backgroundColor: "#20695e", border: "#f4e9cd" }}
             type="submit"
           >
             Submit
           </Button>
-        </Form>
-
-        <Button
-          style={{
-            backgroundColor: "#20695e",
-            border: "#f4e9cd",
-            marginBottom: "10px",
-          }}
-          className="btn btn-secondary"
-          onClick={() => setShowModal(false)}
-        >
-          Cancel
-        </Button>
+          <Button
+            style={{
+              backgroundColor: "#20695e",
+              border: "#f4e9cd",
+              marginBottom: "10px",
+            }}
+            className="btn btn-secondary"
+            onClick={() => setShowModal(false)}
+          >
+            Cancel
+          </Button>
+        </Modal.Footer>
       </Modal>
 
       <br />

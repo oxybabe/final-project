@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import React from "react";
 import { Button } from "react-bootstrap";
 import Spinner from "react-bootstrap/Spinner";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeartCirclePlus } from "@fortawesome/free-solid-svg-icons";
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
@@ -153,6 +155,15 @@ const Recipes = () => {
                         justifyContent: "space-between",
                       }}
                     >
+                      <div className="icon">
+                        <a onClick={() => addRecipeToCollection(recipe.recipe)}>
+                          <FontAwesomeIcon
+                            icon={faHeartCirclePlus}
+                            style={{ color: "#ac3b61" }}
+                          />
+                        </a>
+                      </div>
+                      <br />
                       <Button
                         className="btn btn-primary btn-block"
                         size="sm"
@@ -166,7 +177,7 @@ const Recipes = () => {
                         View Recipe
                       </Button>
                       <br />
-                      <Button
+                      {/* <Button
                         className="btn btn-primary btn-block"
                         size="sm"
                         style={{
@@ -177,10 +188,7 @@ const Recipes = () => {
                         onClick={() => addRecipeToCollection(recipe.recipe)}
                       >
                         Add to my recipes
-                      </Button>
-                      {/* <div className="icon">
-        <a  onClick={() => addRecipeToCollection(recipe.recipe)}><FontAwesomeIcon icon="fa-solid fa-heart" style={{color: "#ac3b61"}} /></a>
-        </div> */}
+                      </Button> */}
                     </div>
                   </div>
                 </div>
