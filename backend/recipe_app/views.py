@@ -22,9 +22,6 @@ from .serializer import (
 )
 from rest_framework import generics
 from rest_framework.permissions import (
-    IsAuthenticatedOrReadOnly,
-    IsAuthenticated,
-    IsAdminUser,
     AllowAny,
 )
 from rest_framework import permissions, viewsets
@@ -45,37 +42,6 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
             return True
         return obj.user == request.user or request.user.is_superuser
 
-
-# permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
-# @api_view(['POST'])
-# # @permission_classes([IsAuthenticated])
-# def create_recipe(request):
-# Extract the recipe data from the request
-
-# title = request.data.get('title')
-# description = request.data.get('description')
-# cooking_time = request.data.get('cooking_time')
-# servings = request.data.get('servings')
-# ingredients = request.data.get('ingredients')
-# directions = request.data.get('directions')
-
-# # Get the authenticated user
-# user = request.user
-
-# # Create the recipe and associate it with the user
-# recipe = Recipe.objects.create(
-#     title=title,
-#     description=description,
-#     cooking_time=cooking_time,
-#     servings=servings,
-#     ingredients=ingredients,
-#     directions=directions,
-#     user=user
-# )
-
-# # Return the response
-# return Response({'message': 'Recipe created successfully'})
 
 
 class RecipeListAPIView(generics.ListCreateAPIView):
@@ -115,16 +81,6 @@ class RecipeDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Recipe.objects.all()
 
 
-# class MealPlanListAPIView(generics.ListCreateAPIView):
-#     # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-#     serializer_class = MealPlanSerializer
-#     queryset = MealPlan.objects.all()
-
-
-# class MealPlanDetailView(generics.RetrieveUpdateDestroyAPIView):
-#     # permission_classes = (IsOwnerOrReadOnly,)
-#     serializer_class = MealPlanSerializer
-#     queryset = MealPlan.objects.all()
 
 
 class RecipeListAPIView(generics.ListCreateAPIView):
@@ -162,50 +118,12 @@ class CalendarEventDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = CalendarEvent.objects.all()
 
 
-# class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
 
-
-# class UserDetail(generics.RetrieveAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
-
-
-# class UserRegistrationView(RegisterView):
-#     def perform_create(self, serializer):
-#         user = serializer.save()
 
 
 # https://www.django-rest-framework.org/api-guide/generic-views/
 
 
-# @api_view(['GET'])
-# def getRecipe(request):
-#     recipe = Recipe.objects.all()
-#     serializer = RecipeSerializer(recipe, many=True)
-#     return Response(serializer.data)
-
-# @api_view(['POST'])
-# def postRecipe(request):
-#     serializer = RecipeSerializer(data=request.data)
-#     if serializer.is_valid():
-#         serializer.save()
-#     return Response(serializer.data)
-
-# @api_view(['PUT'])
-# def updateRecipe(request):
-#     serializer = RecipeSerializer(data=request.data)
-#     if serializer.is_valid():
-#         serializer.save()
-#     return Response(serializer.data)
-
-# @api_view(['DELETE'])
-# def deleteRecipe(request):
-#     serializer = RecipeSerializer(data=request.data)
-#     if serializer.is_valid():
-#         serializer.save()
-#     return Response(serializer.data)
 
 
 #  https://www.makeuseof.com/django-rest-api-create/

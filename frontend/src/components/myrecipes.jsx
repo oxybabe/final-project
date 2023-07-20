@@ -10,7 +10,6 @@ import Button from "react-bootstrap/Button";
 const UserRecipes = () => {
   const [userRecipes, setUserRecipes] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
-  const [viewedRecipe, setViewedRecipe] = useState(null);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [activeId, setActiveId] = useState(null);
   const [recipeModalData, setRecipeModalData] = useState(null);
@@ -92,7 +91,7 @@ const UserRecipes = () => {
     formData.append("title", title);
     formData.append("description", description);
     formData.append("dish_type", dish_type);
-    formData.append("cooking_type", cooking_time);
+    formData.append("cooking_time", cooking_time);
     formData.append("servings", servings);
     formData.append("ingredients", ingredients);
     formData.append("directions", directions);
@@ -162,7 +161,6 @@ const UserRecipes = () => {
       <Header />
       <h1 style={{ color: "#123c69" }}>My Recipe Library</h1>
 
-     
       <br />
 
       <div className="row row-cols-1 row-cols-md-4 g-4">
@@ -180,7 +178,7 @@ const UserRecipes = () => {
                   <h5 className="card-title">{recipe.title}</h5>
 
                   <p className="card-text">{recipe.dish_type}</p>
-                  <div style={{ marginBottom: "1rem" }}>
+                  <div >
                     {recipe.image && (
                       <img
                         src={recipe.image}
@@ -192,6 +190,7 @@ const UserRecipes = () => {
                         }}
                         alt="..."
                       />
+    
                     )}
                     {recipe.imageURL && (
                       <img
@@ -204,11 +203,14 @@ const UserRecipes = () => {
                         }}
                         alt="..."
                       />
+                      
                     )}
+
                     <br />
+                 
                     <button
                       className="btn btn-primary btn-block  mb-2"
-                      style={{ backgroundColor: "#20695e", border: "#ac3b61" }}
+                      style={{ backgroundColor: "#20695e", border: "#ac3b61", marginTop: "20px"  }}
                       onClick={() => viewRecipe(recipe)}
                     >
                       View Recipe
@@ -246,11 +248,61 @@ const UserRecipes = () => {
             </div>
           ))}
       </div>
+    <br/>
       <AddRecipe setUserRecipes={setUserRecipes} userRecipes={userRecipes} />
       {recipeModalData && (
         <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>{recipeModalData.title}</Modal.Header>
-          <Modal.Body>
+          <Modal.Header
+            style={{
+              backgroundColor: "#123c69",
+              border: "1px solid #f4e9cd",
+              color: "#f4e9cd",
+            }}
+            closeButton
+          >
+            {recipeModalData.title}
+          </Modal.Header>
+          <Modal.Body
+            style={{
+              backgroundColor: "#123c69",
+              border: "1px solid #f4e9cd",
+              color: "#f4e9cd",
+            }}
+          >
+            <p>Cuisine Type: {recipeModalData.description}</p>
+            <p>Meal Type: {recipeModalData.dish_type}</p>
+            <p>Cooking Time: {recipeModalData.cooking_time}</p>
+            <p>Servings: {recipeModalData.servings}</p>
+            <div>
+              <p>Ingredients:</p>
+              <ul>
+                {recipeModalData.ingredients
+                  .split(",")
+                  .map((ingredient, index) => (
+                    <li key={index}>{ingredient}</li>
+                  ))}
+              </ul>
+            </div>
+            <p>
+              Directions:{" "}
+              <a
+                href={recipeModalData.directions}
+                target="_blank"
+              >
+                Click here to view the recipe directions
+              </a>
+            </p>
+            <img
+              src={recipeModalData.image}
+              className="card-img-top"
+              style={{
+                width: "100%",
+                height: "200px",
+                objectFit: "cover",
+              }}
+              alt="..."
+            />
+
             <form onSubmit={() => addToCalendar(recipeModalData)}>
               <input
                 type="date"
@@ -258,7 +310,16 @@ const UserRecipes = () => {
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
               />
-              <button type="submit">Add to Calendar</button>
+              <Button
+                type="submit"
+                size="sm"
+                style={{
+                  backgroundColor: "#ac3b61",
+                  border: "#ac3b61",
+                }}
+              >
+                Add to Calendar
+              </Button>
             </form>
           </Modal.Body>
         </Modal>

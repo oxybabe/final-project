@@ -71,13 +71,15 @@ const AddRecipe = ({ setUserRecipes, userRecipes }) => {
 
   return (
     <div className="form-group">
-      <Button style={{ backgroundColor: "#20695e" }} onClick={handleShowModal}>
+      <Button style={{ backgroundColor: "#20695e", marginTop: "20px" }} onClick={handleShowModal}>
         Add Custom Recipe To Personal Collection Here
       </Button>
 
       <Modal show={showModal} onHide={handleCloseModal} centered>
+        <Modal.Header style={{ color: "#f4e9cd", background: "#123c69" }}>
+          Add to your collection:
+        </Modal.Header>
         <Form onSubmit={handleSubmit} style={{ background: "#123c69" }}>
-          <h5 style={{ color: "#f4e9cd" }}>Add to your collection:</h5>
           <Form.Group controlId="title">
             <Form.Label style={{ color: "#f4e9cd" }}>Recipe Title:</Form.Label>
             <Form.Control
@@ -172,7 +174,11 @@ const AddRecipe = ({ setUserRecipes, userRecipes }) => {
         </Form>
 
         <Button
-          style={{ backgroundColor: "#20695e", border: "#f4e9cd" }}
+          style={{
+            backgroundColor: "#20695e",
+            border: "#f4e9cd",
+            marginBottom: "10px",
+          }}
           className="btn btn-secondary"
           onClick={handleCloseModal}
         >

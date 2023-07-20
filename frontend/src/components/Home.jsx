@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "./Header";
 import { useNavigate } from "react-router-dom";
-import UserRegistration from "./register";
 import Carousel from "react-bootstrap/Carousel";
 import Button from "react-bootstrap/esm/Button";
 

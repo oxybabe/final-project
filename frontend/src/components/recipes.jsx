@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { json, useNavigate } from "react-router-dom";
 import useLocalStorage from "./useLocalStorage";
-
 import React from "react";
 import Header from "./Header";
+import { Button } from "react-bootstrap";
 
 const Recipe = () => {
   const navigate = useNavigate();
@@ -133,6 +133,7 @@ const Recipe = () => {
                 className="card h-100"
                 style={{ backgroundColor: "#9dbebb", border: "1px solid #ddd" }}
               >
+                   
                 <img
                   src={recipe.recipe.image}
                   className="card-img-top"
@@ -145,21 +146,30 @@ const Recipe = () => {
                     className="button-container"
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
-                    <button
+                    <Button
                       className="btn btn-primary btn-block"
-                      style={{ backgroundColor: "#20695e", border: "#123c69", flex: 1, marginRight: '5px' }}
+                      size="sm"
+                      style={{
+                        backgroundColor: "#20695e",
+                        border: "#123c69",
+                        marginRight: "10px" 
+                      }}
                       onClick={() => viewRecipe(recipe.recipe)}
                     >
                       View Recipe
-                    </button>
+                    </Button>
                     <br />
-                    <button
-                      className="btn btn-primary btn-block padding-top"
-                      style={{ backgroundColor: "#20695e", border: "#123c69", flex: 1, marginRight: '5px' }}
+                    <Button
+                      className="btn btn-primary btn-block"
+                      size="sm"
+                      style={{ backgroundColor: "#20695e", border: "#123c69", marginLeft: "10px"  }}
                       onClick={() => addRecipeToCollection(recipe.recipe)}
                     >
                       Add to my recipes
-                    </button>
+                    </Button>
+                    {/* <div className="icon">
+      <a href="#" onClick={() => addRecipeToCollection(recipe.recipe)}><i className="fa-regular fa-heart"></i></a>
+      </div> */}
                   </div>
                 </div>
               </div>
