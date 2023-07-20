@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 function UpdateForm({ recipe, handleUpdateRecipe, setIsEditing }) {
   const [recipeData, setRecipeData] = useState(recipe);
@@ -13,13 +15,15 @@ function UpdateForm({ recipe, handleUpdateRecipe, setIsEditing }) {
   return (
     <>
       <Modal show={true} onHide={() => setIsEditing(false)} centered>
-        <Modal.Header close style={{ backgroundColor: "#123c69"}}>
-          <Modal.Title style={{color: "#f4e9cd" }}>Edit Recipe</Modal.Title>
+        <Modal.Header close style={{ backgroundColor: "#123c69" }}>
+          <Modal.Title style={{ color: "#f4e9cd" }}>Edit Recipe</Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ backgroundColor: "#123c69" }}>
           <form onSubmit={editFormSubmit}>
             <div className="form-group">
-              <label htmlFor="title" style={{color: "#f4e9cd" }}>Recipe title:</label>
+              <label htmlFor="title" style={{ color: "#f4e9cd" }}>
+                Recipe title:
+              </label>
               <input
                 style={{ backgroundColor: "#f4e9cd" }}
                 type="text"
@@ -33,7 +37,9 @@ function UpdateForm({ recipe, handleUpdateRecipe, setIsEditing }) {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="description" style={{color: "#f4e9cd" }}>Description:</label>
+              <label htmlFor="description" style={{ color: "#f4e9cd" }}>
+                Description:
+              </label>
               <input
                 type="text"
                 style={{ backgroundColor: "#f4e9cd" }}
@@ -47,7 +53,9 @@ function UpdateForm({ recipe, handleUpdateRecipe, setIsEditing }) {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="description" style={{color: "#f4e9cd" }}>Dish Type:</label>
+              <label htmlFor="description" style={{ color: "#f4e9cd" }}>
+                Dish Type:
+              </label>
               <input
                 type="text"
                 style={{ backgroundColor: "#f4e9cd" }}
@@ -61,7 +69,9 @@ function UpdateForm({ recipe, handleUpdateRecipe, setIsEditing }) {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="cooking_time" style={{color: "#f4e9cd" }}>Cooking time:</label>
+              <label htmlFor="cooking_time" style={{ color: "#f4e9cd" }}>
+                Cooking time:
+              </label>
               <input
                 className="form-control"
                 style={{ backgroundColor: "#f4e9cd" }}
@@ -74,7 +84,9 @@ function UpdateForm({ recipe, handleUpdateRecipe, setIsEditing }) {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="servings" style={{color: "#f4e9cd" }}>Servings:</label>
+              <label htmlFor="servings" style={{ color: "#f4e9cd" }}>
+                Servings:
+              </label>
               <input
                 type="text"
                 style={{ backgroundColor: "#f4e9cd" }}
@@ -84,7 +96,9 @@ function UpdateForm({ recipe, handleUpdateRecipe, setIsEditing }) {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="ingredients" style={{color: "#f4e9cd" }}>Ingredients:</label>
+              <label htmlFor="ingredients" style={{ color: "#f4e9cd" }}>
+                Ingredients:
+              </label>
               <textarea
                 className="form-control"
                 style={{ backgroundColor: "#f4e9cd" }}
@@ -98,7 +112,9 @@ function UpdateForm({ recipe, handleUpdateRecipe, setIsEditing }) {
               ></textarea>
             </div>
             <div className="form-group">
-              <label htmlFor="directions" style={{color: "#f4e9cd" }}>Directions:</label>
+              <label htmlFor="directions" style={{ color: "#f4e9cd" }}>
+                Directions:
+              </label>
               <textarea
                 className="form-control"
                 style={{ backgroundColor: "#f4e9cd" }}
@@ -115,6 +131,15 @@ function UpdateForm({ recipe, handleUpdateRecipe, setIsEditing }) {
         </Modal.Body>
 
         <Modal.Footer style={{ backgroundColor: "#123c69" }}>
+          {/* <div className="icon-delete">
+            <a
+              onClick={() => {
+                deleteRecipe(recipe.id);
+              }}
+            >
+              <FontAwesomeIcon icon={faTrashCan} style={{ color: "#1f695e" }} />
+            </a>
+          </div> */}
           <Button
             type="submit"
             className="btn btn-primary"

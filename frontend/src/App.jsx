@@ -7,7 +7,7 @@ import Header from "./components/Header";
 import UserLogin from "./components/login";
 import MyCalendar from "./components/calendar";
 import MyRecipes from "./components/myrecipes";
-import UserRegistration from "./components/Register";
+import UserRegistration from "./components/register";
 import Home from "./components/Home";
 import Recipes from "./components/recipes";
 

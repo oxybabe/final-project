@@ -5,6 +5,8 @@ import UpdateForm from "./UpdateForm";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { handleError } from "../utils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 const MyRecipes = () => {
   const [userRecipes, setUserRecipes] = useState([]);
@@ -150,6 +152,8 @@ const MyRecipes = () => {
     <>
       <h1 style={{ color: "#123c69" }}>My Recipe Library</h1>
       <br />
+      <AddRecipe setUserRecipes={setUserRecipes} userRecipes={userRecipes} />
+
       <div className="row row-cols-1 row-cols-md-4 g-4">
         {userRecipes &&
           userRecipes.map((recipe) => (
@@ -221,13 +225,15 @@ const MyRecipes = () => {
                       </button>
                     )}
                     <br />
-                    <button
-                      className="btn btn-primary btn-block mb-2"
-                      style={{ backgroundColor: "#20695e", border: "#ac3b61" }}
-                      onClick={() => deleteRecipe(recipe.id)}
-                    >
-                      Delete Recipe
-                    </button>
+                    <div className="icon-delete">
+                      <a onClick={() => deleteRecipe(recipe.id)}>
+                        <FontAwesomeIcon
+                          icon={faTrashCan}
+                          style={{ color: "#1f695e" }}
+                        />
+                        
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -235,7 +241,6 @@ const MyRecipes = () => {
           ))}
       </div>
       <br />
-      <AddRecipe setUserRecipes={setUserRecipes} userRecipes={userRecipes} />
       {recipeModalData && (
         <Modal show={show} onHide={handleClose}>
           <Modal.Header
@@ -302,28 +307,8 @@ const MyRecipes = () => {
               >
                 Add to Calendar
               </Button>
-              {/* {activeId === recipe.id && isEditing ? (
-                      <UpdateForm
-                        recipe={recipe}
-                        handleUpdateRecipe={handleUpdateRecipe}
-                        setIsEditing={setIsEditing}
-                      />
-                    ) : (
-                      <button
-                        className="btn btn-primary btn-block mb-2 "
-                        style={{
-                          backgroundColor: "#20695e",
-                          border: "#ac3b61",
-                        }}
-                        onClick={() => openEditor(recipe.id)}
-                      >
-                        Edit Recipe
-                      </button>
-                    )} */}
             </form>
-            
           </Modal.Body>
-          
         </Modal>
       )}
     </>

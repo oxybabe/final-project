@@ -1,4 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Arbutus+Slab&family=Kavoon&family=Libre+Baskerville:wght@700&display=swap");
 #root {
+  font-family: "Libre Baskerville", sans-serif;
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;

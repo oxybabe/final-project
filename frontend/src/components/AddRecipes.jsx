@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFileCirclePlus } from "@fortawesome/free-solid-svg-icons";
 
 const AddRecipe = ({ setUserRecipes, userRecipes }) => {
   const [title, setTitle] = useState("");
@@ -60,12 +62,22 @@ const AddRecipe = ({ setUserRecipes, userRecipes }) => {
 
   return (
     <div className="form-group">
-      <Button
+      <div className="icon-add">
+        <a onClick={() => setShowModal(true)}>
+          <FontAwesomeIcon
+            icon={faFileCirclePlus}
+            style={{ color: "#1f695e" }}
+          />
+          Add Custom Recipe Here
+        </a>
+      </div>
+
+      {/* <Button
         style={{ backgroundColor: "#20695e", marginTop: "20px" }}
         onClick={() => setShowModal(true)}
       >
         Add Custom Recipe To Personal Collection Here
-      </Button>
+      </Button> */}
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header style={{ color: "#f4e9cd", background: "#123c69" }}>
           <Modal.Title style={{ color: "#f4e9cd" }}>

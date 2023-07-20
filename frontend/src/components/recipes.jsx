@@ -177,18 +177,6 @@ const Recipes = () => {
                         View Recipe
                       </Button>
                       <br />
-                      {/* <Button
-                        className="btn btn-primary btn-block"
-                        size="sm"
-                        style={{
-                          backgroundColor: "#20695e",
-                          border: "#123c69",
-                          marginLeft: "10px",
-                        }}
-                        onClick={() => addRecipeToCollection(recipe.recipe)}
-                      >
-                        Add to my recipes
-                      </Button> */}
                     </div>
                   </div>
                 </div>
