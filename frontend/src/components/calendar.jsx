@@ -1,15 +1,15 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 import moment from "moment";
-import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import Header from "./Header";
 import Cookies from "js-cookie";
 const MealCalendar = () => {
   const localizer = momentLocalizer(moment);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
-  const [mealEvent, setMealEvent] = useState([]);
+  const [mealEvents, setMealEvents] = useState([]);
+
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const handleError = (err) => {
     console.warn(err);
@@ -31,61 +31,37 @@ const MealCalendar = () => {
       }
       const data = await response.json();
       console.log(data);
-      setMealEvent(data);
+      setMealEvents(data);
     };
 
     fetchUserCalendarData();
   }, []);
 
-  console.log({ mealEvent });
+  const parseDateToRequiredCalendarFormat = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+    return new Date(year, month, day + 1);
+  };
 
-  const meals = mealEvent.map((event) => {
-    // const title = window.prompt("New Event");
+  const meals = mealEvents.map((event) => {
     return {
-      allDay: true,
+      allDay: event.all_day,
       id: event.id,
       title: event.recipe.title,
-      start: new Date(event.start),
+      start: parseDateToRequiredCalendarFormat(event.date),
+      end: parseDateToRequiredCalendarFormat(event.date),
       resourceId: event.id + 1,
-      // end: mealEvent.date,
     };
-    // setMealEvent([...mealEvent, event]);
   });
 
-  const meals2 = [
-    {
-      id: 0,
-      title: "Board meeting",
-      start: new Date(2023, 0, 29, 9, 0, 0),
-      end: new Date(2023, 0, 29, 13, 0, 0),
-      resourceId: 1,
-    },
-    {
-      id: 1,
-      title: "MS training",
-      allDay: true,
-      start: new Date(2023, 0, 29, 14, 0, 0),
-      end: new Date(2023, 0, 29, 16, 30, 0),
-      resourceId: 2,
-    },
-    {
-      id: 2,
-      title: "Team lead meeting",
-      start: new Date(2023, 0, 29, 8, 30, 0),
-      end: new Date(2023, 0, 29, 12, 30, 0),
-      resourceId: [2, 3],
-    },
-  ];
-
-  const resourceMap = mealEvent.map((event) => {
+  const resourceMap = mealEvents.map((event) => {
     return {
       resourceId: event.id + 1,
       resourceTitle: event.recipe.title,
     };
   });
-
-  console.log({ mealEvent });
-  console.log({ meals });
 
   const ColoredDateCellWrapper = ({ children }) =>
     React.cloneElement(React.Children.only(children), {
@@ -121,8 +97,6 @@ const MealCalendar = () => {
               showMultiDayTimes
               step={60}
               views={views}
-              // startAccessor="start_date"
-              // endAccessor="end_date"
               resourceIdAccessor="resourceId"
               resources={resourceMap}
               resourceTitleAccessor="resourceTitle"
