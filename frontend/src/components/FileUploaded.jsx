@@ -5,20 +5,12 @@ const FileUploader = ({ onFileSelect }) => {
   const handleFileInput = (event) => {
     onFileSelect(event.target.files[0]);
     
-    //   if (file.size > 1024)
-    //     onFileSelectError({ error: "File size cannot exceed 1MB" });
-    //   else onFileSelectSuccess(file);
-    //   onFileSelect(event.target.files[0]);
-    // };
   };
 
   return (
     <div className="file-uploader">
       <input type="file" onChange={handleFileInput} />
-      {/* <button
-        onClick={(event) => fileInput.current && fileInput.current.click()}
-        className="btn btn-primary"
-      /> */}
+ 
     </div>
   );
 };

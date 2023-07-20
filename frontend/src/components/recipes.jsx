@@ -96,8 +96,9 @@ const Recipe = () => {
       <Header />
 
       <h1 style={{ color: "#123c69", textAlign: "center", marginTop: "2rem" }}>
-        Recipe Library
+        Recipes and Cooking Ideas
       </h1>
+      <p>Discover superstar recipes, to take the pain out of meal planning.</p>
       <form
         onSubmit={handleSearchSubmit}
         style={{ marginBottom: "2rem", textAlign: "center" }}

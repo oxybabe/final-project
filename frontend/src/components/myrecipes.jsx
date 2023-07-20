@@ -160,9 +160,9 @@ const UserRecipes = () => {
   return (
     <>
       <Header />
-      <h1 style={{ color: "#123c69" }}>My Recipe Collection</h1>
+      <h1 style={{ color: "#123c69" }}>My Recipe Library</h1>
 
-      <AddRecipe setUserRecipes={setUserRecipes} userRecipes={userRecipes} />
+     
       <br />
 
       <div className="row row-cols-1 row-cols-md-4 g-4">
@@ -246,6 +246,7 @@ const UserRecipes = () => {
             </div>
           ))}
       </div>
+      <AddRecipe setUserRecipes={setUserRecipes} userRecipes={userRecipes} />
       {recipeModalData && (
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>{recipeModalData.title}</Modal.Header>

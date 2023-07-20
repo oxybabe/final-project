@@ -40,11 +40,11 @@ function Header() {
       <Navbar
         className="d-flex p-2"
         fixed="top"
-        // bg="dark"
-        // data-bs-theme="dark"
+    
         style={{ backgroundColor: "#20695e", color: "#f4e9cd" }}
       >
         <Container>
+        <img src="./media/Blue Restaurant Dinner Set Logo.jpeg"  style={{ height: "30px", marginRight: "30px" }} />
           <Navbar.Brand style={{ color: "#f4e9cd" }} href="#home">
             Meal Master
           </Navbar.Brand>
@@ -53,7 +53,7 @@ function Header() {
               Home
             </Nav.Link>
             <Nav.Link href="/recipes" style={{ color: "#f4e9cd" }}>
-              Recipes
+              Find Recipes
             </Nav.Link>
             <Nav.Link href="/myrecipes" style={{ color: "#f4e9cd" }}>
               My Recipes
@@ -70,7 +70,7 @@ function Header() {
               </Nav.Link>
             )}
             <Nav.Link href="/calendar" style={{ color: "#f4e9cd" }}>
-              Calendar
+              Meal Calendar
             </Nav.Link>
           </Nav>
         </Container>

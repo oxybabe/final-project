@@ -3,6 +3,7 @@ import Header from "./Header";
 import { useNavigate } from "react-router-dom";
 import UserRegistration from "./register";
 import Carousel from "react-bootstrap/Carousel";
+import Button from "react-bootstrap/esm/Button";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -15,7 +16,10 @@ const Home = () => {
     <>
       <div style={{ maxWidth: "600px", margin: "auto" }}>
         <Header />
-        <h1 style={{ color: "#123c69" }}>Welcome to Meal Master</h1>
+        <h1 style={{ color: "#123c69" }}>Meal Master </h1>
+        <h2 style={{ color: "#123c69" }}>
+          Flavorful Feasts, All In One Place!
+        </h2>
         <Carousel>
           <Carousel.Item interval={3500}>
             <img
@@ -54,14 +58,13 @@ const Home = () => {
             <Carousel.Caption></Carousel.Caption>
           </Carousel.Item>
         </Carousel>
-        <button
+        <Button
+          size="sm"
           style={{ backgroundColor: "#20695e" }}
           onClick={handleLoginClick}
         >
-          Click to login
-        </button>
-
-        {/* <UserRegistration /> */}
+          Click to Login
+        </Button>{" "}
       </div>
     </>
   );
