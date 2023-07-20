@@ -171,60 +171,76 @@ const UserRecipes = () => {
             <div className="col" key={recipe.id}>
               <div
                 className="card h-100"
-                style={{ backgroundColor: "#9dbebb" }}
+                style={{ backgroundColor: "#9dbebb", border: "1px solid #ddd" }}
               >
-                <div className="card-body">
+                <div
+                  className="card-body"
+                  // style={{ display: "flex", flexDirection: "column" }}
+                >
                   <h5 className="card-title">{recipe.title}</h5>
-                  Meal Type:
+
                   <p className="card-text">{recipe.dish_type}</p>
-                  {recipe.image && (
-                    <img
-                      src={recipe.image}
-                      className="card-img-top"
-                      style={{ width: 400 }}
-                      alt="..."
-                    />
-                  )}
-                  {recipe.imageURL && (
-                    <img
-                      src={recipe.imageURL}
-                      className="card-img-top"
-                      style={{ width: 400 }}
-                      alt="..."
-                    />
-                  )}
-                  <br />
-                  <button
-                    className="btn btn-primary btn-block"
-                    style={{ backgroundColor: "#20695e", border: "#ac3b61" }}
-                    onClick={() => viewRecipe(recipe)}
-                  >
-                    View Recipe
-                  </button>
-                  <br />
-                  {activeId === recipe.id && isEditing ? (
-                    <UpdateForm
-                      recipe={recipe}
-                      handleUpdateRecipe={handleUpdateRecipe}
-                      setIsEditing={setIsEditing}
-                    />
-                  ) : (
+                  <div style={{ marginBottom: "1rem" }}>
+                    {recipe.image && (
+                      <img
+                        src={recipe.image}
+                        className="card-img-top"
+                        style={{
+                          width: "100%",
+                          height: "200px",
+                          objectFit: "cover",
+                        }}
+                        alt="..."
+                      />
+                    )}
+                    {recipe.imageURL && (
+                      <img
+                        src={recipe.imageURL}
+                        className="card-img-top"
+                        style={{
+                          width: "100%",
+                          height: "200px",
+                          objectFit: "cover",
+                        }}
+                        alt="..."
+                      />
+                    )}
+                    <br />
                     <button
-                      className="btn btn-primary btn-block"
+                      className="btn btn-primary btn-block  mb-2"
                       style={{ backgroundColor: "#20695e", border: "#ac3b61" }}
-                      onClick={() => openEditor(recipe.id)}
+                      onClick={() => viewRecipe(recipe)}
                     >
-                      Edit Recipe
+                      View Recipe
                     </button>
-                  )}
-                  <br />
-                  <button
-                    className="btn btn-primary btn-block"
-                    style={{ backgroundColor: "#20695e", border: "#ac3b61" }}
-                    onClick={() => deleteRecipe(recipe.id)}
-                  >
-                    Delete Recipe
-                  </button>
+                    <br />
+                    {activeId === recipe.id && isEditing ? (
+                      <UpdateForm
+                        recipe={recipe}
+                        handleUpdateRecipe={handleUpdateRecipe}
+                        setIsEditing={setIsEditing}
+                      />
+                    ) : (
+                      <button
+                        className="btn btn-primary btn-block mb-2 "
+                        style={{
+                          backgroundColor: "#20695e",
+                          border: "#ac3b61",
+                        }}
+                        onClick={() => openEditor(recipe.id)}
+                      >
+                        Edit Recipe
+                      </button>
+                    )}
+                    <br />
+                    <button
+                      className="btn btn-primary btn-block mb-2"
+                      style={{ backgroundColor: "#20695e", border: "#ac3b61" }}
+                      onClick={() => deleteRecipe(recipe.id)}
+                    >
+                      Delete Recipe
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

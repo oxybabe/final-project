@@ -46,7 +46,7 @@ function Header() {
       >
         <Container>
           <Navbar.Brand style={{ color: "#f4e9cd" }} href="#home">
-            Recipe App
+            Meal Master
           </Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/home" style={{ color: "#f4e9cd" }}>

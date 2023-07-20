@@ -95,20 +95,30 @@ const Recipe = () => {
     <>
       <Header />
 
-      <h1 style={{ color: "#123c69" }}>Recipe Library</h1>
-      <form onSubmit={handleSearchSubmit}>
+      <h1 style={{ color: "#123c69", textAlign: "center", marginTop: "2rem" }}>
+        Recipe Library
+      </h1>
+      <form
+        onSubmit={handleSearchSubmit}
+        style={{ marginBottom: "2rem", textAlign: "center" }}
+      >
         <input
           className="search-bar"
           type="text"
           placeholder="Search recipes..."
           value={search}
           onChange={handleSearchInput}
-          style={{ backgroundColor: "#f4e9cd", color: "#123c69" }}
+          style={{
+            backgroundColor: "#f4e9cd",
+            color: "#123c69",
+            maxWidth: "400px",
+            margin: "0 auto",
+          }}
         />
         <button
           className="search-button"
           type="submit"
-          style={{ backgroundColor: "#20695e" }}
+          style={{ backgroundColor: "#20695e", marginLeft: "1rem" }}
         >
           Search
         </button>
@@ -120,7 +130,7 @@ const Recipe = () => {
             <div className="col" key={recipe.recipe.label}>
               <div
                 className="card h-100"
-                style={{ backgroundColor: "#9dbebb" }}
+                style={{ backgroundColor: "#9dbebb", border: "1px solid #ddd" }}
               >
                 <img
                   src={recipe.recipe.image}
@@ -130,21 +140,26 @@ const Recipe = () => {
                 <div className="card-body">
                   <h5 className="card-title">{recipe.recipe.label}</h5>
                   <p className="card-text"></p>
-                  <button
-                    className="btn btn-primary btn-block"
-                    style={{ backgroundColor: "#20695e", border: "#123c69" }}
-                    onClick={() => viewRecipe(recipe.recipe)}
+                  <div
+                    className="button-container"
+                    style={{ display: "flex", justifyContent: "space-between" }}
                   >
-                    View Recipe
-                  </button>
-                  <br />
-                  <button
-                    className="btn btn-primary btn-block padding-top"
-                    style={{ backgroundColor: "#20695e", border: "#123c69" }}
-                    onClick={() => addRecipeToCollection(recipe.recipe)}
-                  >
-                    Add to my recipes
-                  </button>
+                    <button
+                      className="btn btn-primary btn-block"
+                      style={{ backgroundColor: "#20695e", border: "#123c69", flex: 1, marginRight: '5px' }}
+                      onClick={() => viewRecipe(recipe.recipe)}
+                    >
+                      View Recipe
+                    </button>
+                    <br />
+                    <button
+                      className="btn btn-primary btn-block padding-top"
+                      style={{ backgroundColor: "#20695e", border: "#123c69", flex: 1, marginRight: '5px' }}
+                      onClick={() => addRecipeToCollection(recipe.recipe)}
+                    >
+                      Add to my recipes
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

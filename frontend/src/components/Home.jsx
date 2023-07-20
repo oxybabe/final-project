@@ -13,7 +13,7 @@ const Home = () => {
 
   return (
     <>
-      <div>
+      <div style={{ maxWidth: "600px", margin: "auto" }}>
         <Header />
         <h1 style={{ color: "#123c69" }}>Welcome to Meal Master</h1>
         <Carousel>
@@ -22,52 +22,36 @@ const Home = () => {
               className="d-block w-100"
               src="./public/media/chocolatecake.jpg"
               alt="First slide"
-              style={{ width: 300 }}
+              style={{ width: "300px", height: "400px", objectFit: "cover" }}
             />
-            <Carousel.Caption>
-              {/* <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p> */}
-            </Carousel.Caption>
+            <Carousel.Caption></Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item interval={3500}>
             <img
               className="d-block w-100"
               src="./public/media/food and drink.jpg"
               alt="Second slide"
-              style={{ width: 300 }}
+              style={{ width: "300px", height: "400px", objectFit: "cover" }}
             />
-            <Carousel.Caption>
-              {/* <h3>Second slide label</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> */}
-            </Carousel.Caption>
+            <Carousel.Caption></Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item interval={3500}>
             <img
               className="d-block w-100"
               src="./public/media/meal.jpg"
               alt="Third slide"
-              style={{ width: 300 }}
+              style={{ width: "300px", height: "400px", objectFit: "cover" }}
             />
-            <Carousel.Caption>
-              {/* <h3>Third slide label</h3>
-            <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-            </p> */}
-            </Carousel.Caption>
+            <Carousel.Caption></Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item interval={3500}>
             <img
               className="d-block w-100"
               src="./public/media/brooke-lark-HlNcigvUi4Q-unsplash.jpg"
               alt="Third slide"
-              style={{ width: 300 }}
+              style={{ width: "300px", height: "400px", objectFit: "cover" }}
             />
-            <Carousel.Caption>
-              {/* <h3>Third slide label</h3>
-            <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-            </p> */}
-            </Carousel.Caption>
+            <Carousel.Caption></Carousel.Caption>
           </Carousel.Item>
         </Carousel>
         <button
