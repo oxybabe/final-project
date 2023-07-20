@@ -285,7 +285,6 @@ const MyRecipes = () => {
               }}
               alt="..."
             />
-
             <form onSubmit={(e) => addToCalendar(e, recipeModalData)}>
               <input
                 type="date"

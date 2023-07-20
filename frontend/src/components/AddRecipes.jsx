@@ -10,7 +10,6 @@ const AddRecipe = ({ setUserRecipes, userRecipes }) => {
   const [servings, setServings] = useState("");
   const [ingredients, setIngredients] = useState("");
   const [directions, setDirections] = useState("");
-  const [isShown, setIsShown] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("user"));
@@ -21,7 +20,7 @@ const AddRecipe = ({ setUserRecipes, userRecipes }) => {
     setImage(file);
   };
 
-  const handleSubmit = async (event) => {
+  const addRecipe = async (event) => {
     event.preventDefault();
     const formData = new FormData();
     formData.append("title", title);
@@ -55,6 +54,7 @@ const AddRecipe = ({ setUserRecipes, userRecipes }) => {
       setServings("");
       setIngredients("");
       setDirections("");
+      setShowModal(false);
     }
   };
 
@@ -66,12 +66,11 @@ const AddRecipe = ({ setUserRecipes, userRecipes }) => {
       >
         Add Custom Recipe To Personal Collection Here
       </Button>
-
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header style={{ color: "#f4e9cd", background: "#123c69" }}>
           Add to your collection:
         </Modal.Header>
-        <Form onSubmit={handleSubmit} style={{ background: "#123c69" }}>
+        <Form onSubmit={addRecipe} style={{ background: "#123c69" }}>
           <Form.Group controlId="title">
             <Form.Label style={{ color: "#f4e9cd" }}>Recipe Title:</Form.Label>
             <Form.Control
