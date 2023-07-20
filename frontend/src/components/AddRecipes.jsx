@@ -13,10 +13,7 @@ const AddRecipe = ({ setUserRecipes, userRecipes }) => {
   const [isShown, setIsShown] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
-
-  // const [selectedRecipeFile, setSelectedRecipeFile] = useState(false);
-  const input = document.getElementById("fileinput");
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const changeHandler = async (event) => {
     const file = event.target.files[0];
@@ -60,22 +57,17 @@ const AddRecipe = ({ setUserRecipes, userRecipes }) => {
       setDirections("");
     }
   };
-  const handleRecipeClick = (recipe) => {
-    window.location.href = recipe.shareAs;
-  };
-  const handleCloseModal = () => setShowModal(false);
-  const handleShowModal = () => setShowModal(true);
-  const handleClick = (event) => {
-    setIsShown(true);
-  };
 
   return (
     <div className="form-group">
-      <Button style={{ backgroundColor: "#20695e", marginTop: "20px" }} onClick={handleShowModal}>
+      <Button
+        style={{ backgroundColor: "#20695e", marginTop: "20px" }}
+        onClick={() => setShowModal(true)}
+      >
         Add Custom Recipe To Personal Collection Here
       </Button>
 
-      <Modal show={showModal} onHide={handleCloseModal} centered>
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header style={{ color: "#f4e9cd", background: "#123c69" }}>
           Add to your collection:
         </Modal.Header>
@@ -180,7 +172,7 @@ const AddRecipe = ({ setUserRecipes, userRecipes }) => {
             marginBottom: "10px",
           }}
           className="btn btn-secondary"
-          onClick={handleCloseModal}
+          onClick={() => setShowModal(false)}
         >
           Cancel
         </Button>

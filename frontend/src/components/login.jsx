@@ -4,29 +4,17 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-import Header from "./Header";
-import useLocalStorage from "./useLocalStorage";
+import useLocalStorage from "../hooks/useLocalStorage";
+import { handleError } from "../utils";
 
 export default function UserLogin() {
   const navigate = useNavigate();
-  const [isValid, setIsValid] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser, removeUser] = useLocalStorage("user");
 
-  const handleUsernameInput = (e) => {
-    setUsername(e.target.value);
-  };
-  const handlePasswordInput = (e) => {
-    setPassword(e.target.value);
-  };
-  const handleError = (err) => {
-    console.log(err);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const options = {
       method: "POST",
       headers: {
@@ -47,18 +35,18 @@ export default function UserLogin() {
     }
     const data = await response.json();
     console.log({ data });
+
     setUser({
       username: username,
       id: data.id,
       token: data.key,
     });
     Cookies.set("Authorization", `Token ${data.key}`);
-    setIsValid(true);
     navigate("/recipes");
   };
+
   return (
     <>
-      <Header />
       <h1 style={{ color: "#123c69" }}>Login</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formUsername">
@@ -69,9 +57,10 @@ export default function UserLogin() {
             name="username"
             placeholder="Enter username"
             value={username}
-            onChange={handleUsernameInput}
-          ></input>
-
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
+          />
           <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
 
@@ -83,12 +72,12 @@ export default function UserLogin() {
             name="password"
             placeholder="Password"
             value={password}
-            onChange={handlePasswordInput}
-          ></input>
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          {/* <Form.Check type="checkbox" label="Remember me" /> */}
-        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicCheckbox"></Form.Group>
         <Button
           variant="primary"
           type="submit"

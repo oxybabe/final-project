@@ -1,27 +1,24 @@
 import React, { useEffect, useState } from "react";
-import Header from "./Header";
-import { useNavigate } from "react-router-dom";
 import AddRecipe from "./AddRecipes";
 import Cookies from "js-cookie";
 import UpdateForm from "./UpdateForm";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import { handleError } from "../utils";
 
-const UserRecipes = () => {
+const MyRecipes = () => {
   const [userRecipes, setUserRecipes] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [activeId, setActiveId] = useState(null);
   const [recipeModalData, setRecipeModalData] = useState(null);
   const [show, setShow] = useState(false);
   const [date, setDate] = useState("");
+
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const openEditor = (id) => {
     setActiveId(id);
     setIsEditing(true);
-  };
-
-  const handleError = (err) => {
-    console.warn(err);
   };
 
   useEffect(() => {
@@ -43,10 +40,12 @@ const UserRecipes = () => {
     setRecipeModalData(recipe);
     setShow(true);
   };
+
   const handleClose = () => {
     setRecipeModalData(null);
     setShow(false);
   };
+
   const deleteRecipe = async (id) => {
     try {
       const response = await fetch(
@@ -85,8 +84,6 @@ const UserRecipes = () => {
       ingredients,
       directions,
     } = recipeData;
-    console.log("here", { recipeData });
-
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
@@ -95,14 +92,12 @@ const UserRecipes = () => {
     formData.append("servings", servings);
     formData.append("ingredients", ingredients);
     formData.append("directions", directions);
-
     try {
       const response = await fetch(
         `http://localhost:8000/recipe/recipe/${id}/`,
         {
           method: "PATCH",
           headers: {
-            // "Content-Type": "application/json",
             "X-CSRFToken": Cookies.get("csrftoken"),
             Authorization: Cookies.get("Authorization").trim(),
           },
@@ -110,7 +105,6 @@ const UserRecipes = () => {
         }
       );
       if (response.ok) {
-        console.log("Recipe updated");
         const data = await response.json();
         const index = userRecipes.findIndex((recipe) => recipe.id === data.id);
         const newRecipe = [...userRecipes];
@@ -127,7 +121,6 @@ const UserRecipes = () => {
 
   const addToCalendar = async (e, recipe) => {
     e.preventDefault();
-    console.log({ recipe });
     const body = {
       recipe: recipe,
       allDay: "true",
@@ -143,7 +136,6 @@ const UserRecipes = () => {
       },
       body: JSON.stringify(body),
     };
-    console.log("herer");
     const response = await fetch(
       `http://127.0.0.1:8000/recipe/calendarevents/${user.id}`,
       options
@@ -151,18 +143,13 @@ const UserRecipes = () => {
     if (!response.ok) {
       console.log("login not successful");
     }
-    const data = await response.json();
-    console.log({ data });
     handleClose();
   };
 
   return (
     <>
-      <Header />
       <h1 style={{ color: "#123c69" }}>My Recipe Library</h1>
-
       <br />
-
       <div className="row row-cols-1 row-cols-md-4 g-4">
         {userRecipes &&
           userRecipes.map((recipe) => (
@@ -324,4 +311,4 @@ const UserRecipes = () => {
   );
 };
 
-export default UserRecipes;
+export default MyRecipes;

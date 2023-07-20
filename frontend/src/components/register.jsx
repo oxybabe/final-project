@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Header from "./Header";
 
 const UserRegistration = () => {
   const navigate = useNavigate();
@@ -41,7 +40,6 @@ const UserRegistration = () => {
       throw new Error("Network response was not OK");
     } else {
       const data = await response.json();
-      console.log({ data });
       Cookies.set("Authorization", `Token ${data.key}`);
       navigate("/login");
     }
@@ -49,7 +47,6 @@ const UserRegistration = () => {
 
   return (
     <>
-      <Header />
       <h1 style={{ color: "#123c69" }}>Registration</h1>
       <Form onSubmit={handleRegistrationSubmit}>
         <Form.Group className="mb-3" controlId="formUsername">
@@ -61,9 +58,7 @@ const UserRegistration = () => {
             placeholder="Enter email"
             value={user.email}
             onChange={handleInput}
-          ></input>
-
-          <Form.Text className="text-muted"></Form.Text>
+          />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formUsername">
           <Form.Label style={{ color: "#123c69" }}>Username</Form.Label>
@@ -74,11 +69,8 @@ const UserRegistration = () => {
             placeholder="Enter username"
             value={user.username}
             onChange={handleInput}
-          ></input>
-
-          <Form.Text className="text-muted"></Form.Text>
+          />
         </Form.Group>
-
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label style={{ color: "#123c69" }}>Password</Form.Label>
           <input
@@ -88,7 +80,7 @@ const UserRegistration = () => {
             placeholder="Password"
             value={user.password1}
             onChange={handleInput}
-          ></input>
+          />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label style={{ color: "#123c69" }}>Confirm Password</Form.Label>
@@ -99,9 +91,8 @@ const UserRegistration = () => {
             placeholder="Confirm Password"
             value={user.password2}
             onChange={handleInput}
-          ></input>
+          />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox"></Form.Group>
         <Button
           variant="primary"
           type="submit"

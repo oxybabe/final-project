@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { json, useNavigate } from "react-router-dom";
-import useLocalStorage from "./useLocalStorage";
+import { useNavigate } from "react-router-dom";
 import React from "react";
-import Header from "./Header";
 import { Button } from "react-bootstrap";
+import Spinner from "react-bootstrap/Spinner";
 
-const Recipe = () => {
-  const navigate = useNavigate();
+const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState("false");
   const [search, setSearch] = useState("");
-  console.log(user.username);
+  const [isLoading, setIsLoading] = useState(false);
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const navigate = useNavigate();
 
   const fetchRecipeData = () => {
+    setIsLoading(true);
     fetch(
       `https://api.edamam.com/api/recipes/v2?type=public&app_id=5eee6e55&app_key=${
         import.meta.env.VITE_RECIPE_PUBLIC_KEY
@@ -27,6 +27,7 @@ const Recipe = () => {
       .then((data) => {
         console.log(data);
         setRecipes(data.hits);
+        setIsLoading(false);
       });
   };
 
@@ -39,10 +40,9 @@ const Recipe = () => {
   };
 
   const addRecipeToCollection = async (recipe) => {
-    // console.log("user:", username);
     if (Cookies.get("Authorization")) {
       const selectedRecipe = {
-        author_id: user.id, // Use the username from local storage
+        author_id: user?.id, // Use the username from local storage
         title: recipe.label,
         description: recipe.cuisineType[0],
         image: null,
@@ -54,7 +54,7 @@ const Recipe = () => {
         ingredients: recipe.ingredientLines.join(", "),
       };
       console.log({ selectedRecipe });
-      fetch(`http://localhost:8000/recipe/recipes/${user.id}`, {
+      fetch(`http://localhost:8000/recipe/recipes/${user?.id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -93,8 +93,6 @@ const Recipe = () => {
 
   return (
     <>
-      <Header />
-
       <h1 style={{ color: "#123c69", textAlign: "center", marginTop: "2rem" }}>
         Recipes and Cooking Ideas
       </h1>
@@ -124,60 +122,74 @@ const Recipe = () => {
           Search
         </button>
       </form>
-
-      <div className="row row-cols-1 row-cols-md-4 g-4">
-        {recipes?.length > 0 &&
-          recipes.map((recipe) => (
-            <div className="col" key={recipe.recipe.label}>
-              <div
-                className="card h-100"
-                style={{ backgroundColor: "#9dbebb", border: "1px solid #ddd" }}
-              >
-                   
-                <img
-                  src={recipe.recipe.image}
-                  className="card-img-top"
-                  alt="..."
-                />
-                <div className="card-body">
-                  <h5 className="card-title">{recipe.recipe.label}</h5>
-                  <p className="card-text"></p>
-                  <div
-                    className="button-container"
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                  >
-                    <Button
-                      className="btn btn-primary btn-block"
-                      size="sm"
+      {isLoading ? (
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      ) : (
+        <div className="row row-cols-1 row-cols-md-4 g-4">
+          {recipes?.length > 0 &&
+            recipes.map((recipe) => (
+              <div className="col" key={recipe.recipe.label}>
+                <div
+                  className="card h-100"
+                  style={{
+                    backgroundColor: "#9dbebb",
+                    border: "1px solid #ddd",
+                  }}
+                >
+                  <img
+                    src={recipe.recipe.image}
+                    className="card-img-top"
+                    alt="..."
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">{recipe.recipe.label}</h5>
+                    <p className="card-text"></p>
+                    <div
+                      className="button-container"
                       style={{
-                        backgroundColor: "#20695e",
-                        border: "#123c69",
-                        marginRight: "10px" 
+                        display: "flex",
+                        justifyContent: "space-between",
                       }}
-                      onClick={() => viewRecipe(recipe.recipe)}
                     >
-                      View Recipe
-                    </Button>
-                    <br />
-                    <Button
-                      className="btn btn-primary btn-block"
-                      size="sm"
-                      style={{ backgroundColor: "#20695e", border: "#123c69", marginLeft: "10px"  }}
-                      onClick={() => addRecipeToCollection(recipe.recipe)}
-                    >
-                      Add to my recipes
-                    </Button>
-                    {/* <div className="icon">
-      <a  onClick={() => addRecipeToCollection(recipe.recipe)}><FontAwesomeIcon icon="fa-solid fa-heart" style={{color: "#ac3b61"}} /></a>
-      </div> */}
+                      <Button
+                        className="btn btn-primary btn-block"
+                        size="sm"
+                        style={{
+                          backgroundColor: "#20695e",
+                          border: "#123c69",
+                          marginRight: "10px",
+                        }}
+                        onClick={() => viewRecipe(recipe.recipe)}
+                      >
+                        View Recipe
+                      </Button>
+                      <br />
+                      <Button
+                        className="btn btn-primary btn-block"
+                        size="sm"
+                        style={{
+                          backgroundColor: "#20695e",
+                          border: "#123c69",
+                          marginLeft: "10px",
+                        }}
+                        onClick={() => addRecipeToCollection(recipe.recipe)}
+                      >
+                        Add to my recipes
+                      </Button>
+                      {/* <div className="icon">
+        <a  onClick={() => addRecipeToCollection(recipe.recipe)}><FontAwesomeIcon icon="fa-solid fa-heart" style={{color: "#ac3b61"}} /></a>
+        </div> */}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
-      </div>
+            ))}
+        </div>
+      )}
     </>
   );
 };
 
-export default Recipe;
+export default Recipes;

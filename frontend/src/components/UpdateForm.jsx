@@ -1,12 +1,7 @@
 import React, { useState } from "react";
-
 import { Modal, Button } from "react-bootstrap";
 
-export default function UpdateRecipe({
-  recipe,
-  handleUpdateRecipe,
-  setIsEditing,
-}) {
+function UpdateForm({ recipe, handleUpdateRecipe, setIsEditing }) {
   const [recipeData, setRecipeData] = useState(recipe);
   const editFormSubmit = (e) => {
     e.preventDefault();
@@ -15,19 +10,18 @@ export default function UpdateRecipe({
     handleUpdateRecipe(recipe.id, recipeData);
   };
 
-  console.log({ recipe });
   return (
     <>
       <Modal show={true} onHide={() => setIsEditing(false)} centered>
-        <Modal.Header close style={{ backgroundColor: "#9dbebb"}}>
+        <Modal.Header close style={{ backgroundColor: "#9dbebb" }}>
           <Modal.Title>Edit Recipe</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{ backgroundColor: "#9dbebb"}}>
+        <Modal.Body style={{ backgroundColor: "#9dbebb" }}>
           <form onSubmit={editFormSubmit}>
             <div className="form-group">
               <label htmlFor="title">Recipe title:</label>
               <input
-              style={{ backgroundColor: "#f4e9cd"}}
+                style={{ backgroundColor: "#f4e9cd" }}
                 type="text"
                 className="form-control"
                 id="title"
@@ -42,7 +36,7 @@ export default function UpdateRecipe({
               <label htmlFor="description">Description:</label>
               <input
                 type="text"
-                style={{ backgroundColor: "#f4e9cd"}}
+                style={{ backgroundColor: "#f4e9cd" }}
                 className="form-control"
                 id="description"
                 placeholder="Description"
@@ -56,7 +50,7 @@ export default function UpdateRecipe({
               <label htmlFor="description">Dish Type:</label>
               <input
                 type="text"
-                style={{ backgroundColor: "#f4e9cd"}}
+                style={{ backgroundColor: "#f4e9cd" }}
                 className="form-control"
                 id="dish_type"
                 placeholder="Dish Type"
@@ -70,7 +64,7 @@ export default function UpdateRecipe({
               <label htmlFor="cooking_time">Cooking time:</label>
               <input
                 className="form-control"
-                style={{ backgroundColor: "#f4e9cd"}}
+                style={{ backgroundColor: "#f4e9cd" }}
                 id="cooking_time"
                 placeholder="Cooking time"
                 value={recipeData.cooking_time}
@@ -83,7 +77,7 @@ export default function UpdateRecipe({
               <label htmlFor="servings">Servings:</label>
               <input
                 type="text"
-                style={{ backgroundColor: "#f4e9cd"}}
+                style={{ backgroundColor: "#f4e9cd" }}
                 className="form-control"
                 id="servings"
                 placeholder="Servings"
@@ -93,7 +87,7 @@ export default function UpdateRecipe({
               <label htmlFor="ingredients">Ingredients:</label>
               <textarea
                 className="form-control"
-                style={{ backgroundColor: "#f4e9cd"}}
+                style={{ backgroundColor: "#f4e9cd" }}
                 id="ingredients"
                 placeholder="Ingredients"
                 value={recipeData.ingredients}
@@ -107,7 +101,7 @@ export default function UpdateRecipe({
               <label htmlFor="directions">Directions:</label>
               <textarea
                 className="form-control"
-                style={{ backgroundColor: "#f4e9cd"}}
+                style={{ backgroundColor: "#f4e9cd" }}
                 id="directions"
                 placeholder="Directions"
                 value={recipeData.directions}
@@ -120,7 +114,7 @@ export default function UpdateRecipe({
           </form>
         </Modal.Body>
 
-        <Modal.Footer style={{ backgroundColor: "#9dbebb"}}>
+        <Modal.Footer style={{ backgroundColor: "#9dbebb" }}>
           <Button
             type="submit"
             className="btn btn-primary"
@@ -143,3 +137,5 @@ export default function UpdateRecipe({
     </>
   );
 }
+
+export default UpdateForm;

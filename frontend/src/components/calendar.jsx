@@ -1,19 +1,16 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { Calendar, momentLocalizer, Views } from "react-big-calendar";
+import { handleError } from "../utils";
 import moment from "moment";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import Header from "./Header";
 import Cookies from "js-cookie";
+
 const MealCalendar = () => {
   const localizer = momentLocalizer(moment);
   const [mealEvents, setMealEvents] = useState([]);
 
   const user = JSON.parse(localStorage.getItem("user"));
-
-  const handleError = (err) => {
-    console.warn(err);
-  };
 
   useEffect(() => {
     const fetchUserCalendarData = async () => {
@@ -86,7 +83,6 @@ const MealCalendar = () => {
     <>
       <div style={{ display: "flex" }}>
         <div style={{ flex: 1 }}>
-          <Header />
           <div style={{ height: "500px" }}>
             <h1 style={{ color: "#123c69" }}>Calendar</h1>
             <Calendar

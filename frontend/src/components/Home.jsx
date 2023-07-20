@@ -1,20 +1,15 @@
 import React from "react";
-import Header from "./Header";
 import { useNavigate } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
 import Button from "react-bootstrap/esm/Button";
 
 const Home = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
-
-  const handleLoginClick = () => {
-    navigate("/login");
-  };
 
   return (
     <>
       <div style={{ maxWidth: "600px", margin: "auto" }}>
-        <Header />
         <h1 style={{ color: "#123c69" }}>Meal Master </h1>
         <h2 style={{ color: "#123c69" }}>
           Flavorful Feasts, All In One Place!
@@ -57,13 +52,15 @@ const Home = () => {
             <Carousel.Caption></Carousel.Caption>
           </Carousel.Item>
         </Carousel>
-        <Button
-          size="sm"
-          style={{ backgroundColor: "#20695e" }}
-          onClick={handleLoginClick}
-        >
-          Click to Login
-        </Button>{" "}
+        {!user && (
+          <Button
+            size="sm"
+            style={{ backgroundColor: "#20695e" }}
+            onClick={() => navigate("/login")}
+          >
+            Click to Login
+          </Button>
+        )}
       </div>
     </>
   );
