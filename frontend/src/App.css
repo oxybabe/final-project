@@ -43,7 +43,15 @@
   margin: 20px auto;
   box-shadow: 0px 0px 10px 2px #000;
   padding: 2em;
-
+}
+.button-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 
 img {
@@ -54,12 +62,12 @@ img {
 }
 .icon {
   position: absolute;
-  left: 75%;
-  bottom: 30.7%;
+  bottom: 175px;
+  z-index: 1;
+  right: 10px;
   color: #ac3b61;
   font-size: 2em;
   font-weight: bold;
-  padding: 20px;
   border-radius: 50%;
 }
 .Button {

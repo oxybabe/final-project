@@ -5,8 +5,11 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import Spinner from "react-bootstrap/Spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeartCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import { faHeartCirclePlus, faClock, faUtensils } from "@fortawesome/free-solid-svg-icons";
 import Alert from "react-bootstrap/Alert";
+import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
@@ -133,25 +136,31 @@ const Recipes = () => {
           <span className="visually-hidden">Loading...</span>
         </Spinner>
       ) : (
-        <div className="row row-cols-1 row-cols-md-4 g-4">
+        <Row xs={1} md={4} className="g-4">
+          {" "}
           {recipes?.length > 0 &&
             recipes.map((recipe) => (
-              <div className="col" key={recipe.recipe.label}>
-                <div
-                  className="card h-100"
+              <Col className="col" key={recipe.recipe.label}>
+                <Card
+                  className="recipe-card"
                   style={{
-                    backgroundColor: "#9dbebb",
-                    border: "1px solid #ddd",
+                    backgroundColor: "#f4e9cd",
                   }}
                 >
-                  <img
-                    src={recipe.recipe.image}
-                    className="card-img-top"
-                    alt="..."
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title">{recipe.recipe.label}</h5>
-                    <p className="card-text"></p>
+                  <div className="image-container">
+                    <Card.Img
+                    variant="top" 
+                      src={recipe.recipe.image}
+                    
+                    />
+                  </div>
+                  <Card.Body>
+                    <Card.Title style={{color: "#123c69"}} >
+                      {recipe.recipe.label}
+                    </Card.Title>
+                    <Card.Text className="card-text">{recipe.dish_type}
+                  <FontAwesomeIcon icon={faUtensils} />Serves {recipe.servings} <FontAwesomeIcon icon={faClock} /> {recipe.cooking_time}min
+                  </Card.Text>
                     <div
                       className="button-container"
                       style={{
@@ -173,7 +182,7 @@ const Recipes = () => {
                       <br />
                       <Button
                         className="btn btn-primary btn-block"
-                        size="sm"
+                        // size="sm"
                         style={{
                           backgroundColor: "#20695e",
                           border: "#123c69",
@@ -185,11 +194,11 @@ const Recipes = () => {
                       </Button>
                       <br />
                     </div>
-                  </div>
-                </div>
-              </div>
+                  </Card.Body>
+                </Card>
+              </Col>
             ))}
-        </div>
+        </Row>
       )}
     </>
   );

@@ -182,7 +182,7 @@ const MyRecipes = () => {
                   
 
                 </Card.Body>
-                <button
+                <Button
                 className="btn btn-primary btn-block  mb-2"
                 style={{
                   backgroundColor: "#20695e",
@@ -192,7 +192,7 @@ const MyRecipes = () => {
                 onClick={() => viewRecipe(recipe)}
               >
                 View Recipe
-              </button>
+              </Button>
              
               {activeId === recipe.id && isEditing ? (
                 <UpdateForm
