@@ -36,7 +36,7 @@ const UserRegistration = () => {
     );
 
     if (!response.ok) {
-      setError(data);
+      // setError(data);
       throw new Error("Network response was not OK");
     } else {
       const data = await response.json();

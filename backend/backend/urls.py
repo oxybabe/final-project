@@ -32,4 +32,5 @@ urlpatterns = [
     ),  # on frontend, to hit any URLS in your 'recipe_app', you will need '/recipe/...'. For example: localhost:8000/recipe/mealplan
     path("api/", include("api.urls")),
     path("auth/", include("accounts.urls")),
+    path("", include("frontend.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

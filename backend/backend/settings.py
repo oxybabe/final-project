@@ -52,8 +52,8 @@ INSTALLED_APPS = [
     "accounts.apps.AccountsConfig",
     "recipe_app.apps.RecipeAppConfig",
     "api.apps.ApiConfig",
-    # "recipe_app",
-    # "api",
+    "whitenoise.runserver_nostatic",
+    "frontend.apps.FrontendConfig",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -64,6 +64,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "corsheaders.middleware.CorsMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -79,15 +80,7 @@ REST_FRAMEWORK = {
 }
 
 REST_AUTH = {"SESSION_LOGIN": False}
-# SIMPLE_JWT = {
-#     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=10),
-#     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
-#     "ROTATE_REFRESH_TOKENS": True,
-#     "BLACKLIST_AFTER_ROTATION": True,
-# }
-# REST_AUTH_REGISTER_SERIALIZERS = {
-#     "REGISTER_SERIALIZER": "backend.recipe_app.serializers.CustomRegisterSerializer"
-# }
+
 ROOT_URLCONF = "backend.urls"
 
 AUTH_USER_MODEL = "accounts.User"
@@ -157,8 +150,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_STORAGE = "whitenoise.storage.CompressManifestStaticFilesStorage"
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "frontend/static/build/static"),)
+REACT_APP_DIR = os.path.join(BASE_DIR, "frontend/static")
 SITE_ID = 1
-# Default primary key field type
+# Default primary key field types
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
