@@ -6,7 +6,6 @@ import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import Cookies from "js-cookie";
 
-
 const MealCalendar = () => {
   const localizer = momentLocalizer(moment);
   const [mealEvents, setMealEvents] = useState([]);
@@ -74,7 +73,6 @@ const MealCalendar = () => {
         timeSlotWrapper: ColoredDateCellWrapper,
       },
       defaultDate: new Date(2015, 3, 1),
-      // max: dates.add(dates.endOf(new Date(2015, 17, 1), "day"), -1, "hours"),
       views: Object.keys(Views).map((k) => Views[k]),
     }),
     []

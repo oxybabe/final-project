@@ -71,13 +71,6 @@ const AddRecipe = ({ setUserRecipes, userRecipes }) => {
           Add Custom Recipe Here
         </a>
       </div>
-
-      {/* <Button
-        style={{ backgroundColor: "#20695e", marginTop: "20px" }}
-        onClick={() => setShowModal(true)}
-      >
-        Add Custom Recipe To Personal Collection Here
-      </Button> */}
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header style={{ color: "#f4e9cd", background: "#123c69" }}>
           <Modal.Title style={{ color: "#f4e9cd" }}>
