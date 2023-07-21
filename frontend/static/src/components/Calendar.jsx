@@ -14,15 +14,12 @@ const MealCalendar = () => {
 
   useEffect(() => {
     const fetchUserCalendarData = async () => {
-      const response = await fetch(
-        `http://localhost:8000/recipe/calendarevents/${user.id}`,
-        {
-          headers: {
-            "X-CSRFToken": Cookies.get("csrftoken"),
-            Authorization: Cookies.get("Authorization").trim(),
-          },
-        }
-      ).catch(handleError);
+      const response = await fetch(`/recipe/calendarevents/${user.id}/`, {
+        headers: {
+          "X-CSRFToken": Cookies.get("csrftoken"),
+          Authorization: Cookies.get("Authorization").trim(),
+        },
+      }).catch(handleError);
       if (!response.ok) {
         throw new Error("Network error");
       }

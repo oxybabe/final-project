@@ -1,13 +1,16 @@
 {
   "files": {
     "main.css": "/static/css/main.a88acda8.css",
-    "main.js": "/static/js/main.b625f424.js",
+    "main.js": "/static/js/main.75d3e9f8.js",
+    "static/media/home.jpg": "/static/media/home.de367ed00309ac2f8d87.jpg",
+    "static/media/meal_logo.ico": "/static/media/meal_logo.923c052e4e478efc33ba.ico",
+    "static/media/meal_logo.jpeg": "/static/media/meal_logo.923c052e4e478efc33ba.jpeg",
     "index.html": "/index.html",
     "main.a88acda8.css.map": "/static/css/main.a88acda8.css.map",
-    "main.b625f424.js.map": "/static/js/main.b625f424.js.map"
+    "main.75d3e9f8.js.map": "/static/js/main.75d3e9f8.js.map"
   },
   "entrypoints": [
     "static/css/main.a88acda8.css",
-    "static/js/main.b625f424.js"
+    "static/js/main.75d3e9f8.js"
   ]
 }

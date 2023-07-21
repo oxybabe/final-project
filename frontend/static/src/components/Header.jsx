@@ -18,10 +18,9 @@ function Header() {
       },
       body: JSON.stringify(user),
     };
-    const response = await fetch(
-      "http://localhost:8000/dj-rest-auth/logout/",
-      options
-    ).catch(handleError);
+    const response = await fetch("/dj-rest-auth/logout/", options).catch(
+      handleError
+    );
     if (!response.ok) {
       throw new Error("Oops! Something went wrong");
     } else {
@@ -41,7 +40,7 @@ function Header() {
       >
         <Container>
           <img
-            src="./media/Blue Restaurant Dinner Set Logo.jpeg"
+            src={require("../media/meal_logo.jpeg")}
             style={{ height: "30px", marginRight: "30px" }}
           />
           <Navbar.Brand style={{ color: "#f4e9cd" }} href="/">

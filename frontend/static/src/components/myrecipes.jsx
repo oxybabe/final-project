@@ -24,7 +24,7 @@ const MyRecipes = () => {
   const [date, setDate] = useState("");
 
   const user = JSON.parse(localStorage.getItem("user"));
-
+  console.log({ user });
   const openEditor = (id) => {
     setActiveId(id);
     setIsEditing(true);
@@ -32,9 +32,9 @@ const MyRecipes = () => {
 
   useEffect(() => {
     const fetchRecipeData = async () => {
-      const response = await fetch(
-        `http://localhost:8000/recipe/recipes/${user.id}`
-      ).catch(handleError);
+      const response = await fetch(`/recipe/recipes/${user.id}/`).catch(
+        handleError
+      );
       if (!response.ok) {
         throw new Error("Network error");
       }
@@ -57,18 +57,15 @@ const MyRecipes = () => {
 
   const deleteRecipe = async (id) => {
     try {
-      const response = await fetch(
-        `http://localhost:8000/recipe/recipe/${id}/`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            "X-CSRFToken": Cookies.get("csrftoken"),
-            Authorization: Cookies.get("Authorization").trim(),
-          },
-          body: JSON.stringify({ id }),
-        }
-      );
+      const response = await fetch(`/recipe/recipe/${id}/`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": Cookies.get("csrftoken"),
+          Authorization: Cookies.get("Authorization").trim(),
+        },
+        body: JSON.stringify({ id }),
+      });
       if (response.ok) {
         console.log("Recipe deleted");
         const index = userRecipes.findIndex((recipe) => recipe.id === id);
@@ -102,17 +99,14 @@ const MyRecipes = () => {
     formData.append("ingredients", ingredients);
     formData.append("directions", directions);
     try {
-      const response = await fetch(
-        `http://localhost:8000/recipe/recipe/${id}/`,
-        {
-          method: "PATCH",
-          headers: {
-            "X-CSRFToken": Cookies.get("csrftoken"),
-            Authorization: Cookies.get("Authorization").trim(),
-          },
-          body: formData,
-        }
-      );
+      const response = await fetch(`/recipe/recipe/${id}/`, {
+        method: "PATCH",
+        headers: {
+          "X-CSRFToken": Cookies.get("csrftoken"),
+          Authorization: Cookies.get("Authorization").trim(),
+        },
+        body: formData,
+      });
       if (response.ok) {
         const data = await response.json();
         const index = userRecipes.findIndex((recipe) => recipe.id === data.id);
@@ -127,7 +121,8 @@ const MyRecipes = () => {
       console.log("An error occurred while updated book", error);
     }
   };
-
+  console.log({ recipeModalData });
+  console.log("directions", recipeModalData?.directions);
   const addToCalendar = async (e, recipe) => {
     e.preventDefault();
     const body = {
@@ -146,7 +141,7 @@ const MyRecipes = () => {
       body: JSON.stringify(body),
     };
     const response = await fetch(
-      `http://127.0.0.1:8000/recipe/calendarevents/${user.id}`,
+      `/recipe/calendarevents/${user.id}/`,
       options
     ).catch(handleError);
     if (!response.ok) {
@@ -270,22 +265,43 @@ const MyRecipes = () => {
                   ))}
               </ul>
             </div>
-            <p>
-              Directions:{" "}
-              <a href={recipeModalData.directions} target="_blank">
-                Click here to view the recipe directions
-              </a>
-            </p>
-            <img
-              src={recipeModalData.image}
-              className="card-img-top"
-              style={{
-                width: "100%",
-                height: "200px",
-                objectFit: "cover",
-              }}
-              alt="..."
-            />
+            {!recipeModalData.image && (
+              <p>
+                Directions:{" "}
+                <a href={recipeModalData.directions} target="_blank">
+                  Click here to view the recipe directions
+                </a>
+              </p>
+            )}
+            {recipeModalData.image && (
+              <p>Directions: {recipeModalData.directions}</p>
+            )}
+
+            {recipeModalData.image && (
+              <img
+                src={recipeModalData.image}
+                className="card-img-top"
+                style={{
+                  width: "100%",
+                  height: "200px",
+                  objectFit: "cover",
+                }}
+                alt="..."
+              />
+            )}
+            {recipeModalData.imageURL && (
+              <img
+                src={recipeModalData.imageURL}
+                className="card-img-top"
+                style={{
+                  width: "100%",
+                  height: "200px",
+                  objectFit: "cover",
+                }}
+                alt="..."
+              />
+            )}
+
             <form onSubmit={(e) => addToCalendar(e, recipeModalData)}>
               <input
                 type="date"

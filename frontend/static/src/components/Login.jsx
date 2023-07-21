@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { handleError } from "../utils";
 
-export default function UserLogin() {
+export default function Login() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -26,10 +26,7 @@ export default function UserLogin() {
         password: password,
       }),
     };
-    const response = await fetch(
-      "http://127.0.0.1:8000/auth/login/",
-      options
-    ).catch(handleError);
+    const response = await fetch("/auth/login/", options).catch(handleError);
     if (!response.ok) {
       console.log("login not successful");
     }

@@ -10,7 +10,7 @@ const Profile = () => {
 
   const fetchProfileData = async () => {
     try {
-      const response = await fetch(`/user/${user.id}`);
+      const response = await fetch(`/user/${user.id}/`);
       if (response.ok) {
         const data = await response.json();
         setProfileData(data);

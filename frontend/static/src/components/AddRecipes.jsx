@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import Cookies from "js-cookie";
 
 const AddRecipe = ({ setUserRecipes, userRecipes }) => {
   const [title, setTitle] = useState("");
@@ -22,8 +23,8 @@ const AddRecipe = ({ setUserRecipes, userRecipes }) => {
     setImage(file);
   };
 
-  const addRecipe = async (event) => {
-    event.preventDefault();
+  const addRecipe = async (e) => {
+    e.preventDefault();
     const formData = new FormData();
     formData.append("title", title);
     formData.append("image", image);
@@ -33,15 +34,15 @@ const AddRecipe = ({ setUserRecipes, userRecipes }) => {
     formData.append("servings", servings);
     formData.append("ingredients", ingredients);
     formData.append("directions", directions);
-    formData.append("author_id", user.id);
-
-    const response = await fetch(
-      `http://localhost:8000/recipe/recipes/${user.id}`,
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
+    formData.append("author_id", user?.id);
+    const response = await fetch(`/recipe/recipes/${user?.id}/`, {
+      headers: {
+        "X-CSRFToken": Cookies.get("csrftoken"),
+        Authorization: Cookies.get("Authorization").trim(),
+      },
+      method: "POST",
+      body: formData,
+    });
     if (!response.ok) {
       throw new Error("not working");
     } else {
@@ -167,9 +168,27 @@ const AddRecipe = ({ setUserRecipes, userRecipes }) => {
                 onChange={(event) => setDirections(event.target.value)}
               />
             </Form.Group>
+            <Button
+              variant="primary"
+              style={{ backgroundColor: "#20695e", border: "#f4e9cd" }}
+              type="submit"
+            >
+              Submit
+            </Button>
+            <Button
+              style={{
+                backgroundColor: "#20695e",
+                border: "#f4e9cd",
+                marginBottom: "10px",
+              }}
+              className="btn btn-secondary"
+              onClick={() => setShowModal(false)}
+            >
+              Cancel
+            </Button>
           </Form>
         </Modal.Body>
-        <Modal.Footer style={{ backgroundColor: "#123c69" }}>
+        {/* <Modal.Footer style={{ backgroundColor: "#123c69" }}>
           <Button
             variant="primary"
             style={{ backgroundColor: "#20695e", border: "#f4e9cd" }}
@@ -188,7 +207,7 @@ const AddRecipe = ({ setUserRecipes, userRecipes }) => {
           >
             Cancel
           </Button>
-        </Modal.Footer>
+        </Modal.Footer> */}
       </Modal>
 
       <br />

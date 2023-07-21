@@ -10,11 +10,17 @@ const Home = () => {
   return (
     <>
       <div class="bg">
-        <img src="./media/brooke-lark-HlNcigvUi4Q-unsplash.jpg" alt="" />
+        <img
+          src={require("../media/home.jpg")}
+          alt=""
+          style={{ filter: "brightness(0.4)", opacity: "0.8" }}
+        />
 
         <div className="header">
-          <h1>Meal Master </h1>
-          <h2>Flavorful Feasts, All In One Place!</h2>
+          <h1 style={{ color: "white" }}>Meal Master </h1>
+          <h2 style={{ color: "white" }}>
+            Flavorful Feasts, All In One Place!
+          </h2>
 
           {!user && (
             <div>
@@ -25,9 +31,7 @@ const Home = () => {
                 onClick={() => navigate("/register")}
               >
                 Click to Register
-              </Button>
-              {" "}
-              
+              </Button>{" "}
               <Button
                 className="btn"
                 size="sm"

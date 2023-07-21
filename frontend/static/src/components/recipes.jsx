@@ -22,15 +22,13 @@ const Recipes = () => {
   const [showToast, setShowToast] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("user"));
-
+  console.log({ user });
   const navigate = useNavigate();
 
   const fetchRecipeData = () => {
     setIsLoading(true);
     fetch(
-      `https://api.edamam.com/api/recipes/v2?type=public&app_id=5eee6e55&app_key=${
-        import.meta.env.VITE_RECIPE_PUBLIC_KEY
-      }&q=${search}&mealType=Breakfast&mealType=Dinner&mealType=Lunch&mealType=Snack&random=true`
+      `https://api.edamam.com/api/recipes/v2?type=public&app_id=5eee6e55&app_key=${process.env.REACT_APP_RECIPE_PUBLIC_KEY}&q=${search}&mealType=Breakfast&mealType=Dinner&mealType=Lunch&mealType=Snack&random=true`
     )
       .then((response) => {
         console.log(response);
@@ -66,7 +64,7 @@ const Recipes = () => {
         ingredients: recipe.ingredientLines.join(", "),
       };
       console.log({ selectedRecipe });
-      fetch(`http://localhost:8000/recipe/recipes/${user?.id}`, {
+      fetch(`/recipe/recipes/${user?.id}/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
