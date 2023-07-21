@@ -96,6 +96,18 @@ img {
   font-weight: bold;
   border-radius: 50%;
 }
+
+.icon-add {
+  background-color: transparent;
+  transition: box-shadow 0.3s ease;
+  width: fit-content;
+  padding: 10px 10px;
+  border-radius: 10px;
+  margin: auto;
+}
+.icon-add:hover {
+  box-shadow: 0 8px 16px #123c69;
+}
 .Button {
   display: block;
   position: relative;
@@ -115,6 +127,10 @@ img {
 }
 .btn:hover {
   box-shadow: 0 8px 16px #123c69;
+}
+.search-bar {
+  border-radius: 8px;
+  height: 40px;
 }
 
 @media screen and (max-width: 1024px) {

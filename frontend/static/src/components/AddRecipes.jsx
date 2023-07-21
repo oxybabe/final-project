@@ -66,6 +66,7 @@ const AddRecipe = ({ setUserRecipes, userRecipes }) => {
       <div className="icon-add">
         <a onClick={() => setShowModal(true)}>
           <FontAwesomeIcon
+          className="add-icon"
             icon={faFileCirclePlus}
             style={{ color: "#1f695e" }}
           />
@@ -188,26 +189,7 @@ const AddRecipe = ({ setUserRecipes, userRecipes }) => {
             </Button>
           </Form>
         </Modal.Body>
-        {/* <Modal.Footer style={{ backgroundColor: "#123c69" }}>
-          <Button
-            variant="primary"
-            style={{ backgroundColor: "#20695e", border: "#f4e9cd" }}
-            type="submit"
-          >
-            Submit
-          </Button>
-          <Button
-            style={{
-              backgroundColor: "#20695e",
-              border: "#f4e9cd",
-              marginBottom: "10px",
-            }}
-            className="btn btn-secondary"
-            onClick={() => setShowModal(false)}
-          >
-            Cancel
-          </Button>
-        </Modal.Footer> */}
+
       </Modal>
 
       <br />

@@ -5,11 +5,13 @@ import moment from "moment";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import Cookies from "js-cookie";
+import Modal from "react-bootstrap/Modal";
 
 const MealCalendar = () => {
   const localizer = momentLocalizer(moment);
   const [mealEvents, setMealEvents] = useState([]);
-
+  const [showMealEvent, setShowMealEvent] = useState(false);
+  const [event, setEvent] = useState(null);
   const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
@@ -60,7 +62,7 @@ const MealCalendar = () => {
   const ColoredDateCellWrapper = ({ children }) =>
     React.cloneElement(React.Children.only(children), {
       style: {
-        backgroundColor: "lightblue",
+        backgroundColor: "#f4e9cd",
       },
     });
 
@@ -75,6 +77,14 @@ const MealCalendar = () => {
     []
   );
 
+  const handleShowEvent = (event) => {
+    setEvent(event);
+    setShowMealEvent(true);
+  };
+  const handleClose = () => {
+    setEvent(null);
+    setShowMealEvent(false);
+  };
   return (
     <>
       <div style={{ display: "flex" }}>
@@ -91,12 +101,16 @@ const MealCalendar = () => {
               views={views}
               resourceIdAccessor="resourceId"
               resources={resourceMap}
+              onSelectEvent={(e) => handleShowEvent(e)}
               resourceTitleAccessor="resourceTitle"
               style={{ color: "#123c69" }}
             />
           </div>
         </div>
       </div>
+      <Modal show={showMealEvent} onHide={handleClose}>
+        <Modal.Header>{event?.title}</Modal.Header>
+      </Modal>
     </>
   );
 };

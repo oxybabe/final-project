@@ -130,13 +130,13 @@ const Recipes = () => {
             margin: "0 auto",
           }}
         />
-        <button
+        <Button
           className="search-button"
           type="submit"
-          style={{ backgroundColor: "#20695e", marginLeft: "1rem" }}
+          style={{ backgroundColor: "#20695e", }}
         >
           Search
-        </button>
+        </Button>
       </form>
       {isLoading ? (
         <Spinner animation="border" role="status">
