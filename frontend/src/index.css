@@ -29,7 +29,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #f4e9cd;
+  background-color: #9dbebb;
+  background-image: "linear-gradient(to bottom, #87CEEB, #4682B4)";
 }
 
 h1 {

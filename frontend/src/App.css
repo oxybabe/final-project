@@ -5,7 +5,7 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  background-color: #f4e9cd;
+  background-color: #9dbebb;
 }
 
 .logo {
@@ -43,11 +43,7 @@
   margin: 20px auto;
   box-shadow: 0px 0px 10px 2px #000;
   padding: 2em;
-  /* .header {
-    background: food;
-    background-size: cover;
-    min-height: 350px;
-  } */
+
 }
 
 img {
@@ -72,4 +68,11 @@ img {
   text-align: center;
   transition: 250ms;
   bottom: 30%;
+}
+.recipe-card {
+  height: 100%;
+  transition: box-shadow 0.3s ease;
+}
+.recipe-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }

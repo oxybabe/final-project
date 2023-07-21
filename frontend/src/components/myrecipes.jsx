@@ -6,7 +6,12 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { handleError } from "../utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faClock, faUtensils, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+
+
 
 const MyRecipes = () => {
   const [userRecipes, setUserRecipes] = useState([]);
@@ -150,96 +155,79 @@ const MyRecipes = () => {
 
   return (
     <>
-      <h1 style={{ color: "#123c69" }}>My Recipe Library</h1>
+      <h1 style={{ color: "#123c69", marginTop: "4rem" }}>My Recipe Library</h1>
+      <p style={{ color: "#123c69"}}>Your Personal Culinary Collection: A Treasured Assortment for Your Enjoyment!</p>
       <br />
       <AddRecipe setUserRecipes={setUserRecipes} userRecipes={userRecipes} />
-
-      <div className="row row-cols-1 row-cols-md-4 g-4">
+      <Row xs={1} md={3} className="g-4">
         {userRecipes &&
           userRecipes.map((recipe) => (
-            <div className="col" key={recipe.id}>
-              <div
-                className="card h-100"
-                style={{ backgroundColor: "#9dbebb", border: "1px solid #ddd" }}
+            <Col key={recipe.id}>
+              <Card className="recipe-card"
+                style={{
+                  backgroundColor: "#f4e9cd",
+                }}
               >
-                <div className="card-body">
-                  <h5 className="card-title">{recipe.title}</h5>
-
-                  <p className="card-text">{recipe.dish_type}</p>
-                  <div>
-                    {recipe.image && (
-                      <img
-                        src={recipe.image}
-                        className="card-img-top"
-                        style={{
-                          width: "100%",
-                          height: "200px",
-                          objectFit: "cover",
-                        }}
-                        alt="..."
-                      />
-                    )}
-                    {recipe.imageURL && (
-                      <img
-                        src={recipe.imageURL}
-                        className="card-img-top"
-                        style={{
-                          width: "100%",
-                          height: "200px",
-                          objectFit: "cover",
-                        }}
-                        alt="..."
-                      />
-                    )}
-
-                    <br />
-
-                    <button
-                      className="btn btn-primary btn-block  mb-2"
-                      style={{
-                        backgroundColor: "#20695e",
-                        border: "#ac3b61",
-                        marginTop: "20px",
-                      }}
-                      onClick={() => viewRecipe(recipe)}
-                    >
-                      View Recipe
-                    </button>
-                    <br />
-                    {activeId === recipe.id && isEditing ? (
-                      <UpdateForm
-                        recipe={recipe}
-                        handleUpdateRecipe={handleUpdateRecipe}
-                        setIsEditing={setIsEditing}
-                      />
-                    ) : (
-                      <button
-                        className="btn btn-primary btn-block mb-2 "
-                        style={{
-                          backgroundColor: "#20695e",
-                          border: "#ac3b61",
-                        }}
-                        onClick={() => openEditor(recipe.id)}
-                      >
-                        Edit Recipe
-                      </button>
-                    )}
-                    <br />
-                    <div className="icon-delete">
-                      <a onClick={() => deleteRecipe(recipe.id)}>
-                        <FontAwesomeIcon
-                          icon={faTrashCan}
-                          style={{ color: "#1f695e" }}
-                        />
-                        
-                      </a>
-                    </div>
-                  </div>
+                <div className="image-container">
+                {recipe.image && <Card.Img variant="top" src={recipe.image} />}
+                {recipe.imageURL && (
+                  <Card.Img variant="top" src={recipe.imageURL} />
+                )}
                 </div>
+                <Card.Body>
+                  <Card.Title style={{color: "#123c69"}}>{recipe.title}</Card.Title>
+                  <Card.Text>{recipe.dish_type}
+                  <FontAwesomeIcon icon={faUtensils} />Serves {recipe.servings} <FontAwesomeIcon icon={faClock} /> {recipe.cooking_time}min
+                  </Card.Text>
+                  
+
+                </Card.Body>
+                <button
+                className="btn btn-primary btn-block  mb-2"
+                style={{
+                  backgroundColor: "#20695e",
+                  border: "#ac3b61",
+                  marginTop: "20px",
+                }}
+                onClick={() => viewRecipe(recipe)}
+              >
+                View Recipe
+              </button>
+             
+              {activeId === recipe.id && isEditing ? (
+                <UpdateForm
+                  recipe={recipe}
+                  handleUpdateRecipe={handleUpdateRecipe}
+                  setIsEditing={setIsEditing}
+                />
+              ) : (
+                <button
+                  className="btn btn-primary btn-block mb-2 "
+                  style={{
+                    backgroundColor: "#20695e",
+                    border: "#ac3b61",
+                  }}
+                  onClick={() => openEditor(recipe.id)}
+                >
+                  Edit Recipe
+                </button>
+              )}
+               <br />
+              <div className="icon-delete">
+                <a onClick={() => deleteRecipe(recipe.id)}>
+                  <FontAwesomeIcon
+                    icon={faTrashCan}
+                    style={{ color: "#1f695e" }}
+                  />
+                </a>
               </div>
-            </div>
+              </Card>
+
+              
+             
+            </Col>
           ))}
-      </div>
+      </Row>
       <br />
       {recipeModalData && (
         <Modal show={show} onHide={handleClose}>

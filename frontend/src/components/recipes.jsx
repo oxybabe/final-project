@@ -6,11 +6,14 @@ import { Button } from "react-bootstrap";
 import Spinner from "react-bootstrap/Spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeartCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import Alert from "react-bootstrap/Alert";
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  // const [show, setShow] = useState(true);
+
   const user = JSON.parse(localStorage.getItem("user"));
 
   const navigate = useNavigate();
@@ -95,7 +98,7 @@ const Recipes = () => {
 
   return (
     <>
-      <h1 style={{ color: "#123c69", textAlign: "center", marginTop: "2rem" }}>
+      <h1 style={{ color: "#123c69", textAlign: "center", marginTop: "4rem" }}>
         Recipes and Cooking Ideas
       </h1>
       <p>Discover superstar recipes, to take the pain out of meal planning.</p>
@@ -112,7 +115,8 @@ const Recipes = () => {
           style={{
             backgroundColor: "#f4e9cd",
             color: "#123c69",
-            maxWidth: "400px",
+            maxWidth: "600px",
+            width: "500px",
             margin: "0 auto",
           }}
         />
@@ -161,6 +165,9 @@ const Recipes = () => {
                             icon={faHeartCirclePlus}
                             style={{ color: "#ac3b61" }}
                           />
+                          {/* <Alert  variant="success">
+                          <Alert.Heading>Added to collection</Alert.Heading>
+                        </Alert> */}
                         </a>
                       </div>
                       <br />
