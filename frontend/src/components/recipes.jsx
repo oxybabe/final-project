@@ -5,17 +5,21 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import Spinner from "react-bootstrap/Spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeartCirclePlus, faClock, faUtensils } from "@fortawesome/free-solid-svg-icons";
-import Alert from "react-bootstrap/Alert";
+import {
+  faHeartCirclePlus,
+  faClock,
+  faUtensils,
+} from "@fortawesome/free-solid-svg-icons";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import Toast from "react-bootstrap/Toast";
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  // const [show, setShow] = useState(true);
+  const [showToast, setShowToast] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -81,7 +85,7 @@ const Recipes = () => {
         })
         .then((data) => {
           console.log(data);
-          alert("Recipe added to your library!");
+          handleShowToast();
         })
         .catch((error) => {
           console.log(error);
@@ -97,6 +101,11 @@ const Recipes = () => {
   const handleSearchSubmit = (event) => {
     event.preventDefault();
     fetchRecipeData();
+  };
+
+  const handleShowToast = () => {
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 2000);
   };
 
   return (
@@ -148,19 +157,19 @@ const Recipes = () => {
                   }}
                 >
                   <div className="image-container">
-                    <Card.Img
-                    variant="top" 
-                      src={recipe.recipe.image}
-                    
-                    />
+                    <Card.Img variant="top" src={recipe.recipe.image} />
                   </div>
                   <Card.Body>
-                    <Card.Title style={{color: "#123c69"}} >
+                    <Card.Title style={{ color: "#123c69" }}>
                       {recipe.recipe.label}
                     </Card.Title>
-                    <Card.Text className="card-text">{recipe.dish_type}
-                  <FontAwesomeIcon icon={faUtensils} />Serves {recipe.servings} <FontAwesomeIcon icon={faClock} /> {recipe.cooking_time}min
-                  </Card.Text>
+                    <Card.Text className="card-text">
+                      {recipe.dish_type}
+                      <FontAwesomeIcon icon={faUtensils} />
+                      Serves {recipe.servings}{" "}
+                      <FontAwesomeIcon icon={faClock} /> {recipe.cooking_time}
+                      min
+                    </Card.Text>
                     <div
                       className="button-container"
                       style={{
@@ -174,15 +183,28 @@ const Recipes = () => {
                             icon={faHeartCirclePlus}
                             style={{ color: "#ac3b61" }}
                           />
-                          {/* <Alert  variant="success">
-                          <Alert.Heading>Added to collection</Alert.Heading>
-                        </Alert> */}
                         </a>
                       </div>
+                      <Toast
+                        show={showToast}
+                        onClose={() => setShowToast(false)}
+                        delay={2000}
+                        variant="success"
+                        style={{
+                          position: "fixed",
+                          bottom: 20,
+                          right: 20,
+                          backgroundColor: "#123c69",
+                          color: "#f4e9cd",
+                        }}
+                      >
+                        <Toast.Header>
+                          Recipe added to your collection!
+                        </Toast.Header>
+                      </Toast>
                       <br />
                       <Button
                         className="btn btn-primary btn-block"
-                        // size="sm"
                         style={{
                           backgroundColor: "#20695e",
                           border: "#123c69",

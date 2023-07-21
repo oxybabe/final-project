@@ -7,10 +7,36 @@
   text-align: center;
   background-color: #9dbebb;
 }
-
+.bg {
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+}
+.bg img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  min-width: 50%;
+  min-height: 50%;
+}
+.header {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 40px;
+  color: #20695e;
+  font-weight: bolder;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
 .logo {
   height: 6em;
-  padding: 1.5em;
+  padding: 1em;
   will-change: filter;
   transition: filter 300ms;
 }
@@ -83,4 +109,16 @@ img {
 }
 .recipe-card:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.btn {
+  transition: box-shadow 0.3s ease;
+}
+.btn:hover {
+  box-shadow: 0 8px 16px #123c69;
+}
+@media screen and (max-width: 1024px) {
+  img.bg {
+    left: 50%;
+    margin-left: -512px;
+  }
 }

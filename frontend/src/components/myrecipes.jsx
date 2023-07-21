@@ -6,12 +6,14 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { handleError } from "../utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClock, faUtensils, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import {
+  faClock,
+  faUtensils,
+  faTrashCan,
+} from "@fortawesome/free-solid-svg-icons";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-
-
 
 const MyRecipes = () => {
   const [userRecipes, setUserRecipes] = useState([]);
@@ -156,75 +158,81 @@ const MyRecipes = () => {
   return (
     <>
       <h1 style={{ color: "#123c69", marginTop: "4rem" }}>My Recipe Library</h1>
-      <p style={{ color: "#123c69"}}>Your Personal Culinary Collection: A Treasured Assortment for Your Enjoyment!</p>
+      <p style={{ color: "#123c69" }}>
+        Your Personal Culinary Collection: A Treasured Assortment for Your
+        Enjoyment!
+      </p>
       <br />
       <AddRecipe setUserRecipes={setUserRecipes} userRecipes={userRecipes} />
-      <Row xs={1} md={3} className="g-4">
+      <Row xs={1} md={4} className="g-4">
         {userRecipes &&
           userRecipes.map((recipe) => (
             <Col key={recipe.id}>
-              <Card className="recipe-card"
+              <Card
+                className="recipe-card"
                 style={{
                   backgroundColor: "#f4e9cd",
                 }}
               >
                 <div className="image-container">
-                {recipe.image && <Card.Img variant="top" src={recipe.image} />}
-                {recipe.imageURL && (
-                  <Card.Img variant="top" src={recipe.imageURL} />
-                )}
+                  {recipe.image && (
+                    <Card.Img variant="top" src={recipe.image} />
+                  )}
+                  {recipe.imageURL && (
+                    <Card.Img variant="top" src={recipe.imageURL} />
+                  )}
                 </div>
                 <Card.Body>
-                  <Card.Title style={{color: "#123c69"}}>{recipe.title}</Card.Title>
-                  <Card.Text>{recipe.dish_type}
-                  <FontAwesomeIcon icon={faUtensils} />Serves {recipe.servings} <FontAwesomeIcon icon={faClock} /> {recipe.cooking_time}min
+                  <Card.Title style={{ color: "#123c69" }}>
+                    {recipe.title}
+                  </Card.Title>
+                  <Card.Text>
+                    {recipe.dish_type}
+                    <FontAwesomeIcon icon={faUtensils} />
+                    Serves {recipe.servings} <FontAwesomeIcon icon={faClock} />{" "}
+                    {recipe.cooking_time}min
                   </Card.Text>
-                  
-
                 </Card.Body>
                 <Button
-                className="btn btn-primary btn-block  mb-2"
-                style={{
-                  backgroundColor: "#20695e",
-                  border: "#ac3b61",
-                  marginTop: "20px",
-                }}
-                onClick={() => viewRecipe(recipe)}
-              >
-                View Recipe
-              </Button>
-             
-              {activeId === recipe.id && isEditing ? (
-                <UpdateForm
-                  recipe={recipe}
-                  handleUpdateRecipe={handleUpdateRecipe}
-                  setIsEditing={setIsEditing}
-                />
-              ) : (
-                <button
-                  className="btn btn-primary btn-block mb-2 "
+                  className="btn btn-primary btn-block  mb-2"
                   style={{
                     backgroundColor: "#20695e",
                     border: "#ac3b61",
+                    marginTop: "20px",
                   }}
-                  onClick={() => openEditor(recipe.id)}
+                  onClick={() => viewRecipe(recipe)}
                 >
-                  Edit Recipe
-                </button>
-              )}
-               <br />
-              <div className="icon-delete">
-                <a onClick={() => deleteRecipe(recipe.id)}>
-                  <FontAwesomeIcon
-                    icon={faTrashCan}
-                    style={{ color: "#1f695e" }}
-                  />
-                </a>
-              </div>
-              </Card>
+                  View Recipe
+                </Button>
 
-              
-             
+                {activeId === recipe.id && isEditing ? (
+                  <UpdateForm
+                    recipe={recipe}
+                    handleUpdateRecipe={handleUpdateRecipe}
+                    setIsEditing={setIsEditing}
+                  />
+                ) : (
+                  <Button
+                    className="btn btn-primary btn-block "
+                    style={{
+                      backgroundColor: "#20695e",
+                      border: "#ac3b61",
+                    }}
+                    onClick={() => openEditor(recipe.id)}
+                  >
+                    Edit Recipe
+                  </Button>
+                )}
+                <br />
+                <div className="icon-delete">
+                  <a onClick={() => deleteRecipe(recipe.id)}>
+                    <FontAwesomeIcon
+                      icon={faTrashCan}
+                      style={{ color: "#1f695e" }}
+                    />
+                  </a>
+                </div>
+              </Card>
             </Col>
           ))}
       </Row>
